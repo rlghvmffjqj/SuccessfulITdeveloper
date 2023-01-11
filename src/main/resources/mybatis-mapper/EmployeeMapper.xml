@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="employee">
+	<resultMap type="com.certificate.pass.vo.Employee" id="employee"></resultMap>
+	
+	<select id="getUsersPw" parameterType="string" resultType="string">
+		SELECT usersPw FROM users WHERE usersId = #{usersId};
+	</select>
+	
+	<update id="lastLogin">
+		UPDATE employee SET lastLogin = #{lastLogin} WHERE employeeId = #{usersId};
+	</update>
+	
+	<insert id="insertEmployee">
+		INSERT INTO employee(employeeId, employeeName, employeeEmail, employeeStatus, employeeRegistrant, employeeRegistrationDate) 
+		VALUES(#{employeeId}, #{employeeName}, #{employeeEmail}, #{employeeStatus}, #{employeeRegistrant}, #{employeeRegistrationDate});
+	</insert>
+	
+	<select id="getEmployeeOne" parameterType="string" resultMap="employee">
+		SELECT * FROM employee
+		WHERE employeeId = #{employeeId};
+	</select>
+	
+	<select id="getEmployeeEmailOne" parameterType="string" resultMap="employee">
+		SELECT * FROM employee
+		WHERE employeeEmail = #{employeeEmail};
+	</select>
+	
+	<select id="getEmployeeMatch" parameterType="string" resultMap="employee">
+		SELECT * FROM employee
+		WHERE employeeEmail = #{employeeEmail}
+		AND employeeId = #{employeeId};
+	</select>
+	
+	<update id="updateUsersPw">
+		UPDATE users SET usersPw = #{usersPw} WHERE usersId = #{usersId};
+	</update>
+	
+	<select id="getState" parameterType="string" resultType="string">
+		SELECT usersState FROM users WHERE usersId = #{usersId};
+	</select>
+	
+	<select id="getEmployeeCount" resultType="_int">
+		SELECT COUNT(*) FROM employee e INNER JOIN users u
+		ON e.employeeId = u.usersId
+			<include refid="sqlEmployee" />
+	</select>
+	
+	<select id="getEmployee" resultMap="employee" parameterType="string">
+		SELECT *
+    	FROM
+    	(
+    		SELECT ROW_NUMBER() OVER(ORDER BY ${sidx} ${sord}) RowNo, a.*
+    		FROM (
+				SELECT e.*, u.usersRole FROM employee e INNER JOIN users u
+				ON e.employeeId = u.usersId
+					<include refid="sqlEmployee" />
+			) a
+		) b
+    	WHERE b.RowNo between (1+(${page} - 1 ) * ${rows}) and (${page} * ${rows});
+	</select>
+	
+	<update id="loginLimit">
+		UPDATE employee SET employeeStatus='제한', employeeModifier=#{employeeModifier}, employeeModifiedDate=#{employeeModifiedDate} 
+		WHERE employeeId = #{employeeId}
+	</update>
+	
+	<!-- ==================================================================================== -->
+	
+	<sql id="sqlEmployee">
+		<trim prefix="WHERE" prefixOverrides="AND">
+			<if test="employeeId != null and employeeId != ''">
+				AND e.employeeId LIKE CONCAT('%',#{employeeId},'%')
+			</if>
+			<if test="employeeName != null and employeeName != ''">
+				AND e.employeeName LIKE CONCAT('%',#{employeeName},'%')
+			</if>
+			<if test="employeeEmail != null and employeeEmail != ''">
+				AND e.employeeEmail LIKE CONCAT('%',#{employeeEmail},'%')
+			</if>
+			<if test="employeeStatus != null and employeeStatus != ''">
+				AND e.employeeStatus LIKE CONCAT('%',#{employeeStatus},'%')
+			</if>
+			<if test="employeePhone != null and employeePhone != ''">
+				AND e.employeePhone LIKE CONCAT('%',#{employeePhone},'%')
+			</if>
+		</trim>
+	</sql>
+</mapper>

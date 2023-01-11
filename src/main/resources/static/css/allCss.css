@@ -1,0 +1,335 @@
+@charset "UTF-8";
+
+body {
+	margin: 0; 
+	background-color:#F4F6F8;
+}
+
+a { 
+	text-decoration-line: none;
+	font-family: math;
+}
+
+p {
+	font-family: math;
+}
+.form-control {
+	display: inline-block;
+    height: 43px;
+    width: 100%;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 0;
+    background-color: transparent;
+    box-shadow: none;
+    border: 2px solid #ccc;
+}
+
+.leftMenu {
+	border-right: 1px solid lightgray;
+    height: 1000px;
+    width: 19%;
+    float: left;
+}
+
+.rightMenu {
+	border-left: 1px solid lightgray;
+	height: 1000px;
+    width: 19%;
+    float: right;
+}
+
+.footerMenu {
+	width: 100%;
+    border-top: 1px solid lightgray;
+    height: 100px;
+    float: left;
+}
+
+.btn-block {
+	display: block;
+    width: 100%;
+}
+
+.btn-primary {
+	background-color: black;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-darkgreen {
+	background-color: darkgreen;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-darkgreen:hover {
+	background-color: darkseagreen;
+}
+
+.btn-primary:hover {
+	background-color: #555555;
+}
+
+input#check_btn{
+	display:none;
+}
+
+input#check_btn + label{
+	cursor:pointer;
+}
+
+input#check_btn + label > span{
+	vertical-align: middle;
+	padding-left: 5px;
+}
+
+/* label:before에 체크하기 전 상태 CSS */
+input#check_btn + label:before{
+	content:"";
+	display:inline-block;
+	width:17px;
+	height:17px;
+	border:2px solid #93AAFF;
+	border-radius: 4px;
+	vertical-align:middle;
+}
+  
+/* label:before에 체크 된 상태 CSS */  
+input#check_btn:checked + label:before{
+	content:"";
+	background-color:#93AAFF;
+	border-color:#93AAFF;
+	background-image: url('check_btn.png');
+	background-repeat: no-repeat;
+	background-position: 50%;
+}
+
+.topMenuUl {
+	border-radius: 5px;
+    background-color: darkseagreen;
+    width: 13em;
+    transform: translateY(50px);
+    position: absolute;
+    right: 330px;
+}
+
+.topMenuLi {
+	padding: 0.7em 20px;
+    width: 100%;
+    padding-left: 20px;
+    list-style-type: none;
+    margin-left: -40px;
+}
+
+.topMenuLi:hover {
+	background: #CADFCA;
+}
+
+.topMenuA {
+    font-size: 15px;
+    color: white;
+    text-decoration: none;
+    background-color: transparent;
+    cursor: pointer;
+    display: block;
+    padding: 0 0.6rem;
+    touch-action: manipulation;
+}
+
+.topMenuLogin {
+	float: right;
+    margin: 17px;
+    margin-right: 400px;
+    background-color: white;
+    color: black;
+    width: 75px;
+    height: 25px;
+}
+
+.topMenuLogin:hover {
+	background-color: silver;
+}
+
+.mainMenu {
+	color: white;
+    float: left;
+    margin: 17px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.mainMenu:hover {
+	color: silver;
+}
+
+.mediumMenu {
+	margin: 30px;
+	cursor: pointer;
+	color: black;
+	font-size: 15px;
+}
+
+.mediumMenu:hover {
+	color: gray;
+}
+
+.active {
+	font-weight: bold;
+    color: powderblue;
+}
+
+.activeSub {
+	font-weight: bold;
+    color: block;
+    border-bottom: 1px solid;
+}
+
+a.button {
+	display: block;
+	position: relative;
+	float: left;
+	width: 75px;
+	padding: 0;
+	margin: 10px 20px 10px 0;
+	font-weight: 600;
+	text-align: center;
+	line-height: 30px;
+	font-size: 15px;
+	color: #FFF;
+	border-radius: 5px;
+	transition: all 0.2s ;
+}
+
+.btnBlueGreen {
+	background: #00AE68;
+}
+
+.btnBlueGreen.btnPush {
+	box-shadow: 0px 5px 0px 0px #007144;
+}
+
+.btnPush:hover {
+	margin-top: 15px;
+	margin-bottom: 5px;
+}
+
+.btnBlueGreen.btnPush:hover {
+	box-shadow: 0px 0px 0px 0px #007144;
+}
+
+.modal {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%; /* Could be more or less, depending on screen size */                          
+}
+
+.col-lg-2 {
+	float: left;
+    max-width: 16%;
+    height: 70px;
+    margin: 5px;
+}
+
+.col-lg-12 {
+    float: left;
+    width: 100%;
+    margin: 5px;
+}
+
+.btnm {
+    display: inline-block;
+    min-width: 100px;
+    height: 35px;
+    line-height: 1;
+    text-align: center;
+    vertical-align: middle;
+    margin-right: 10px;
+    border: 1px solid black;
+}
+
+.seachInput {
+	width: 80%;
+    height: 30px;
+    padding-inline: 10px;
+}
+
+.labelFontSize {
+	font-size: 13px;
+}
+
+.divBox {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-top: 1px solid #0A8FFF;
+    padding: 10px;
+    display: inline-block;
+    width: 100%;
+    box-shadow: 5px 5px 5px darkgrey;
+}
+
+.colorRed {
+    color: red !important;
+}
+
+.form-material .form-control {
+    display: inline-block;
+    height: 43px;
+    width: 100%;
+    border: none;
+    border-radius: 0 !important;
+    font-size: 15px;
+    font-weight: 400;
+    padding: 0;
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border-bottom: 1px solid #ccc;
+}
+
+.form-material .form-bar {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.form-material .float-label {
+    pointer-events: none;
+    position: absolute;
+    top: 12px;
+    left: 0;
+    font-size: 14px;
+    font-weight: 400;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+    color: #777777;
+}
+
+.form-material .form-group {
+    position: relative;
+}
+
+.form-group {
+    margin-bottom: 1.25em;
+}
+
+.form-material textarea {
+    height: 400px !important;
+}
