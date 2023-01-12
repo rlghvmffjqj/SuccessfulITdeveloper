@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="requestscomment">
+	<resultMap type="com.certificate.pass.vo.Requestscomment" id="requestscomment"></resultMap>
+	
+	<select id="getRequestsList" resultMap="requestscomment" parameterType="_int">
+		SELECT * FROM requestsComment WHERE requestsKeyNum = #{requestsKeyNum} ORDER BY requestsCommentKeyNum;
+	</select>
+	
+	<insert id="insertRequestsComment">
+		INSERT INTO requestsComment(requestsKeyNum,requestsCommentDetail,requestsCommentDate,requestsCommentRegistrant,requestsCommentRegistrationDate) 
+		VALUES(#{requestsKeyNum},#{requestsCommentDetail},#{requestsCommentDate},#{requestsCommentRegistrant},#{requestsCommentRegistrationDate});
+	</insert>
+	
+</mapper>

@@ -66,6 +66,10 @@
 		WHERE employeeId = #{employeeId}
 	</update>
 	
+	<select id="getUsersRole" parameterType="string" resultType="string">
+		SELECT usersRole FROM users WHERE usersId = #{usersId};
+	</select> 
+	
 	<!-- ==================================================================================== -->
 	
 	<sql id="sqlEmployee">

@@ -25,17 +25,21 @@ $(function() {
 		$('#informationProcessingSubMenu').show();
 	} else if($.cookie('name') == 'employee') {
 		$('.employee').addClass('active');
-	} else if($.cookie('name') == 'questionView') {
+	} else if($.cookie('name') == 'requestsWrite') {
 		$('.inquiry').addClass('active');
-		$('.question').addClass('activeSub');
-		$('#questionSubMenu').show();
+		$('.requestsWrite').addClass('activeSub');
+		$('#requestsSubMenu').show();
+	} else if($.cookie('name') == 'requestsList') {
+		$('.inquiry').addClass('active');
+		$('.requestsList').addClass('activeSub');
+		$('#requestsSubMenu').show();
 	}
 	
 	
 });
 </script>
 
-<div style="width: 100%; height: 60px; background-color: seagreen; padding: 0px; overflow: hidden;">
+<div style="width: 100%; height: 60px; background-color: #42855B; padding: 0px; overflow: hidden;">
 	<a href="<c:url value='/pastQuestion'/>">
         <img src="<c:url value='/images/logo.png' />" style="float: left; width: 140px; margin-top: 15px; margin-right: 20px; margin-left: 20%;">
     </a>
@@ -44,8 +48,11 @@ $(function() {
     <a href="<c:url value='/informationProcessing/pastQuestion'/>" class="mainMenu informationProcessing" id="informationProcessing">정보처리기사 실기</a>
     <a href="#" class="mainMenu java" id="java">JAVA</a>
     <a href="#" class="mainMenu freeBoard" id="freeBoard">자유게시판</a>
+    <a href="#" class="mainMenu announcement" id="announcement">공지사항</a>
+    <sec:authorize access="hasAnyRole('ADMIN','MEMBER')">
+    	<a href="<c:url value='/requestsWrite'/>" class="mainMenu inquiry" id="inquiry">문의하기</a>
+    </sec:authorize>
     <sec:authorize access="hasRole('ADMIN')">
-    	<a href="<c:url value='questionView'/>" class="mainMenu inquiry" id="inquiry">문의하기</a>
     	<a href="<c:url value='/employeeList'/>" class="mainMenu employee" id="employee">회원정보</a>
     </sec:authorize>
     
@@ -73,7 +80,7 @@ $(function() {
     	<button class="btn btn-primary btn-block topMenuLogin" type="button" onClick="login();">로그인</button>
     </div>
 </div>
-<div id="informationProcessingSubMenu" style="width: 100%; height: 40px; background-color: white; padding: 0px; border-bottom: 1px solid darkblue; display:none; overflow: hidden;">
+<div id="informationProcessingSubMenu" class="subMenu">
 	<div style="height: 7px;"></div>
 	<a href="<c:url value='/informationProcessing/pastQuestion'/>" class="mediumMenu pastQuestion" id="pastQuestion" style="margin-left: 29%;">기출문제</a>
 	<a href="<c:url value='/informationProcessing/summary'/>" class="mediumMenu summary" id="summary">정리&요약</a>
@@ -81,10 +88,10 @@ $(function() {
 	<a href="<c:url value='/informationProcessing/ingang'/>" class="mediumMenu ingang" id="ingang">인터넷강의</a>
 </div>
 
-<div id="questionSubMenu" style="width: 100%; height: 40px; background-color: white; padding: 0px; border-bottom: 1px solid darkblue; display:none; overflow: hidden;">
+<div id="requestsSubMenu" class="subMenu">
 	<div style="height: 7px;"></div>
-	<a href="<c:url value='/informationProcessing/pastQuestion'/>" class="mediumMenu question" id="question" style="margin-left: 29%;">문의하기</a>
-	<a href="<c:url value='/informationProcessing/summary'/>" class="mediumMenu questionHistory" id="questionHistory">문의내역</a>
+	<a href="<c:url value='/requestsWrite'/>" class="mediumMenu requestsWrite" id="requests" style="margin-left: 29%;">문의하기</a>
+	<a href="<c:url value='/requestsList'/>" class="mediumMenu requestsList" id="requestsList">문의내역</a>
 </div>
 
 <script>

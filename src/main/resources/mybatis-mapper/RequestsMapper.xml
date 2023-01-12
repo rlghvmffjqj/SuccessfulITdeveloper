@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="requests">
+	<resultMap type="com.certificate.pass.vo.Requests" id="requests"></resultMap>
+	<resultMap type="com.certificate.pass.vo.Requestscomment" id="requestscomment"></resultMap>
+	
+	<insert id="insertRequests">
+		INSERT INTO requests(employeeId, requestsTitle, requestsDetail, requestsState, requestsDate, requestsRegistrant, requestsRegistrationDate)
+		VALUES(#{employeeId}, #{requestsTitle}, #{requestsDetail}, #{requestsState}, #{requestsDate}, #{requestsRegistrant}, #{requestsRegistrationDate});
+	</insert>
+	
+	<select id="getRequestsList" resultMap="requests" parameterType="string">
+		SELECT *
+    	FROM
+    	(
+    		SELECT ROW_NUMBER() OVER(ORDER BY ${sidx} ${sord}) RowNo, a.*
+    		FROM (
+				SELECT r.*, e.employeeName 
+				FROM requests r INNER JOIN employee e
+				ON r.employeeId = e.employeeId
+					<include refid="sqlRequests" />
+			) a
+		) b
+    	WHERE b.RowNo between (1+(${page} - 1 ) * ${rows}) and (${page} * ${rows});
+	</select>
+	
+	<select id="getRequestsListCount" resultType="_int">
+		SELECT COUNT(*) FROM requests r
+			<include refid="sqlRequests" />
+	</select>
+	
+	<select id="getRequestsOne" parameterType="_int" resultMap="requests">
+		SELECT * FROM requests WHERE requestsKeyNum = #{requestsKeyNum};
+	</select>
+	
+	<update id="updateRequestsComment">
+		UPDATE requests  SET requestsState = #{requestsState} WHERE requestsKeyNum = #{requestsKeyNum};
+	</update>
+	
+	<!-- ==================================================================================== -->
+	
+	<sql id="sqlRequests">
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="usersId != null and usersId != ''"> 
+				AND r.employeeId = #{usersId}
+			</if>
+			<if test="requestsState != null and requestsState != ''">
+				AND r.requestsState LIKE CONCAT('%',#{requestsState},'%')
+			</if>
+			<if test="requestsTitle != null and requestsTitle != ''">
+				AND r.requestsTitle LIKE CONCAT('%',#{requestsTitle},'%')
+			</if>
+		</trim>
+	</sql>
+</mapper>

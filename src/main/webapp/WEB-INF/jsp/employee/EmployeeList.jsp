@@ -45,7 +45,6 @@
 		        shrinkToFit: false,			// 컬럼 폭 고정값 유지
 		        altRows: false,				// 라인 강조
 			}); 
-			loadColumns('#list','employeeList');
 		});
 		
 		$(window).on('resize.list', function () {
@@ -57,7 +56,7 @@
 	<%@ include file="/WEB-INF/jsp/common/_TopMenu.jsp"%>
 	<%@ include file="/WEB-INF/jsp/common/_LeftMenu.jsp"%>
 	<%@ include file="/WEB-INF/jsp/common/_RightMenu.jsp"%>
-	<div style="float: left; margin: 1%; width: 59%;">
+	<div class="mainDiv">
 		<form id="form" name="form" method ="post">
 			<div class="divBox" >
 				<input type="hidden" id="departmentName" name="departmentName" class="form-control">
@@ -76,7 +75,7 @@
 			    </div>
 			    <div class="col-lg-2">
 			    	<label class="labelFontSize">상태</label>
-			    	<select class="form-control selectpicker seachInput" id="employeeStatus" name="employeeStatus" style="height: 34px; width: 140%;" data-live-search="true" data-size="5">
+			    	<select class="form-control selectpicker seachInput" id="employeeStatus" name="employeeStatus" style="height: 34px; width: 98%;" data-live-search="true" data-size="5">
 						<option value=""></option>
 						<option value="정상">정상</option>
 						<option value="제한">제한</option>

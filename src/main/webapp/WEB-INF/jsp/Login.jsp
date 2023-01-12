@@ -23,7 +23,7 @@
 <body style="background-image:url('images/background.png'); background-size: cover;">
 	<div style="text-align: -webkit-center;">
 		<div style="text-align: -webkit-center; margin-top: 11%;">
-			<form class="md-float-material form-material" id="form" method="post">
+			<form id="form" method="post">
 				<img style="width: 250px;" src="<c:url value='/images/logo.png' />" alt="logo.png">
 				<div style="margin-top: 10px;">
 					<input style="width:350px; padding-inline: 10px;" type="text" id="usersId" name="usersId" class="form-control" required="required" placeholder="ID" value="${usersId}">

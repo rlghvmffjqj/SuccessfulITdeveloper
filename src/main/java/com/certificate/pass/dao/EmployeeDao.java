@@ -71,4 +71,8 @@ public class EmployeeDao {
 		return sqlSession.update("employee.loginLimit", parameters);
 	}
 
+	public String getUsersRole(String usersId) {
+		return sqlSession.selectOne("employee.getUsersRole", usersId);
+	}
+
 }

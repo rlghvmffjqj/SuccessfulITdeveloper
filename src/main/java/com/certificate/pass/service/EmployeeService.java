@@ -106,5 +106,9 @@ public class EmployeeService {
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return formatter.format(now);
 	}
+
+	public String getUsersRole(String usersId) {
+		return employeeDao.getUsersRole(usersId);
+	}
 	
 }

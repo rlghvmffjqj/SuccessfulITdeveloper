@@ -15,7 +15,7 @@
 	<%@ include file="/WEB-INF/jsp/common/_TopMenu.jsp"%>
 	<%@ include file="/WEB-INF/jsp/common/_LeftMenu.jsp"%>
 	<%@ include file="/WEB-INF/jsp/common/_RightMenu.jsp"%>
-	<div style="float: left; margin: 1%; width: 59%;">
+	<div class="mainDiv">
 		<p style="font-size:14px; font-weight: bold; color: #333333;">
 			<span style="color: red;">안녕하세요. 성공한 IT 개발자 방문해 주셔서 감사합니다.</span><br><br>
 			해당 웹 사이트의 경우 개인적인 공부를 정리한 웹 사이트이며 방문해주신 분들께도 도움이 되었으면 하는 바램이 있습니다.<br><br>

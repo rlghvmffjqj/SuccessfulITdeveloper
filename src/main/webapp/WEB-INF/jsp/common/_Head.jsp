@@ -7,13 +7,10 @@
 
 <!-- Favicon -->
 <link rel="icon" href="<c:url value='/images/favicon.png'/>" type="image/x-icon">
-
 <link rel="stylesheet" type="text/css" href="<c:url value='/css/allCSS.css'/>">
 
 <script type="text/javascript" src="<c:url value='/js/jquery-latest.js'/>"></script>
-
 <script type="text/javascript" src="<c:url value='/js/sweetalert.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/jquery/jquery.min.js'/>"></script>
 <script type="text/javascript" src="<c:url value='/js/jquery/jquery.cookie.js'/>"></script> 
 <script type="text/javascript" src="<c:url value='/js/jquery/jquery.serializeObject.js'/>"></script>
-
