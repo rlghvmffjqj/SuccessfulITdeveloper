@@ -59,33 +59,33 @@
 	<div class="mainDiv">
 		<form id="form" name="form" method ="post">
 			<div class="divBox" >
-				<input type="hidden" id="departmentName" name="departmentName" class="form-control">
-			    <input type="hidden" id="departmentFullPath" name="departmentFullPath" class="form-control">
+				<input type="hidden" id="departmentName" name="departmentName" class="formControl">
+			    <input type="hidden" id="departmentFullPath" name="departmentFullPath" class="formControl">
 			    <div class="col-lg-2">
 			    	<label class="labelFontSize">사용자ID</label>
-					<input type="text" id="employeeId" name="employeeId" class="form-control seachInput"> 
+					<input type="text" id="employeeId" name="employeeId" class="formControl seachInput"> 
 			    </div>
 			    <div class="col-lg-2">
 			    	<label class="labelFontSize">사원명</label>
-			    	<input type="text" id="employeeName" name="employeeName" class="form-control seachInput">
+			    	<input type="text" id="employeeName" name="employeeName" class="formControl seachInput">
 			    </div>
 			    <div class="col-lg-2">
 			    	<label class="labelFontSize">이메일</label>
-			    	<input type="text" id="employeeEmail" name="employeeEmail" class="form-control seachInput">
+			    	<input type="text" id="employeeEmail" name="employeeEmail" class="formControl seachInput">
 			    </div>
 			    <div class="col-lg-2">
 			    	<label class="labelFontSize">상태</label>
-			    	<select class="form-control selectpicker seachInput" id="employeeStatus" name="employeeStatus" style="height: 34px; width: 98%;" data-live-search="true" data-size="5">
+			    	<select class="formControl selectpicker seachInput" id="employeeStatus" name="employeeStatus" style="height: 34px; width: 98%;" data-live-search="true" data-size="5">
 						<option value=""></option>
 						<option value="정상">정상</option>
 						<option value="제한">제한</option>
 					</select>
 			    </div>
 			    <div class="col-lg-12">
-			    	<button class="btn btn-default btnm" type="button" id="btnReset" style="float: right">
+			    	<button class="btn btnDefault btnm" type="button" id="btnReset" style="float: right">
 						<span>초기화</span>
 					</button>
-					<button class="btn btn-darkgreen btnm" type="button" id="btnSearch" style="float: right">
+					<button class="btn btnDarkgreen btnm" type="button" id="btnSearch" style="float: right">
 						<span>검색</span>
 					</button>
 				</div>
@@ -94,7 +94,7 @@
 		<div style="width: 100%; height: 15px;"></div>
 		<div class="divBox">
 			<div style="width: 100%; height: 35px;">
-				<button class="btn btn-darkgreen btn-block" type="button" style="width: 100px; height: 30px; float: left;" onClick="loginLimit();">로그인 제한</button>
+				<button class="btn btnDarkgreen btnBlock" type="button" style="width: 100px; height: 30px; float: left;" onClick="loginLimit();">로그인 제한</button>
 			</div>
 			<div class="jqGrid_wrapper">
 				<table id="list"></table>

@@ -33,7 +33,7 @@ public class RequestsController {
 		return "/requests/RequestsList";
 	}
 	
-	@GetMapping("/requestsView")
+	@PostMapping("/requestsView")
 	public String requestsView(Model model, int requestsKeyNum) {
 		Requests requests = requestsService.getRequestsOne(requestsKeyNum);
 		ArrayList<Requestscomment> requestscomment = new ArrayList<>(requestsService.getRequestscomment(requestsKeyNum));
@@ -63,7 +63,7 @@ public class RequestsController {
 	
 	@ResponseBody
 	@PostMapping(value = "/requestsWrite")
-	public String insertRequests(Requests requests, Principal principal) {
+	public int insertRequests(Requests requests, Principal principal) {
 		requests.setEmployeeId(principal.getName());
 		requests.setRequestsRegistrant(principal.getName());
 		requests.setRequestsDate(requestsService.nowDate());

@@ -3,9 +3,8 @@
         
 <mapper namespace="requests">
 	<resultMap type="com.certificate.pass.vo.Requests" id="requests"></resultMap>
-	<resultMap type="com.certificate.pass.vo.Requestscomment" id="requestscomment"></resultMap>
 	
-	<insert id="insertRequests">
+	<insert id="insertRequests" parameterType="requests" useGeneratedKeys="true" keyProperty="requestsKeyNum">
 		INSERT INTO requests(employeeId, requestsTitle, requestsDetail, requestsState, requestsDate, requestsRegistrant, requestsRegistrationDate)
 		VALUES(#{employeeId}, #{requestsTitle}, #{requestsDetail}, #{requestsState}, #{requestsDate}, #{requestsRegistrant}, #{requestsRegistrationDate});
 	</insert>

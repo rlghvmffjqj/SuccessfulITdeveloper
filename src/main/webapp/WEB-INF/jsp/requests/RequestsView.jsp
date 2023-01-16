@@ -15,7 +15,7 @@
 		<form id="form" name="form" method ="post">
 			<div class="divBox" >
 				<div class="requestsViewTitle">문의 내역 상세</div>
-				<div style="width:100%; margin-top: 20px; border-top: 5px solid #878B9F; border-bottom: 5px solid #878B9F; height: 130px; background: #F6F7F9;">
+				<div style="width:100%; margin-top: 20px; border-top: 5px solid #adadad; border-bottom: 5px solid #adadad; height: 130px; background: #F6F7F9;">
 					<div class="requestsViewSubTitle"><span>제목</span></div>
 					<div class="requestsViewSubDetail"><span class="width90">${requests.requestsTitle}</span></div>
 					<div class="requestsViewLine"></div>
@@ -29,11 +29,11 @@
 					<div class="requestsViewSubDetail"><span class="width90">${requests.requestsDate}</span></div>
 				</div>
 				<div style="width: 100%;">
-					<article class="form-control seachInput" style="padding-top: 5px; width: 98%; margin-top: 10px; height:350px; border: 0;">${requests.requestsDetail}</article>
+					<article class="formControl seachInput" style="padding-top: 5px; width: 98%; margin-top: 10px; height:350px; border: 0;">${requests.requestsDetail}</article>
 				</div>
 				<div style="width:100%; height:35px;"></div>
+				<div class="requestsViewLine"></div>
 				<c:forEach var="answer" items="${requestscomment}">
-					<div class="requestsViewLine"></div>
 					<div class="requestsViewAnswer">
 						<div>
 							<span style="font-weight: bold;">
@@ -49,8 +49,8 @@
 					<div class="requestsViewLine"></div>
 				</c:forEach>
 				<div>					
-					<textarea class="form-control" style="margin-top: 10px; width: 90%; height: 50px; float:left; padding: 5px;" id="requestsCommentDetail" placeholder="답변내용"></textarea>
-					<button class="btn btn-darkgreen" type="button" style="margin-top: 10px; width: 8%; height: 63px;" onClick="answerBtn();">답변하기</button>
+					<textarea class="formControl" style="margin-top: 10px; width: 90%; height: 50px; float:left; padding: 5px;" id="requestsCommentDetail" placeholder="답변내용"></textarea>
+					<button class="btn btnDarkgreen" type="button" style="margin-top: 10px; width: 8%; height: 63px;" onClick="answerBtn();">답변하기</button>
 				</div> 
 			</div>
 		</form>
@@ -105,7 +105,7 @@
 	    height: 35px;
 	    text-align: center;
 	    padding-top: 10px;
-	    background: #878B9F;
+	    background: #adadad;
 	    color: black;
 	    font-weight: bold;
 	    font-size: 20px;

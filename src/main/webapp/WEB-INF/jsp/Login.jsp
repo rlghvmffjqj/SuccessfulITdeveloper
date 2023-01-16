@@ -26,13 +26,13 @@
 			<form id="form" method="post">
 				<img style="width: 250px;" src="<c:url value='/images/logo.png' />" alt="logo.png">
 				<div style="margin-top: 10px;">
-					<input style="width:350px; padding-inline: 10px;" type="text" id="usersId" name="usersId" class="form-control" required="required" placeholder="ID" value="${usersId}">
+					<input style="width:350px; padding-inline: 10px;" type="text" id="usersId" name="usersId" class="formControl" required="required" placeholder="ID" value="${usersId}">
 				</div>
 				<div style="margin-top: 10px;">
-					<input type="password" style="width:350px; padding-inline: 10px;"  id="usersPw" name="usersPw" class="form-control" required="required" placeholder="Password">
+					<input type="password" style="width:350px; padding-inline: 10px;"  id="usersPw" name="usersPw" class="formControl" required="required" placeholder="Password">
 				</div>
 				<div style="margin-top: 10px; text-align: -webkit-center;">
-				 <button style=" border: none; width: 375px; height: 50px;" type="button" id="btn" class="btn btn-primary btn-block" onClick="pwdCheck();">Login</button>
+				 <button style=" border: none; width: 375px; height: 50px;" type="button" id="btn" class="btn btnPrimary btnBlock" onClick="pwdCheck();">Login</button>
 				</div>
 				<div class="check_wrap" style="margin-top: 10px; width: 375px; text-align: left;">
 					<input type="checkbox" id="check_btn"/>

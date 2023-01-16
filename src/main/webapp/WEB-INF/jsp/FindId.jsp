@@ -13,16 +13,16 @@
 			<form id="form" method="post">
 				<img style="width: 250px;" src="<c:url value='/images/logo.png' />" alt="logo.png">
 				<div style="margin-top: 10px;">
-					<input style="width:350px; padding-inline: 10px;" type="text" id="employeeEmail" name="employeeEmail" class="form-control" required="required" placeholder="이메일">
+					<input style="width:350px; padding-inline: 10px;" type="text" id="employeeEmail" name="employeeEmail" class="formControl" required="required" placeholder="이메일">
 				</div>
 				<div class="check_wrap" style="width: 375px; text-align: left;">
 					<span id="emailEssential" style="color: red; font-size: 13px; display: none;">※ 필수 정보입니다.</span>
 				</div>
 				<div style="margin-top: 10px; text-align: -webkit-center;">
-					<button style=" border: none; width: 375px; height: 50px;" type="button" id="btn" class="btn btn-primary btn-block" onClick="findId();">아이디 찾기</button>
+					<button style=" border: none; width: 375px; height: 50px;" type="button" id="btn" class="btn btnPrimary btnBlock" onClick="findId();">아이디 찾기</button>
 				</div>
 				<div style="margin-top: 2px; text-align: -webkit-center;">
-					<button style="border: none; width: 375px; height: 50px; background-color:#646464;" type="button" id="btn" class="btn btn-primary btn-block" onClick="login();">로그인</button>
+					<button style="border: none; width: 375px; height: 50px; background-color:#646464;" type="button" id="btn" class="btn btnPrimary btnBlock" onClick="login();">로그인</button>
 				</div>
 				
 				<!-- The Modal -->
@@ -30,7 +30,7 @@
 					<!-- Modal content -->
 					<div class="modal-content" style="margin: 19% auto;">
 						<a onclick="close_pop();" style="float: right; font-weight: bold; color: #999999; cursor: pointer;">X</a><br><br>
-						<span id="findId"></span><button type="button" class="btn btn-primary btn-block" style="display: inline; width: 55px; margin-left: 20px;" onclick="loginCheck();">선택</button><br><br>
+						<span id="findId"></span><button type="button" class="btn btnPrimary btnBlock" style="display: inline; width: 55px; margin-left: 20px;" onclick="loginCheck();">선택</button><br><br>
 					</div>
 				</div>
 		        <!--End Modal-->

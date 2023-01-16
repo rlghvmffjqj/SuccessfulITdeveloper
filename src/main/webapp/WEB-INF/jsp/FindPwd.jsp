@@ -13,27 +13,27 @@
 			<form id="form" method="post">
 				<img style="width: 250px;" src="<c:url value='/images/logo.png' />" alt="logo.png">
 				<div style="margin-top: 10px;">
-					<input style="width:350px; padding-inline: 10px;" type="text" id="employeeId" name="employeeId" class="form-control" required="required" placeholder="아이디">
+					<input style="width:350px; padding-inline: 10px;" type="text" id="employeeId" name="employeeId" class="formControl" required="required" placeholder="아이디">
 				</div>
 				<div class="check_wrap" style="width: 375px; text-align: left;">
 					<span id="idEssential" style="color: red; font-size: 13px; display: none;">※ 필수 정보입니다.</span>
 				</div>
 				<div style="margin-top: 10px;">
-					<input style="width:350px; padding-inline: 10px;" type="text" id="employeeEmail" name="employeeEmail" class="form-control" required="required" placeholder="이메일">
+					<input style="width:350px; padding-inline: 10px;" type="text" id="employeeEmail" name="employeeEmail" class="formControl" required="required" placeholder="이메일">
 				</div>
 				<div class="check_wrap" style="width: 375px; text-align: left;">
 					<span id="emailEssential" style="color: red; font-size: 13px; display: none;">※ 필수 정보입니다.</span>
 				</div>
 				<div style="margin-top: 10px;">
-					<input style="width:250px; padding-inline: 10px;" type="text" id="certificationNumber" name="certificationNumber" class="form-control" required="required" placeholder="인증번호">
-					<button type="button" class="btn btn-primary" style="height: 46px; width: 45px;" onClick="certificationSend();">전송</button>
-					<button type="button" class="btn btn-primary" style="height: 46px; width: 45px;" onClick="certificationConfirm();">확인</button>
+					<input style="width:250px; padding-inline: 10px;" type="text" id="certificationNumber" name="certificationNumber" class="formControl" required="required" placeholder="인증번호">
+					<button type="button" class="btn btnPrimary" style="height: 46px; width: 45px;" onClick="certificationSend();">전송</button>
+					<button type="button" class="btn btnPrimary" style="height: 46px; width: 45px;" onClick="certificationConfirm();">확인</button>
 				</div>
 				<div style="margin-top: 10px; text-align: -webkit-center;">
-					<button style=" border: none; width: 375px; height: 50px;" type="button" id="btn" class="btn btn-primary btn-block" onClick="findPwd();">패스워드 찾기</button>
+					<button style=" border: none; width: 375px; height: 50px;" type="button" id="btn" class="btn btnPrimary btnBlock" onClick="findPwd();">패스워드 찾기</button>
 				</div>
 				<div style="margin-top: 2px; text-align: -webkit-center;">
-					<button style="border: none; width: 375px; height: 50px; background-color:#646464;" type="button" id="btn" class="btn btn-primary btn-block" onClick="login();">로그인</button>
+					<button style="border: none; width: 375px; height: 50px; background-color:#646464;" type="button" id="btn" class="btn btnPrimary btnBlock" onClick="login();">로그인</button>
 				</div>
 				
 				<!-- The Modal -->
@@ -41,12 +41,12 @@
 					<!-- Modal content -->
 					<div class="modal-content" style="margin: 19% auto;">
 						<a onclick="close_pop();" style="float: right; font-weight: bold; color: #999999; cursor: pointer;">X</a><br><br>
-						<input style="width:100%; margin: 2px;" type="password" id="usersPw" name="usersPw" class="form-control" required="required" placeholder="비밀번호">
+						<input style="width:100%; margin: 2px;" type="password" id="usersPw" name="usersPw" class="formControl" required="required" placeholder="비밀번호">
 						<span id="pwdEssential" style="color: red; font-size: 13px; float: left; display: none;">※ 필수 정보입니다.</span>
-						<input style="width:100%; margin: 2px;" type="password" id="usersPwReconfirm" name="usersPwReconfirm" class="form-control" required="required" placeholder="비밀번호 재확인">
+						<input style="width:100%; margin: 2px;" type="password" id="usersPwReconfirm" name="usersPwReconfirm" class="formControl" required="required" placeholder="비밀번호 재확인">
 						<span id="pwdReEssential" style="color: red; font-size: 13px; float: left; display: none;">※ 필수 정보입니다.</span>
 						<span id="pwdReSame" style="color: red; font-size: 13px; float: left; display: none;">패스워드가 일치 하지 않습니다.</span><br>
-						<button type="button" class="btn btn-primary btn-block" style="width: 200px; height: 50px; margin: 5px;" onclick="pwdChange();">패스워드 변경</button><br>
+						<button type="button" class="btn btnPrimary btnBlock" style="width: 200px; height: 50px; margin: 5px;" onclick="pwdChange();">패스워드 변경</button><br>
 					</div>
 				</div>
 		        <!--End Modal-->

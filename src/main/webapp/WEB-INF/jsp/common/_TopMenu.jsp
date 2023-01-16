@@ -77,7 +77,7 @@ $(function() {
 	    </ul>
     </div>
     <div id="noMember">
-    	<button class="btn btn-primary btn-block topMenuLogin" type="button" onClick="login();">로그인</button>
+    	<button class="btn btnPrimary btnBlock topMenuLogin" type="button" onClick="login();">로그인</button>
     </div>
 </div>
 <div id="informationProcessingSubMenu" class="subMenu">

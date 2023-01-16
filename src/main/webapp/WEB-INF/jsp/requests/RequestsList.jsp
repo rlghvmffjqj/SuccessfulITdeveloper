@@ -19,15 +19,15 @@
 				mtype: 'POST',
 				postData: formData,
 				datatype: 'json',
-				colNames:['Key','사용자ID','사원명','상태','제목','내용','날짜'],
+				colNames:['Key','사용자ID','사원명','상태','제목'/* ,'내용' */,'날짜'],
 				colModel:[
 					{name:'requestsKeyNum', index:'requestsKeyNum', align:'center', width: 40, hidden:true },
-					{name:'employeeId', index:'employeeId', align:'center', width: 150, formatter: linkFormatter},
+					{name:'employeeId', index:'employeeId', align:'center', width: 200, formatter: linkFormatter},
 					{name:'employeeName', index:'employeeName', align:'center', width: 150},
-					{name:'requestsState', index:'requestsState',align:'center', width: 60},
-					{name:'requestsTitle', index:'requestsTitle', align:'center', width: 300},
-					{name:'requestsDetail', index:'requestsDetail', align:'left', width: 600},
-					{name:'requestsDate', index:'requestsDate',align:'center', width: 150},
+					{name:'requestsState', index:'requestsState',align:'center', width: 100},
+					{name:'requestsTitle', index:'requestsTitle', align:'center', width: 400},
+					/* {name:'requestsDetail', index:'requestsDetail', align:'left', width: 600}, */
+					{name:'requestsDate', index:'requestsDate',align:'center', width: 180},
 				],
 				jsonReader : {
 		        	id: 'requestsKeyNum',
@@ -64,26 +64,26 @@
 				<sec:authorize access="hasRole('ADMIN')">
 				    <div class="col-lg-2">
 				    	<label class="labelFontSize">사용자ID</label>
-						<input type="text" id="employeeId" name="employeeId" class="form-control seachInput"> 
+						<input type="text" id="employeeId" name="employeeId" class="formControl seachInput"> 
 				    </div>
 			    </sec:authorize>
 			    <div class="col-lg-2">
 			    	<label class="labelFontSize">제목</label>
-			    	<input type="text" id="requestsTitle" name="requestsTitle" class="form-control seachInput">
+			    	<input type="text" id="requestsTitle" name="requestsTitle" class="formControl seachInput">
 			    </div>
 			    <div class="col-lg-2">
 			    	<label class="labelFontSize">상태</label>
-			    	<select class="form-control selectpicker seachInput" id="requestsState" name="requestsState" style="height: 34px;" data-size="5">
+			    	<select class="formControl selectpicker seachInput" id="requestsState" name="requestsState" style="height: 34px;" data-size="5">
 						<option value=""></option>
 						<option value="전송">전송</option>
 						<option value="답변">답변</option>
 					</select>
 			    </div>
 			    <div class="col-lg-12">
-			    	<button class="btn btn-default btnm" type="button" id="btnReset" style="float: right">
+			    	<button class="btn btnDefault btnm" type="button" id="btnReset" style="float: right">
 						<span>초기화</span>
 					</button>
-					<button class="btn btn-darkgreen btnm" type="button" id="btnSearch" style="float: right">
+					<button class="btn btnDarkgreen btnm" type="button" id="btnSearch" style="float: right">
 						<span>검색</span>
 					</button>
 				</div>
@@ -106,7 +106,19 @@
 	}
 	
 	function updateView(requestsKeyNum) {
-		location.href="<c:url value='/requestsView'/>?requestsKeyNum="+requestsKeyNum;
+		let f = document.createElement('form');
+	    
+	    let obj;
+	    obj = document.createElement('input');
+	    obj.setAttribute('type', 'hidden');
+	    obj.setAttribute('name', 'requestsKeyNum');
+	    obj.setAttribute('value', requestsKeyNum);
+	    
+	    f.appendChild(obj);
+	    f.setAttribute('method', 'post');
+	    f.setAttribute('action', "<c:url value='/requestsView'/>");
+	    document.body.appendChild(f);
+	    f.submit();
 	}
 	
 	/* =========== 검색 ========= */

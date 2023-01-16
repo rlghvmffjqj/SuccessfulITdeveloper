@@ -10,10 +10,14 @@ a {
 	font-family: math;
 }
 
+span {
+	font-size: 14px;
+}
+
 p {
 	font-family: math;
 }
-.form-control {
+.formControl {
 	display: inline-block;
     height: 43px;
     width: 100%;
@@ -46,36 +50,36 @@ p {
     float: left;
 }
 
-.btn-block {
+.btnBlock {
 	display: block;
     width: 100%;
 }
 
-.btn-primary {
+.btnPrimary {
 	background-color: black;
     color: #fff;
     cursor: pointer;
 }
 
-.btn-darkgreen {
+.btnDarkgreen {
 	background-color: #483838;
     color: #fff;
     cursor: pointer;
 }
 
-.btn-darkgreen:hover {
+.btnDarkgreen:hover {
 	background-color: #928484;
 }
 
-.btn-primary:hover {
+.btnPrimary:hover {
 	background-color: #555555;
 }
 
-.btn-default {
+.btnDefault {
 	background-color: #e0e0e0;
 }
 
-.btn-default:hover {
+.btnDefault:hover {
 	background-color: white;
 }
 
@@ -165,6 +169,7 @@ input#check_btn:checked + label:before{
     margin: 17px;
     cursor: pointer;
     font-weight: bold;
+    text-decoration: none;
 }
 
 .mainMenu:hover {
@@ -176,6 +181,7 @@ input#check_btn:checked + label:before{
 	cursor: pointer;
 	color: black;
 	font-size: 15px;
+	text-decoration: none;
 }
 
 .mediumMenu:hover {
@@ -296,7 +302,7 @@ a.button {
     color: red !important;
 }
 
-.input-material {
+.inputMaterial {
     display: inline-block;
     height: 43px;
     width: 99%;
@@ -312,22 +318,8 @@ a.button {
     padding: 5px;
 }
 
-.form-material .form-bar {
-    position: relative;
-    display: block;
-    width: 100%;
-}
-
-.form-material .form-group {
-    position: relative;
-}
-
-.form-group {
+.formGroup {
     margin-bottom: 1.25em;
-}
-
-.form-material textarea {
-    height: 400px !important;
 }
 
 .subMenu {
@@ -349,3 +341,4 @@ a.button {
 	margin: 1%; 
 	width: 59%;
 }
+

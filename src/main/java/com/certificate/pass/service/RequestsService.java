@@ -21,11 +21,11 @@ public class RequestsService {
 		return formatter.format(now);
 	}
 
-	public String insertRequests(Requests requests) {
+	public int insertRequests(Requests requests) {
 		int sucess = requestsDao.insertRequests(requests);
 		if (sucess <= 0)
-			return "FALSE";
-		return "OK";
+			return 0;
+		return requests.getRequestsKeyNum();
 	}
 
 	public List<Requests> getRequestsList(Requests search) {
