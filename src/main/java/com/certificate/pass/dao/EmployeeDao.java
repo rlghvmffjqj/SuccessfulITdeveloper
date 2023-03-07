@@ -75,4 +75,20 @@ public class EmployeeDao {
 		return sqlSession.selectOne("employee.getUsersRole", usersId);
 	}
 
+	public int updateEmployee(Employee employee) {
+		return sqlSession.update("employee.updateEmployee", employee);
+	}
+
+	public int updateUsers(Employee employee) {
+		return sqlSession.update("employee.updateUsers", employee);
+	}
+
+	public int deleteEmployee(String employeeId) {
+		return sqlSession.delete("employee.deleteEmployee", employeeId);
+	}
+
+	public int deleteUsers(String usersId) {
+		return sqlSession.delete("employee.deleteUsers", usersId);
+	}
+
 }

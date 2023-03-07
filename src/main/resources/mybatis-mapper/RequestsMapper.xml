@@ -37,6 +37,10 @@
 		UPDATE requests  SET requestsState = #{requestsState} WHERE requestsKeyNum = #{requestsKeyNum};
 	</update>
 	
+	<delete id="deleteRequests" parameterType="_int">
+		DELETE FROM requests WHERE requestsKeyNum = #{requestsKeyNum};
+	</delete>
+	
 	<!-- ==================================================================================== -->
 	
 	<sql id="sqlRequests">

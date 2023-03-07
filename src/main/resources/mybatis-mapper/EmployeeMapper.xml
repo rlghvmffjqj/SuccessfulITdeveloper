@@ -70,6 +70,23 @@
 		SELECT usersRole FROM users WHERE usersId = #{usersId};
 	</select> 
 	
+	<update id="updateEmployee">
+		UPDATE employee SET employeeName=#{employeeName}, employeeEmail=#{employeeEmail}, employeeStatus=#{employeeStatus}, employeeModifier=#{employeeModifier}, employeeModifiedDate=#{employeeModifiedDate}
+		WHERE employeeId=#{employeeId};
+	</update>
+	
+	<update id="updateUsers">
+		UPDATE users SET usersRole=#{usersRole} WHERE usersId=#{employeeId};
+	</update>
+	
+	<delete id="deleteEmployee" parameterType="string">
+		DELETE FROM employee WHERE employeeId=#{employeeId};
+	</delete>
+	
+	<delete id="deleteUsers" parameterType="string">
+		DELETE FROM users WHERE usersId=#{usersId};
+	</delete>
+	
 	<!-- ==================================================================================== -->
 	
 	<sql id="sqlEmployee">

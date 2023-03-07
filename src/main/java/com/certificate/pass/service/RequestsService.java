@@ -56,4 +56,14 @@ public class RequestsService {
 		return "OK";
 	}
 
+	public String deleteRequests(int[] chkList) {
+		for (int requestsKeyNum : chkList) {
+			int sucess = requestsDao.deleteRequests(requestsKeyNum);
+			if (sucess <= 0) {
+				return "FALSE";
+			}
+		}
+		return "OK";
+	}
+
 }

@@ -46,4 +46,8 @@ public class RequestsDao {
 		sqlSession.update("requests.updateRequestsComment", parameters);
 	}
 
+	public int deleteRequests(int requestsKeyNum) {
+		return sqlSession.delete("requests.deleteRequests", requestsKeyNum);
+	}
+
 }

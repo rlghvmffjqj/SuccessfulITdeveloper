@@ -3,39 +3,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>문의내역</title>
+	<title>공지사항 목록</title>
 	<%@ include file="/WEB-INF/jsp/common/_Head.jsp"%>
 	<%@ include file="/WEB-INF/jsp/common/_Table.jsp"%>
 	<script>
 	    $(function() {
-	    	$.cookie('name','requestsList');
+	    	$.cookie('name','announcementList');
 	    });
     </script>
     <script>
 		$(document).ready(function(){
 			var formData = $('#form').serializeObject();
 			$("#list").jqGrid({
-				url: "<c:url value='/requests'/>",
+				url: "<c:url value='/announcement'/>",
 				mtype: 'POST',
 				postData: formData,
 				datatype: 'json',
-				colNames:['Key','사용자ID','사원명','상태','제목'/* ,'내용' */,'날짜'],
+				colNames:['No.','제목','작성자','작성일','조회'],
 				colModel:[
-					{name:'requestsKeyNum', index:'requestsKeyNum', align:'center', width: 40, hidden:true },
-					{name:'employeeId', index:'employeeId', align:'center', width: 200, formatter: linkFormatter},
-					{name:'employeeName', index:'employeeName', align:'center', width: 150},
-					{name:'requestsState', index:'requestsState',align:'center', width: 100},
-					{name:'requestsTitle', index:'requestsTitle', align:'center', width: 400},
-					/* {name:'requestsDetail', index:'requestsDetail', align:'left', width: 600}, */
-					{name:'requestsDate', index:'requestsDate',align:'center', width: 180},
+					{name:'announcementKeyNum', index:'announcementKeyNum', align:'center', width: 70},
+					{name:'announcementTitle', index:'announcementTitle', align:'center', width: 500, formatter: linkFormatter},
+					{name:'announcementRegistrant', index:'announcementRegistrant', align:'center', width: 150},
+					{name:'announcementRegistrationDate', index:'announcementRegistrationDate',align:'center', width: 150},
+					{name:'announcementCount', index:'announcementCount', align:'center', width: 50},
 				],
 				jsonReader : {
-		        	id: 'requestsKeyNum',
+		        	id: 'announcementKeyNum',
 		        	repeatitems: false
 		        },
 		        pager: '#pager',			// 페이징
 		        rowNum: 25,					// 보여중 행의 수
-		        sortname: 'requestsKeyNum', 		// 기본 정렬 
+		        sortname: 'announcementKeyNum', 		// 기본 정렬 
 		        sortorder: 'desc',			// 정렬 방식
 		        
 		        multiselect: true,			// 체크박스를 이용한 다중선택
@@ -61,23 +59,13 @@
 	<div class="mainDiv">
 		<form id="form" name="form" method ="post">
 			<div class="divBox" >
-				<sec:authorize access="hasRole('ADMIN')">
-				    <div class="col-lg-2">
-				    	<label class="labelFontSize">사용자ID</label>
-						<input type="text" id="employeeId" name="employeeId" class="formControl seachInput"> 
-				    </div>
-			    </sec:authorize>
+				<div class="col-lg-2">
+					<label class="labelFontSize">제목</label>
+					<input type="text" id="announcementTitle" name="announcementTitle" class="formControl seachInput"> 
+				</div>
 			    <div class="col-lg-2">
-			    	<label class="labelFontSize">제목</label>
-			    	<input type="text" id="requestsTitle" name="requestsTitle" class="formControl seachInput">
-			    </div>
-			    <div class="col-lg-2">
-			    	<label class="labelFontSize">상태</label>
-			    	<select class="formControl selectpicker seachInput" id="requestsState" name="requestsState" style="height: 34px;" data-size="5">
-						<option value=""></option>
-						<option value="전송">전송</option>
-						<option value="답변">답변</option>
-					</select>
+			    	<label class="labelFontSize">작성자</label>
+			    	<input type="text" id="announcementRegistrant" name="announcementRegistrant" class="formControl seachInput">
 			    </div>
 			    <div class="col-lg-12">
 			    	<button class="btn btnDefault btnm" type="button" id="btnReset" style="float: right">
@@ -93,6 +81,7 @@
 		<div class="divBox">
 			<sec:authorize access="hasAnyRole('ADMIN')">
 				<div style="width: 100%; height: 35px;">
+					<button class="btn btnDarkgreen btnBlock middleBtn" type="button" onClick="btnAdd();">작성</button>
 					<button class="btn btnRed btnBlock middleBtn" type="button" onClick="btnDelete();">삭제</button>
 				</div>
 			</sec:authorize>
@@ -107,21 +96,21 @@
 <script>
 	/* =========== jpgrid의 formatter 함수 ========= */
 	function linkFormatter(cellValue, options, rowdata, action) {
-		return '<a onclick="updateView('+"'"+rowdata.requestsKeyNum+"'"+')" style="color:#366cb3;">' + cellValue + '</a>';
+		return '<a onclick="updateView('+"'"+rowdata.announcementKeyNum+"'"+')" style="color:#366cb3;">' + cellValue + '</a>';
 	}
 	
-	function updateView(requestsKeyNum) {
+	function updateView(announcementKeyNum) {
 		let f = document.createElement('form');
 	    
 	    let obj;
 	    obj = document.createElement('input');
 	    obj.setAttribute('type', 'hidden');
-	    obj.setAttribute('name', 'requestsKeyNum');
-	    obj.setAttribute('value', requestsKeyNum);
+	    obj.setAttribute('name', 'announcementKeyNum');
+	    obj.setAttribute('value', announcementKeyNum);
 	    
 	    f.appendChild(obj);
 	    f.setAttribute('method', 'post');
-	    f.setAttribute('action', "<c:url value='/requestsView'/>");
+	    f.setAttribute('action', "<c:url value='/announcementView'/>");
 	    document.body.appendChild(f);
 	    f.submit();
 	}
@@ -156,11 +145,6 @@
 		tableRefresh();
 	});
 	
-	/* =========== Select Box 선택 ========= */
-	$("select").change(function() {
-		tableRefresh();
-	});
-	
 	function btnDelete() {
 		var chkList = $("#list").getGridParam('selarrrow');
 		if(chkList == 0) {
@@ -182,7 +166,7 @@
 				if (result.isConfirmed) {
 					$.ajax({
 			            type: 'POST',
-			            url: "<c:url value='/requests/delete'/>",
+			            url: "<c:url value='/announcement/delete'/>",
 			            data: {
 							chkList: chkList
 						},
@@ -212,6 +196,10 @@
 				}
 			})
 		}
+	}
+	
+	function btnAdd() {
+		location.href = "<c:url value='/announcementWrite'/>";
 	}
 </script>
 </html>

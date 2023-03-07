@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="announcement">
+	<resultMap type="com.certificate.pass.vo.Announcement" id="announcement"></resultMap>
+	
+	<select id="getAnnouncementList" resultMap="announcement" parameterType="string">
+		SELECT *
+    	FROM
+    	(
+    		SELECT ROW_NUMBER() OVER(ORDER BY ${sidx} ${sord}) RowNo, a.*
+    		FROM (
+				SELECT *
+				FROM announcement
+					<include refid="sqlAnnouncement" />
+			) a
+		) b
+    	WHERE b.RowNo between (1+(${page} - 1 ) * ${rows}) and (${page} * ${rows});
+	</select>
+	
+	<select id="getAnnouncementListCount" resultType="_int">
+		SELECT COUNT(*) FROM announcement
+			<include refid="sqlAnnouncement" />
+	</select>
+	
+	<insert id="insertAnnouncement" parameterType="announcement" useGeneratedKeys="true" keyProperty="announcementKeyNum">
+		INSERT INTO announcement(announcementTitle, announcementDetail, announcementCount, announcementRegistrant, announcementRegistrationDate)
+		VALUES(#{announcementTitle}, #{announcementDetail}, 0, #{announcementRegistrant}, #{announcementRegistrationDate});
+	</insert>
+	
+	<select id="getAnnouncementOne" parameterType="_int" resultMap="announcement">
+		SELECT * FROM announcement WHERE announcementKeyNum = #{announcementKeyNum};
+	</select>
+	
+	<update id="announcementCountPlus">
+		UPDATE announcement SET announcementCount = announcementCount+1 WHERE announcementKeyNum = #{announcementKeyNum};
+	</update>
+	
+	
+	<!-- ==================================================================================== -->
+	
+	<sql id="sqlAnnouncement">
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="announcementTitle != null and announcementTitle != ''"> 
+				AND announcementTitle = LIKE CONCAT('%',#{announcementTitle},'%')
+			</if>
+			<if test="announcementRegistrant != null and announcementRegistrant != ''">
+				AND announcementRegistrant LIKE CONCAT('%',#{announcementRegistrant},'%')
+			</if>
+		</trim>
+	</sql>
+</mapper>

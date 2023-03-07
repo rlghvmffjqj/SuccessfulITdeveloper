@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.certificate.pass.service.EmployeeService;
@@ -79,6 +80,15 @@ public class RequestsController {
 		requestsComment.setRequestsCommentDate(requestsService.nowDate());
 		requestsComment.setRequestsCommentRegistrationDate(requestsService.nowDate());
 		return requestsService.insertRequestsComment(requestsComment);
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "/requests/delete")
+	public Map<String, String> deleteRequests(@RequestParam int[] chkList) {
+		Map<String, String> map = new HashMap<String, String>();
+		String result = requestsService.deleteRequests(chkList);
+		map.put("result", result);
+		return map;
 	}
 	
 }

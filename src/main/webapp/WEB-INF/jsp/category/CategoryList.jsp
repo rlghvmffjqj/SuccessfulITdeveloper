@@ -3,37 +3,36 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>회원 관리</title>
+	<title>IT Developer</title>
 	<%@ include file="/WEB-INF/jsp/common/_Head.jsp"%>
 	<%@ include file="/WEB-INF/jsp/common/_Table.jsp"%>
 	<script>
 	    $(function() {
-	    	$.cookie('name','employee');
+	    	$.cookie('name',"${topItemsName}"+","+"${middleItemsName}");
 	    });
     </script>
     <script>
 		$(document).ready(function(){
 			var formData = $('#form').serializeObject();
 			$("#list").jqGrid({
-				url: "<c:url value='/employee'/>",
+				url: "<c:url value='/category'/>",
 				mtype: 'POST',
 				postData: formData,
 				datatype: 'json',
-				colNames:['사용자ID','사원명','이메일','상태','역할'],
+				colNames:['키','제목','등록자','등록일'],
 				colModel:[
-					{name:'employeeId', index:'employeeId', align:'center', width: 250, formatter: linkFormatter},
-					{name:'employeeName', index:'employeeName',align:'center', width: 150},
-					{name:'employeeEmail', index:'employeeEmail', width: 300, align:'center'},
-					{name:'employeeStatus', index:'employeeStatus', align:'center', width: 150},
-					{name:'usersRole', index:'usersRole', align:'center', width: 200},
+					{name:'mainContentsKeyNum', index:'mainContentsKeyNum',align:'center', width: 50, hidden:true},
+					{name:'mainContentsTitle', index:'mainContentsTitle', align:'center', width: 500, formatter: linkFormatter},
+					{name:'mainContentsRegistrant', index:'mainContentsRegistrant',align:'center', width: 150},
+					{name:'mainContentsRegistrationDate', index:'mainContentsRegistrationDate', width: 150, align:'center'},
 				],
 				jsonReader : {
-		        	id: 'employeeId',
+		        	id: 'mainContentsKeyNum',
 		        	repeatitems: false
 		        },
 		        pager: '#pager',			// 페이징
 		        rowNum: 25,					// 보여중 행의 수
-		        sortname: 'employeeId', 	// 기본 정렬 
+		        sortname: 'mainContentsKeyNum', 	// 기본 정렬 
 		        sortorder: 'asc',			// 정렬 방식
 		        
 		        multiselect: true,			// 체크박스를 이용한 다중선택
@@ -57,27 +56,13 @@
 	<%@ include file="/WEB-INF/jsp/common/_LeftMenu.jsp"%>
 	<%@ include file="/WEB-INF/jsp/common/_RightMenu.jsp"%>
 	<div class="mainDiv">
-		<form id="form" name="form" method ="post">
+		<form id="form" name="form" method ="post" action="<c:url value='/category/categoryWrite'/>" method="post">
+			<input type="hidden" id="topItemsName" name="topItemsName" class="form-control" value="${topItemsName}">
+			<input type="hidden" id="middleItemsName" name="middleItemsName" class="form-control" value="${middleItemsName}">
 			<div class="divBox" >
 			    <div class="col-lg-2">
-			    	<label class="labelFontSize">사용자ID</label>
-					<input type="text" id="employeeId" name="employeeId" class="formControl seachInput"> 
-			    </div>
-			    <div class="col-lg-2">
-			    	<label class="labelFontSize">사원명</label>
-			    	<input type="text" id="employeeName" name="employeeName" class="formControl seachInput">
-			    </div>
-			    <div class="col-lg-2">
-			    	<label class="labelFontSize">이메일</label>
-			    	<input type="text" id="employeeEmail" name="employeeEmail" class="formControl seachInput">
-			    </div>
-			    <div class="col-lg-2">
-			    	<label class="labelFontSize">상태</label>
-			    	<select class="formControl selectpicker seachInput" id="employeeStatus" name="employeeStatus" style="height: 34px; width: 98%;" data-live-search="true" data-size="5">
-						<option value=""></option>
-						<option value="정상">정상</option>
-						<option value="제한">제한</option>
-					</select>
+			    	<label class="labelFontSize">제목</label>
+					<input type="text" id="mainContentsTitle" name="mainContentsTitle" class="formControl seachInput"> 
 			    </div>
 			    <div class="col-lg-12">
 			    	<button class="btn btnDefault btnm" type="button" id="btnReset" style="float: right">
@@ -88,82 +73,44 @@
 					</button>
 				</div>
 			</div>
+		
+			<div style="width: 100%; height: 15px;"></div>
+			<div class="divBox">
+				<sec:authorize access="hasRole('ADMIN')">
+					<div style="width: 100%; height: 35px;">
+						<button class="btn btnBlue btnBlock middleBtn" type="submit" style="width: 100px;">게시물 등록</button>
+						<button class="btn btnRed btnBlock middleBtn" type="button" style="width: 100px;" onClick="btnDelete();">게시물 삭제</button>
+					</div>
+				</sec:authorize>
+				<div class="jqGrid_wrapper">
+					<table id="list"></table>
+					<div id="pager"></div>
+				</div>
+			</div>
 		</form>
-		<div style="width: 100%; height: 15px;"></div>
-		<div class="divBox">
-			<div style="width: 100%; height: 35px;">
-				<button class="btn btnDarkgreen btnBlock middleBtn" type="button" style="width: 100px;" onClick="btnLoginLimit();">로그인 제한</button>
-				<button class="btn btnRed btnBlock middleBtn" type="button" style="width: 100px;" onClick="btnDelete();">탈퇴</button>
-			</div>
-			<div class="jqGrid_wrapper">
-				<table id="list"></table>
-				<div id="pager"></div>
-			</div>
-		</div>
 	</div>
 	<%@ include file="/WEB-INF/jsp/common/_FooterMenu.jsp"%>
 </body>
 	<script>
 		/* =========== jpgrid의 formatter 함수 ========= */
 		function linkFormatter(cellValue, options, rowdata, action) {
-			return '<a onclick="updateView('+"'"+rowdata.employeeId+"'"+')" style="color:#366cb3;">' + cellValue + '</a>';
+			return '<a onclick="updateView('+"'"+rowdata.mainContentsKeyNum+"'"+')" style="color:#366cb3;">' + cellValue + '</a>';
 		}
 		
-		function updateView(employeeId) {
+		function updateView(mainContentsKeyNum) {
 			let f = document.createElement('form');
 		    
 		    let obj;
 		    obj = document.createElement('input');
 		    obj.setAttribute('type', 'hidden');
-		    obj.setAttribute('name', 'employeeId');
-		    obj.setAttribute('value', employeeId);
+		    obj.setAttribute('name', 'mainContentsKeyNum');
+		    obj.setAttribute('value', mainContentsKeyNum);
 		    
 		    f.appendChild(obj);
 		    f.setAttribute('method', 'post');
-		    f.setAttribute('action', "<c:url value='/employeeView'/>");
+		    f.setAttribute('action', "<c:url value='/category/mainContentsView'/>");
 		    document.body.appendChild(f);
 		    f.submit();
-		}
-		
-		function btnLoginLimit() {
-			var chkList = $("#list").getGridParam('selarrrow');
-			if(chkList == 0) {
-				Swal.fire({               
-					icon: 'error',          
-					title: '실패!',           
-					text: '선택한 행이 존재하지 않습니다.',    
-				});    
-			} else {
-				$.ajax({
-		            type: 'POST',
-		            url: "<c:url value='/employee/loginLimit'/>",
-		            data: {
-						chkList: chkList
-					},
-		            dataType: "json",
-					async: false,
-					traditional: true,
-		            success: function (data) {
-		            	if(data.result == "OK"){
-							Swal.fire({
-								icon: 'success',
-								title: '성공!',
-								text: '작업을 완료했습니다.',
-							});
-							tableRefresh();
-						} else{
-							Swal.fire({
-								icon: 'error',
-								title: '실패!',
-								text: '작업을 실패하였습니다.',
-							});
-						}
-		            },
-		            error: function(e) {
-		                // TODO 에러 화면
-		            }
-		        });
-			}
 		}
 		
 		function btnDelete() {
@@ -177,7 +124,7 @@
 			} else {
 				Swal.fire({
 					  title: '삭제!',
-					  text: "회원 탈퇴 진행하시겠습니까?",
+					  text: "게시물 삭제 하시겠습니까?",
 					  icon: 'warning',
 					  showCancelButton: true,
 					  confirmButtonColor: '#7066e0',
@@ -187,15 +134,15 @@
 					if (result.isConfirmed) {
 						$.ajax({
 				            type: 'POST',
-				            url: "<c:url value='/employee/delete'/>",
+				            url: "<c:url value='/category/delete'/>",
 				            data: {
 								chkList: chkList
 							},
-				            dataType: "json",
+				            dataType: "text",
 							async: false,
 							traditional: true,
 				            success: function (data) {
-				            	if(data.result == "OK"){
+				            	if(data == "OK"){
 									Swal.fire({
 										icon: 'success',
 										title: '성공!',
@@ -241,5 +188,6 @@
 		$('#btnSearch').click(function() {
 			tableRefresh();
 		});
+		
 	</script>
 </html>

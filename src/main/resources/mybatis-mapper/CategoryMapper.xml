@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="category">
+	<resultMap type="com.certificate.pass.vo.MainContents" id="mainContents"></resultMap>
+	<resultMap type="com.certificate.pass.vo.Category" id="category"></resultMap>
+	<resultMap type="com.certificate.pass.vo.MainComments" id="mainComments"></resultMap>
+	
+	<select id="topItems" resultType="string">
+		SELECT * FROM topItems ORDER BY topItemsSort DESC;
+	</select>
+	
+	<select id="middleItems" parameterType="string" resultType="string">
+		SELECT * FROM middleItems WHERE topItemsName = #{topItemsName} ORDER BY middleItemsSort ASC;
+	</select>
+	
+	<select id="getCategoryList" parameterType="string" resultMap="mainContents">
+		SELECT * FROM mainContents WHERE topItemsName = #{topItemsName} AND middleItemsName = #{middleItemsName};
+	</select>
+	
+	<select id="getTopMenuCategoryList" resultType="string">
+		SELECT topItemsName FROM topItems ORDER BY topItemsSort;
+	</select>
+	
+	<select id="getMiddleMenuCategoryList" resultMap="category">
+		SELECT * FROM middleItems ORDER BY middleItemsSort;
+	</select>
+	
+	<select id="getMiddleTopNameList" resultType="string">
+		SELECT topItemsName FROM middleItems;
+	</select>
+	
+	<insert id="insertTopItems">
+		INSERT INTO topItems(topItemsName, registrant, registrationDate)
+		VALUES(#{topItemsName}, #{registrant}, #{registrationDate});
+	</insert>
+	
+	<insert id="insertMiddleItems">
+		INSERT INTO middleItems(middleItemsName, topItemsName, registrant, registrationDate)
+		VALUES(#{middleItemsName}, #{topItemsName}, #{registrant}, #{registrationDate});
+	</insert>
+	
+	<delete id="deleteTopItems">
+		DELETE FROM topItems;
+	</delete>
+	
+	<delete id="deleteMiddleItems">
+		DELETE FROM middleItems;
+	</delete>
+	
+	<insert id="insertMainContents" parameterType="mainContents" useGeneratedKeys="true" keyProperty="mainContentsKeyNum">
+		INSERT INTO maincontents(topItemsName,middleItemsName,mainContentsTitle,mainContentsDetail,mainContentsCount,mainContentsRegistrant,mainContentsRegistrationDate)
+		VALUES(#{topItemsName},#{middleItemsName},#{mainContentsTitle},#{mainContentsDetail},0,#{mainContentsRegistrant},#{mainContentsRegistrationDate});
+	</insert>
+	
+	<select id="getMainContentsOne" parameterType="_int" resultMap="mainContents">
+		SELECT * FROM mainContents WHERE mainContentsKeyNum = #{mainContentsKeyNum};
+	</select>
+	
+	<delete id="delMainContents">
+		DELETE FROM mainContents WHERE mainContentsKeyNum = #{mainContentsKeyNum};
+	</delete>
+	
+	<insert id="insertMainComments">
+		INSERT INTO mainComments(mainCommentsParentKeyNum,mainContentsKeyNum,mainContentsDepth,mainCommentsContents,mainCommentsName,mainCommentsPassword,mainCommentsDate,mainCommentsSecret,mainCommentsRegistrant,mainCommentsRegistrationDate)
+		VALUES(0,#{mainContentsKeyNum},0,#{mainCommentsContents},#{mainCommentsName},#{mainCommentsPassword},#{mainCommentsDate},#{mainCommentsSecret},#{mainCommentsRegistrant},#{mainCommentsRegistrationDate});
+	</insert>
+	
+	<select id="getMainCommentsList" parameterType="_int" resultMap="mainComments">
+		SELECT * FROM mainComments WHERE mainContentsKeyNum = #{mainContentsKeyNum} ORDER BY mainCommentsKeyNum; 
+	</select>
+	
+	<select id="getMainCommentsOne" parameterType="_int" resultMap="mainComments">
+		SELECT * FROM mainComments WHERE mainCommentsKeyNum = #{mainCommentsKeyNum};
+	</select>
+	
+	<insert id="insertMainCommentsReply">
+		INSERT INTO mainComments(mainCommentsParentKeyNum,mainContentsKeyNum,mainContentsDepth,mainCommentsContents,mainCommentsName,mainCommentsPassword,mainCommentsDate,mainCommentsSecret)
+		VALUES(#{mainCommentsParentKeyNum},#{mainContentsKeyNum},#{mainContentsDepth},#{mainCommentsContentsDialog},#{mainCommentsNameDialog},#{mainCommentsPasswordDialog},#{mainCommentsDate},#{mainCommentsSecretDialog});
+	</insert>
+	
+	<delete id="mainCommentsDelete" parameterType="_int">
+		DELETE FROM mainComments WHERE mainCommentsKeyNum = #{mainCommentsKeyNum};
+	</delete>
+	
+	<update id="mainCommentsUpdate">
+		UPDATE mainComments SET mainCommentsContents = #{mainCommentsContentsDialog}, mainCommentsName = #{mainCommentsNameDialog}, mainCommentsSecret = #{mainCommentsSecretDialog}, mainCommentsDate = #{mainCommentsDate} 
+		WHERE mainCommentsKeyNum = #{mainCommentsKeyNum};
+	</update>
+	
+	<delete id="mainCommentsChildDelete" parameterType="_int">
+		DELETE FROM mainComments WHERE mainCommentsParentKeyNum = #{mainCommentsKeyNum};
+	</delete>
+	
+	<delete id="delMainContentsComments" parameterType="_int">
+		DELETE FROM mainComments WHERE mainContentsKeyNum = #{mainContentsKeyNum};
+	</delete>
+	
+</mapper>

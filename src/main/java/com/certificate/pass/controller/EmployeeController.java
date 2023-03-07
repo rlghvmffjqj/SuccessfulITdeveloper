@@ -97,4 +97,31 @@ public class EmployeeController {
 		return map;
 	}
 	
+	@PostMapping("/employeeView")
+	public String employeeView(Model model, String employeeId) {
+		Employee employee = employeeService.getEmployeeOne(employeeId);
+		String role = employeeService.getUsersRole(employeeId);
+		model.addAttribute("employee", employee);
+		model.addAttribute("role", role);
+		return "/employee/EmployeeView";
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "/employee/update")
+	public String UpdateEmployee(Employee employee, Principal principal) {
+		employee.setEmployeeModifier(principal.getName());
+		employee.setEmployeeModifiedDate(employeeService.nowDate());
+
+		return employeeService.updateEmployee(employee, principal);
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "/employee/delete")
+	public Map<String, String> deleteEmployee(@RequestParam String[] chkList) {
+		Map<String, String> map = new HashMap<String, String>();
+		String result = employeeService.deleteEmployee(chkList);
+		map.put("result", result);
+		return map;
+	}
+	
 }

@@ -110,5 +110,28 @@ public class EmployeeService {
 	public String getUsersRole(String usersId) {
 		return employeeDao.getUsersRole(usersId);
 	}
+
+	public Employee getEmployeeOne(String employeeId) {
+		return employeeDao.getEmployeeOne(employeeId);
+	}
+
+	public String updateEmployee(Employee employee, Principal principal) {
+		int sucess = employeeDao.updateEmployee(employee);
+		sucess *= employeeDao.updateUsers(employee);
+		if (sucess <= 0)
+			return "FALSE";
+		return "OK";
+	}
+
+	public String deleteEmployee(String[] chkList) {
+		for (String employeeId : chkList) {
+			int sucess = employeeDao.deleteEmployee(employeeId);
+			sucess *= employeeDao.deleteUsers(employeeId);
+			if (sucess <= 0) {
+				return "FALSE";
+			}
+		}
+		return "OK";
+	}
 	
 }

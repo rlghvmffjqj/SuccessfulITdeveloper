@@ -1,30 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <script>
 $(function() {
+	var arr =  $.cookie('name').split(",");
+	
 	if($.cookie('name') == 'index') {
 		$('.index').addClass('active');
-	} else if($.cookie('name') == 'pastQuestion') {
-		$('.informationProcessing').addClass('active');
-		$('.pastQuestion').addClass('activeSub');
-		$('#informationProcessingSubMenu').show();
-	} else if($.cookie('name') == 'pastQuestion') {
-		$('.informationProcessing').addClass('active');
-		$('.summary').addClass('activeSub');
-	} else if($.cookie('name') == 'summary') {
-		$('.informationProcessing').addClass('active');
-		$('.summary').addClass('activeSub');
-		$('#informationProcessingSubMenu').show();
-	} else if($.cookie('name') == 'algorithm') {
-		$('.informationProcessing').addClass('active');
-		$('.algorithm').addClass('activeSub');
-		$('#informationProcessingSubMenu').show();
-	} else if($.cookie('name') == 'ingang') {
-		$('.informationProcessing').addClass('active');
-		$('.ingang').addClass('activeSub');
-		$('#informationProcessingSubMenu').show();
-	} else if($.cookie('name') == 'employee') {
-		$('.employee').addClass('active');
+	} else if($.cookie('name') == 'adminSetting') {
+		$('.adminSetting').addClass('active');
+		$('.employee').addClass('activeSub');
+		$('#adminSettingSubMenu').show();
 	} else if($.cookie('name') == 'requestsWrite') {
 		$('.inquiry').addClass('active');
 		$('.requestsWrite').addClass('activeSub');
@@ -33,8 +18,27 @@ $(function() {
 		$('.inquiry').addClass('active');
 		$('.requestsList').addClass('activeSub');
 		$('#requestsSubMenu').show();
-	}
+	} else if($.cookie('name') == 'employee') {
+		$('.adminSetting').addClass('active');
+		$('.employee').addClass('activeSub');
+		$('#adminSettingSubMenu').show();
+	} else if($.cookie('name') == 'announcementWrite') {
+		$('.adminSetting').addClass('active');
+		$('.announcement').addClass('activeSub');
+		$('#adminSettingSubMenu').show();
+	} else if($.cookie('name') == 'categorySetting') {
+		$('.adminSetting').addClass('active');
+		$('.category').addClass('activeSub');
+		$('#adminSettingSubMenu').show();
+	} 
 	
+	if(arr.length == 2) {
+		setTimeout(() => {
+		$('#menu').show();
+		$('.'+arr[0]).addClass('active');
+		$('.'+arr[1]).addClass('activeSub');
+		}, 100);
+	}
 	
 });
 </script>
@@ -45,15 +49,13 @@ $(function() {
     </a>
 
     <a href="<c:url value='/index'/>" class="mainMenu index" id="index">HOME</a>
-    <a href="<c:url value='/informationProcessing/pastQuestion'/>" class="mainMenu informationProcessing" id="informationProcessing">정보처리기사 실기</a>
-    <a href="#" class="mainMenu java" id="java">JAVA</a>
     <a href="#" class="mainMenu freeBoard" id="freeBoard">자유게시판</a>
-    <a href="#" class="mainMenu announcement" id="announcement">공지사항</a>
     <sec:authorize access="hasAnyRole('ADMIN','MEMBER')">
     	<a href="<c:url value='/requestsWrite'/>" class="mainMenu inquiry" id="inquiry">문의하기</a>
     </sec:authorize>
+    
     <sec:authorize access="hasRole('ADMIN')">
-    	<a href="<c:url value='/employeeList'/>" class="mainMenu employee" id="employee">회원정보</a>
+    	<a href="<c:url value='/employeeList'/>" class="mainMenu adminSetting" id="adminSetting">관리자설정</a>
     </sec:authorize>
     
     <div id="member">
@@ -80,18 +82,28 @@ $(function() {
     	<button class="btn btnPrimary btnBlock topMenuLogin" type="button" onClick="login();">로그인</button>
     </div>
 </div>
-<div id="informationProcessingSubMenu" class="subMenu">
+
+<div id="menu" class="subMenu">
 	<div style="height: 7px;"></div>
-	<a href="<c:url value='/informationProcessing/pastQuestion'/>" class="mediumMenu pastQuestion" id="pastQuestion" style="margin-left: 29%;">기출문제</a>
-	<a href="<c:url value='/informationProcessing/summary'/>" class="mediumMenu summary" id="summary">정리&요약</a>
-	<a href="<c:url value='/informationProcessing/algorithm'/>" class="mediumMenu algorithm" id="algorithm">알고리즘</a>
-	<a href="<c:url value='/informationProcessing/ingang'/>" class="mediumMenu ingang" id="ingang">인터넷강의</a>
+	<%-- <c:forEach var="middleItemsName" items="${middleItemsNameList}">
+		<a href="<c:url value='/category/${topItemsName}/${middleItemsName}'/>" class="mediumMenu ${middleItemsName}" id="${middleItemsName}">${middleItemsName}</a>
+	</c:forEach> --%>
 </div>
+
 
 <div id="requestsSubMenu" class="subMenu">
 	<div style="height: 7px;"></div>
-	<a href="<c:url value='/requestsWrite'/>" class="mediumMenu requestsWrite" id="requests" style="margin-left: 29%;">문의하기</a>
+	<a href="<c:url value='/requestsWrite'/>" class="mediumMenu requestsWrite" id="requestsWrite">문의하기</a>
 	<a href="<c:url value='/requestsList'/>" class="mediumMenu requestsList" id="requestsList">문의내역</a>
+</div>
+
+<div id="adminSettingSubMenu" class="subMenu">
+	<div style="height: 7px;"></div>
+	<sec:authorize access="hasRole('ADMIN')">
+		<a href="<c:url value='/employeeList'/>" class="mediumMenu employee" id="employee">회원 정보</a>
+		<a href="<c:url value='/announcementWrite'/>" class="mediumMenu announcement" id="announcement">공지사항</a>
+		<a href="<c:url value='/category/categorySetting'/>" class="mediumMenu category" id="category">메뉴설정</a>
+	</sec:authorize>
 </div>
 
 <script>
@@ -101,6 +113,40 @@ $(function() {
 	};
 	
 	$(function() {
+		$.ajax({
+		    type: 'post',
+		    url: "<c:url value='/category/topItems'/>",
+		    async: false,
+		    success: function (data) {
+		    	data.forEach(function(topItemsName){
+		    		var rowItem = "<a href='<c:url value='/category/"+topItemsName+"'/>' class='mainMenu "+topItemsName+"' id='"+topItemsName+"'>"+topItemsName+"</a>";
+				 	$('#index').after(rowItem);
+		    	})
+		    },
+		    error: function(e) {
+		        console.log(e);
+		    }
+		});
+		
+		var arr =  $.cookie('name').split(",");
+		var topItemsName = arr[0];
+		$.ajax({
+		    type: 'post',
+		    url: "<c:url value='/category/middleItems'/>",
+		    data: {"topItemsName":topItemsName},
+		    async: false,
+		    success: function (data) {
+		    	data.forEach(function(middleItemsName){
+		    		var rowItem = "<a href='<c:url value='/category/"+topItemsName+"/"+middleItemsName+"'/>' class='mediumMenu "+middleItemsName+"' id='"+middleItemsName+"'>"+middleItemsName+"</a>";
+				 	$('#menu').append(rowItem);
+		    	})
+		    },
+		    error: function(e) {
+		        console.log(e);
+		    }
+		});
+		
+		
 		if($("#topMenuSpan").text() == "anonymousUser") {
 			$("#member").hide();
 			$("#noMember").show();
