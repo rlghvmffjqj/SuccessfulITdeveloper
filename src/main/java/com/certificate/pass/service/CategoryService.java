@@ -30,13 +30,12 @@ public class CategoryService {
 		return categoryDao.middleItems(topItemsName);
 	}
 
-	public List<MainContents> getCategoryList(String topItemsName, String middleItemsName) {
-		return categoryDao.getCategoryList(topItemsName, middleItemsName);
+	public List<MainContents> getCategoryList(MainContents search) {
+		return categoryDao.getCategoryList(search);
 	}
 
-	public int getCategoryListCount(String topItemsName, String middleItemsName) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getCategoryListCount(MainContents search) {
+		return categoryDao.getCategoryListCount(search);
 	}
 
 	public List<String> getTopMenuCategoryList() {
@@ -231,6 +230,15 @@ public class CategoryService {
 	public int nextPageMove(int mainContentsKeyNum) {
 		MainContents mainContents = categoryDao.getMainContentsOne(mainContentsKeyNum);
 		return categoryDao.nextPageMove(mainContents);
+	}
+
+	public int getFavoritesCount(MainContents mainContents) {
+		return categoryDao.getFavoritesCount(mainContents);
+	}
+
+	public String favoritesPlus(Category category) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -15,7 +15,13 @@
 	</select>
 	
 	<select id="getCategoryList" parameterType="string" resultMap="mainContents">
-		SELECT * FROM mainContents WHERE topItemsName = #{topItemsName} AND middleItemsName = #{middleItemsName};
+		SELECT * FROM mainContents WHERE topItemsName = #{topItemsName} AND middleItemsName = #{middleItemsName}
+			<include refid="sqlCategory" />
+	</select>
+	
+	<select id="getCategoryListCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM mainContents WHERE topItemsName = #{topItemsName} AND middleItemsName = #{middleItemsName}
+			<include refid="sqlCategory" />
 	</select>
 	
 	<select id="getTopMenuCategoryList" resultType="string">
@@ -120,4 +126,17 @@
 		AND mainContentsKeyNum > #{mainContentsKeyNum};
 		]]>
 	</select>
+	
+	<select id="getFavoritesCount" resultType="_int">
+		SELECT COUNT(*) FROM favorites
+		WHERE topItemsName = #{topItemsName} AND middleItemsName = #{middleItemsName};
+	</select>
+	
+	<!-- ==================================================================================== -->
+	
+	<sql id="sqlCategory">
+		<if test="mainContentsTitle != null and mainContentsTitle != ''">
+			AND mainContentsTitle LIKE CONCAT('%',#{mainContentsTitle},'%')
+		</if>
+	</sql>
 </mapper>

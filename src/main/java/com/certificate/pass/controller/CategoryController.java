@@ -56,8 +56,8 @@ public class CategoryController {
 	@PostMapping(value = "/category")
 	public Map<String, Object> Category(@ModelAttribute("search") MainContents search) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		ArrayList<MainContents> list = new ArrayList<>(categoryService.getCategoryList(search.getTopItemsName(), search.getMiddleItemsName()));
-		int totalCount = categoryService.getCategoryListCount(search.getTopItemsName(), search.getMiddleItemsName());
+		ArrayList<MainContents> list = new ArrayList<>(categoryService.getCategoryList(search));
+		int totalCount = categoryService.getCategoryListCount(search);
 		map.put("page", search.getPage());
 		map.put("total", Math.ceil((float)totalCount/search.getRows()));
 		map.put("records", totalCount);
@@ -137,10 +137,13 @@ public class CategoryController {
 	public String mainContentsView(int contentNumber, Principal principal, Model model) {
 		MainContents mainContents = categoryService.getMainContentsOne(contentNumber);
 		List<MainComments> mainCommentsList = categoryService.getMainCommentsList(contentNumber, principal);
+		int favoritesCount = categoryService.getFavoritesCount(mainContents);
+		
 		categoryService.countPlus(contentNumber);
 		model.addAttribute("mainContents", mainContents);
 		model.addAttribute("mainContentsKeyNum", contentNumber);
 		model.addAttribute("mainCommentsList", mainCommentsList);
+		model.addAttribute("favoritesCount", favoritesCount);
 		return "/category/CategoryView";
 	}
 	
@@ -227,6 +230,17 @@ public class CategoryController {
 			return "common/msg";
 		}
 		return "redirect:/category/mainContentsView?contentNumber="+mainContentsKeyNum ;
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "/category/favoritesPlus")
+	public String favoritesPlus(Category category, Principal principal) {
+		try {
+			
+		} catch (Exception e) {
+			return "NoUser";
+		}
+		return categoryService.favoritesPlus(category);
 	}
 
 }

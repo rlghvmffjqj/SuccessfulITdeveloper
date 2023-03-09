@@ -1,8 +1,6 @@
 package com.certificate.pass.dao;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +22,8 @@ public class CategoryDao {
 		return sqlSession.selectList("category.middleItems",topItemsName);
 	}
 
-	public List<MainContents> getCategoryList(String topItemsName, String middleItemsName) {
-		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("topItemsName", topItemsName);
-		parameters.put("middleItemsName", middleItemsName);
-		return sqlSession.selectList("category.getCategoryList", parameters);
+	public List<MainContents> getCategoryList(MainContents search) {
+		return sqlSession.selectList("category.getCategoryList", search);
 	}
 
 	public List<String> getTopMenuCategoryList() {
@@ -118,5 +113,13 @@ public class CategoryDao {
 
 	public int nextPageMove(MainContents mainContents) {
 		return sqlSession.selectOne("category.nextPageMove",mainContents);
+	}
+
+	public int getCategoryListCount(MainContents search) {
+		return sqlSession.selectOne("category.getCategoryListCount",search);
+	}
+
+	public int getFavoritesCount(MainContents mainContents) {
+		return sqlSession.selectOne("category.getFavoritesCount",mainContents);
 	}
 }

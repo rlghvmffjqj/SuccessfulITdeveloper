@@ -31,6 +31,12 @@
 			</sec:authorize>
 			<div class="divBox">
 				<div style="min-height: 300px;">
+					<div class="right_area">
+						<a href="javascript:;" class="icon heart" style="text-decoration:none; color:inherit; cursor: pointer; float: left;">
+							<img src="https://cdn-icons-png.flaticon.com/512/812/812327.png" alt="좋아요">
+						</a>
+						<span id="favoritesCount" style="float: initial; margin-left: 1%;">${favoritesCount}</span>
+					</div>
 					<div>${mainContents.mainContentsDetail}</div>
 				</div>
 			</div>
@@ -382,5 +388,68 @@
 		})
 	});
 	
+	$(function(){
+	    var $likeBtn =$('.icon.heart');
+	    var postDate = $("#form").serializeObject();
+
+		$likeBtn.click(function() {
+			$likeBtn.toggleClass('active2');
+			var favoritesCount = $('#favoritesCount').text();
+
+	        if($likeBtn.hasClass('active2')) {
+	        	$('#favoritesCount').text(Number(favoritesCount)+1);
+				$(this).find('img').attr({
+	            	'src': 'https://cdn-icons-png.flaticon.com/512/803/803087.png', alt:'좋아요 완료'
+				});
+				$.ajax({
+				    type: 'post',
+				    url: "<c:url value='/category/favoritesPlus'/>",
+				    data: postDate,
+				    async: false,
+				    success: function (data) {
+				    	
+				    }
+				});
+	         } else {
+	        	 $('#favoritesCount').text(Number(favoritesCount)-1); 
+				$(this).find('i').removeClass('fas').addClass('far')
+				$(this).find('img').attr({
+					'src': 'https://cdn-icons-png.flaticon.com/512/812/812327.png',	alt:"좋아요"
+	           })
+	         }
+	     })
+	})
 </script>
+
+<style>
+	.right_area .icon{
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	    width: calc(50vw * (45 / 1920));
+	    height: calc(50vw * (45 / 1920));
+	    background-color: #fff;
+	}
+	
+	.icon.heart img{
+	    width: calc(80vw * (24 / 1920));
+	    height: calc(80vw * (24 / 1920));
+	}
+	
+	.icon.heart.fas{
+	  color:red
+	}
+	.heart{
+	    transform-origin: center;
+	}
+	.heart.active img{
+	    animation: animateHeart .3s linear forwards;
+	}
+	
+	@keyframes animateHeart{
+	    0%{transform:scale(.2);}
+	    40%{transform:scale(1.2);}
+		100%{transform:scale(1);}
+	}
+</style>
 </html>

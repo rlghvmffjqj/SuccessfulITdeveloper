@@ -57,7 +57,7 @@
 	<%@ include file="/WEB-INF/jsp/common/_LeftMenu.jsp"%>
 	<%@ include file="/WEB-INF/jsp/common/_RightMenu.jsp"%>
 	<div class="mainDiv">
-		<form id="form" name="form" method ="post" action="<c:url value='/category/categoryWrite'/>" method="post">
+		<form id="form" name="form" method ="post" action="<c:url value='/category/categoryWrite'/>" method="post" onsubmit="return false">
 			<input type="hidden" id="topItemsName" name="topItemsName" class="form-control" value="${topItemsName}">
 			<input type="hidden" id="middleItemsName" name="middleItemsName" class="form-control" value="${middleItemsName}">
 			<div class="divBox" >
@@ -168,7 +168,6 @@
 		/* =========== 검색 초기화 ========= */
 		$('#btnReset').click(function() {
 			$("input[type='text']").val("");
-			$("input[type='hidden']").val("");
 			$("select").each(function(index){
 				$("option:eq(0)",this).prop("selected",true);
 			});
@@ -177,6 +176,13 @@
 		
 		$('#btnSearch').click(function() {
 			tableRefresh();
+		});
+		
+		/* =========== Enter 검색 ========= */
+		$("input[type=text]").keypress(function(event) {
+			if (window.event.keyCode == 13) {
+				tableRefresh();
+			}
 		});
 		
 	</script>
