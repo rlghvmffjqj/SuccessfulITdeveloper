@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="freeBoard">
+	<resultMap type="com.certificate.pass.vo.FreeBoard" id="freeBoard"></resultMap>
+	<resultMap type="com.certificate.pass.vo.FreeBoardComments" id="freeBoardComments"></resultMap>
+	
+	
+	<select id="getFreeBoardList" resultMap="freeBoard" parameterType="string">
+		SELECT *
+    	FROM
+    	(
+    		SELECT ROW_NUMBER() OVER(ORDER BY ${sidx} ${sord}) RowNo, a.*
+    		FROM (
+				SELECT * 
+				FROM freeBoard
+					<include refid="sqlFreeBoard" />
+			) a
+		) b
+    	WHERE b.RowNo between (1+(${page} - 1 ) * ${rows}) and (${page} * ${rows});
+	</select>
+	
+	<select id="getFreeBoardListCount" resultType="_int">
+		SELECT COUNT(*) FROM freeBoard
+			<include refid="sqlFreeBoard" />
+	</select>
+	
+	<insert id="insertFreeBoard"  parameterType="freeBoard" useGeneratedKeys="true" keyProperty="freeBoardKeyNum">
+		INSERT INTO freeBoard(freeBoardTitle,freeBoardDetail,freeBoardCount,freeBoardUserId,freeBoardDate,freeBoardRegistrant,freeBoardRegistrationDate)
+		VALUES(#{freeBoardTitle},#{freeBoardDetail},0,#{freeBoardUserId},#{freeBoardDate},#{freeBoardRegistrant},#{freeBoardRegistrationDate});
+	</insert>
+	
+	<select id="getFreeBoardOne" parameterType="_int" resultMap="freeBoard">
+		SELECT * FROM freeBoard WHERE freeBoardKeyNum = #{freeBoardKeyNum};
+	</select>
+	
+	<select id="getFreeBoardCommentsList" parameterType="_int" resultMap="freeBoardComments">
+		SELECT * FROM freeBoardComments WHERE freeBoardKeyNum = #{freeBoardKeyNum} ORDER BY freeBoardCommentsKeyNum;
+	</select>
+	
+	<insert id="insertFreeBoardComments">
+		INSERT INTO freeBoardComments(freeBoardCommentsParentKeyNum,freeBoardKeyNum,freeBoardCommentsDepth,freeBoardCommentsContents,freeBoardCommentsName,freeBoardCommentsPassword,freeBoardCommentsDate,freeBoardCommentsSecret,freeBoardCommentsRegistrant,freeBoardCommentsRegistrationDate)
+		VALUES(0,#{freeBoardKeyNum},0,#{freeBoardCommentsContents},#{freeBoardCommentsName},#{freeBoardCommentsPassword},#{freeBoardCommentsDate},#{freeBoardCommentsSecret},#{freeBoardCommentsRegistrant},#{freeBoardCommentsRegistrationDate});
+	</insert>
+	
+	<select id="getFreeBoardCommentsOne" parameterType="_int" resultMap="freeBoardComments">
+		SELECT * FROM freeBoardComments WHERE freeBoardCommentsKeyNum = #{freeBoardCommentsKeyNum};
+	</select>
+	
+	<insert id="insertFreeBoardCommentsReply">
+		INSERT INTO freeBoardComments(freeBoardCommentsParentKeyNum,freeBoardKeyNum,freeBoardCommentsDepth,freeBoardCommentsContents,freeBoardCommentsName,freeBoardCommentsPassword,freeBoardCommentsDate,freeBoardCommentsSecret,freeBoardCommentsRegistrant,freeBoardCommentsRegistrationDate)
+		VALUES(#{freeBoardCommentsParentKeyNum},#{freeBoardKeyNum},#{freeBoardCommentsDepth},#{freeBoardCommentsContentsDialog},#{freeBoardCommentsNameDialog},#{freeBoardCommentsPasswordDialog},#{freeBoardCommentsDate},#{freeBoardCommentsSecretDialog},#{freeBoardCommentsRegistrant},#{freeBoardCommentsRegistrationDate});
+	</insert>
+	
+	<delete id="freeBoardCommentsDelete" parameterType="_int">
+		DELETE FROM freeBoardComments WHERE freeBoardCommentsKeyNum = #{freeBoardCommentsKeyNum};
+	</delete>
+	
+	<delete id="freeBoardCommentsChildDelete" parameterType="_int">
+		DELETE FROM freeBoardComments WHERE freeBoardCommentsParentKeyNum = #{freeBoardCommentsKeyNum};
+	</delete>
+	
+	<update id="freeBoardCommentsUpdate">
+		UPDATE freeBoardComments SET freeBoardCommentsContents = #{freeBoardCommentsContentsDialog}, freeBoardCommentsName = #{freeBoardCommentsNameDialog}, freeBoardCommentsSecret = #{freeBoardCommentsSecretDialog}, freeBoardCommentsDate = #{freeBoardCommentsDate} 
+		WHERE freeBoardCommentsKeyNum = #{freeBoardCommentsKeyNum};
+	</update>
+	
+	<delete id="freeBoardDelete">
+		DELETE FROM freeBoard WHERE freeBoardKeyNum = #{freeBoardKeyNum};
+	</delete>
+	
+	<delete id="freeBoardContentsCommentsDelete">
+		DELETE FROM freeBoardComments WHERE freeBoardKeyNum = #{freeBoardKeyNum};
+	</delete>
+	
+	<update id="updateFreeBoard">
+		UPDATE freeBoard SET freeBoardTitle = #{freeBoardTitle}, freeBoardDetail = #{freeBoardDetail}
+		WHERE freeBoardKeyNum = #{freeBoardKeyNum};
+	</update>
+	
+	<update id="countPlus" parameterType="_int">
+		UPDATE freeBoard SET freeBoardCount = freeBoardCount + 1 WHERE freeBoardKeyNum = #{freeBoardKeyNum};
+	</update>
+	
+	<!-- ==================================================================================== -->
+	
+	<sql id="sqlFreeBoard">
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="freeBoardUserId != null and freeBoardUserId != ''">
+				AND freeBoardUserId LIKE CONCAT('%',#{freeBoardUserId},'%')
+			</if>
+			<if test="freeBoardTitle != null and freeBoardTitle != ''">
+				AND freeBoardTitle LIKE CONCAT('%',#{freeBoardTitle},'%')
+			</if>
+		</trim>
+	</sql>
+</mapper>

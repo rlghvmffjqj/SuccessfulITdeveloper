@@ -53,7 +53,7 @@ public class RequestsController {
 			search.setUsersId(principal.getName());
 		} 
 		ArrayList<Requests> list = new ArrayList<>(requestsService.getRequestsList(search));
-		int totalCount = requestsService.getRequestsListCount();
+		int totalCount = requestsService.getRequestsListCount(search);
 		
 		map.put("page", search.getPage());
 		map.put("total", Math.ceil((float)totalCount/search.getRows()));

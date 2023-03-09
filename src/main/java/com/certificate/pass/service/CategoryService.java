@@ -117,7 +117,7 @@ public class CategoryService {
 		return categoryDao.getMainContentsOne(mainContentsKeyNum);
 	}
 
-	public String delMainContents(int[] chkList, Principal principal) {
+	public String delMainContents(int[] chkList) {
 		for (int mainContentsKeyNum : chkList) {
 			int sucess = categoryDao.delMainContents(mainContentsKeyNum);
 
@@ -210,6 +210,27 @@ public class CategoryService {
 		if (sucess <= 0)
 			return "FALSE";
 		return "OK";
+	}
+
+	public void countPlus(int mainContentsKeyNum) {
+		categoryDao.countPlus(mainContentsKeyNum);
+	}
+
+	public int updateMainContents(MainContents mainContents, Principal principal) {
+		int sucess = categoryDao.updateMainContents(mainContents);
+		if (sucess <= 0)
+			return 0;
+		return mainContents.getMainContentsKeyNum();
+	}
+
+	public int beforePageMove(int mainContentsKeyNum) {
+		MainContents mainContents = categoryDao.getMainContentsOne(mainContentsKeyNum);
+		return categoryDao.beforePageMove(mainContents);
+	}
+
+	public int nextPageMove(int mainContentsKeyNum) {
+		MainContents mainContents = categoryDao.getMainContentsOne(mainContentsKeyNum);
+		return categoryDao.nextPageMove(mainContents);
 	}
 
 }

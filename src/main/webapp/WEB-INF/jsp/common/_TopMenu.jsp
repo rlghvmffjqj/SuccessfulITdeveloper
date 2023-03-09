@@ -30,13 +30,19 @@ $(function() {
 		$('.adminSetting').addClass('active');
 		$('.category').addClass('activeSub');
 		$('#adminSettingSubMenu').show();
-	} 
+	} else if($.cookie('name') == 'freeBoardList') {
+		$('.freeBoard').addClass('active');
+	}
 	
 	if(arr.length == 2) {
 		setTimeout(() => {
-		$('#menu').show();
-		$('.'+arr[0]).addClass('active');
-		$('.'+arr[1]).addClass('activeSub');
+			$('#menu').show();
+			$('.'+arr[0]).addClass('active');
+			if(arr[0] == arr[1]) {
+				$('.'+arr[1]+"Same").addClass('activeSub');
+			} else {
+				$('.'+arr[1]).addClass('activeSub');
+			}
 		}, 100);
 	}
 	
@@ -49,7 +55,7 @@ $(function() {
     </a>
 
     <a href="<c:url value='/index'/>" class="mainMenu index" id="index">HOME</a>
-    <a href="#" class="mainMenu freeBoard" id="freeBoard">자유게시판</a>
+    <a href="<c:url value='/freeBoard/freeBoardList'/>" class="mainMenu freeBoard" id="freeBoard">자유게시판</a>
     <sec:authorize access="hasAnyRole('ADMIN','MEMBER')">
     	<a href="<c:url value='/requestsWrite'/>" class="mainMenu inquiry" id="inquiry">문의하기</a>
     </sec:authorize>
@@ -79,7 +85,7 @@ $(function() {
 	    </ul>
     </div>
     <div id="noMember">
-    	<button class="btn btnPrimary btnBlock topMenuLogin" type="button" onClick="login();">로그인</button>
+    	<button class="btnPrimary btnBlock topMenuLogin" type="button" onClick="login();">로그인</button>
     </div>
 </div>
 
@@ -137,7 +143,11 @@ $(function() {
 		    async: false,
 		    success: function (data) {
 		    	data.forEach(function(middleItemsName){
-		    		var rowItem = "<a href='<c:url value='/category/"+topItemsName+"/"+middleItemsName+"'/>' class='mediumMenu "+middleItemsName+"' id='"+middleItemsName+"'>"+middleItemsName+"</a>";
+		    		if(topItemsName == middleItemsName) {
+		    			var rowItem = "<a href='<c:url value='/category/"+topItemsName+"/"+middleItemsName+"'/>' class='mediumMenu "+middleItemsName+"Same' id='"+middleItemsName+"'>"+middleItemsName+"</a>";
+		    		} else {
+		    			var rowItem = "<a href='<c:url value='/category/"+topItemsName+"/"+middleItemsName+"'/>' class='mediumMenu "+middleItemsName+"' id='"+middleItemsName+"'>"+middleItemsName+"</a>";
+		    		} 
 				 	$('#menu').append(rowItem);
 		    	})
 		    },

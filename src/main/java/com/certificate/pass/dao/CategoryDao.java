@@ -103,4 +103,20 @@ public class CategoryDao {
 	public void delMainContentsComments(int mainContentsKeyNum) {
 		sqlSession.delete("category.delMainContentsComments",mainContentsKeyNum);
 	}
+
+	public void countPlus(int mainContentsKeyNum) {
+		sqlSession.update("category.countPlus",mainContentsKeyNum);
+	}
+
+	public int updateMainContents(MainContents mainContents) {
+		return sqlSession.update("category.updateMainContents",mainContents);
+	}
+
+	public int beforePageMove(MainContents mainContents) {
+		return sqlSession.selectOne("category.beforePageMove",mainContents);
+	}
+
+	public int nextPageMove(MainContents mainContents) {
+		return sqlSession.selectOne("category.nextPageMove",mainContents);
+	}
 }

@@ -71,13 +71,13 @@ p {
 }
 
 .btnRed {
-	background-color: #ff6767;
+	background-color: #f79b9b;
     color: #fff;
     cursor: pointer;
 }
 
 .btnBlue {
-	background-color: #6772ff;
+	background-color: #99a0ff;
     color: #fff;
     cursor: pointer;
 }
@@ -261,7 +261,7 @@ a.button {
 }
 
 /* Modal Content/Box */
-.modal-content {
+.modal-find {
     background-color: #fefefe;
     margin: 10% auto; /* 15% from the top and centered */
     padding: 20px;
@@ -437,12 +437,12 @@ table {
     /* margin-top: 2%; */
 }
 
-.mainCommentsName {
+.commentsName {
 	font-weight: 700;
     color: #555;
 }
 
-.mainCommentsDate {
+.commentsDate {
 	position: relative;
     margin-bottom: 7px;
     padding: 2px 0 0 60px;
@@ -450,13 +450,13 @@ table {
     color: #999;
 }
 
-.mainCommentsUpdate {
+.commentsUpdate {
 	position: absolute;
     right: 22%;
     margin-top: -20px;
 }
 
-.mainCommentsUpdateLink {
+.commentsUpdateLink {
 	display: none;
     position: absolute;
     top: 100%;
@@ -465,7 +465,7 @@ table {
     text-align: center;
 }
 
-.mainCommentsUpdateA {
+.commentsUpdateA {
 	display: block;
     margin-top: -1px;
     border: 1px solid #e0e0e0;
@@ -477,11 +477,11 @@ table {
     color: #333;
 }
 
-.mainCommentsUpdateA:hover {
+.commentsUpdateA:hover {
 	color: #f55f5f;
 }
 
-.mainCommentsContents {
+.commentsContents {
 	max-width: 85%;
     padding: 0 0 0 0;
     font-size: 0.875em;
@@ -490,7 +490,7 @@ table {
     box-sizing: border-box;
 }
 
-.mainCommentsReply {
+.commentsReply {
 	position: relative;
     margin-bottom: 7px;
     padding: 2px 0 0 30px;
@@ -498,7 +498,7 @@ table {
     color: #e48181
 }
 
-.mainCommentsReply:hover {
+.commentsReply:hover {
 	color: #819ee4;
 }
 
@@ -543,4 +543,38 @@ table {
 
 .commentSecretDialog {
 	font-size: 15px;
+}
+
+.btn-sm {
+    padding: 8px 14px !important;
+    line-height: 16px !important;
+    height: 40px;
+    font-size: 11px !important;
+}
+
+.note-icon-caret {
+	margin-left: -5px;
+}
+
+.btn i {
+    margin-right: 5px;
+}
+
+.note-current-fontname {
+	margin-right: 5px;
+	font-size: 12px;
+}
+
+.contentsViewBtn {
+	float: right; 
+}
+
+.pageMove {
+	color: black;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.pageMove:hover {
+	color: #ff9494;
 }

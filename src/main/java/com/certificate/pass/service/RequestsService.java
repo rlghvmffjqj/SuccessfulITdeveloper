@@ -32,8 +32,8 @@ public class RequestsService {
 		return requestsDao.getRequestsList(search);
 	}
 
-	public int getRequestsListCount() {
-		return requestsDao.getRequestsListCount();
+	public int getRequestsListCount(Requests search) {
+		return requestsDao.getRequestsListCount(search);
 	}
 
 	public Requests getRequestsOne(int requestsKeyNum) {

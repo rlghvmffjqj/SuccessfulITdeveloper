@@ -14,7 +14,7 @@ public class MainComments {
 	private Integer mainCommentsKeyNum;
 	private Integer mainCommentsParentKeyNum;
 	private Integer mainContentsKeyNum;
-	private Integer mainContentsDepth;
+	private Integer mainCommentsDepth;
 	private String mainCommentsContents;
 	private String mainCommentsName;
 	private String mainCommentsPassword;

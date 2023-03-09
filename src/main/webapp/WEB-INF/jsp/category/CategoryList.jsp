@@ -8,7 +8,8 @@
 	<%@ include file="/WEB-INF/jsp/common/_Table.jsp"%>
 	<script>
 	    $(function() {
-	    	$.cookie('name',"${topItemsName}"+","+"${middleItemsName}");
+	    	$.removeCookie('name', {path:'/successfulITdeveloper'});
+    		$.cookie('name',"${topItemsName}"+","+"${middleItemsName}", { path: '/successfulITdeveloper'});
 	    });
     </script>
     <script>
@@ -94,23 +95,11 @@
 	<script>
 		/* =========== jpgrid의 formatter 함수 ========= */
 		function linkFormatter(cellValue, options, rowdata, action) {
-			return '<a onclick="updateView('+"'"+rowdata.mainContentsKeyNum+"'"+')" style="color:#366cb3;">' + cellValue + '</a>';
+			return '<a onclick="mainContentsView('+"'"+rowdata.mainContentsKeyNum+"'"+')" style="color:#366cb3;">' + cellValue + '</a>';
 		}
 		
-		function updateView(mainContentsKeyNum) {
-			let f = document.createElement('form');
-		    
-		    let obj;
-		    obj = document.createElement('input');
-		    obj.setAttribute('type', 'hidden');
-		    obj.setAttribute('name', 'mainContentsKeyNum');
-		    obj.setAttribute('value', mainContentsKeyNum);
-		    
-		    f.appendChild(obj);
-		    f.setAttribute('method', 'post');
-		    f.setAttribute('action', "<c:url value='/category/mainContentsView'/>");
-		    document.body.appendChild(f);
-		    f.submit();
+		function mainContentsView(mainContentsKeyNum) {
+			location.href="<c:url value='/category/mainContentsView'/>?contentNumber="+mainContentsKeyNum;
 		}
 		
 		function btnDelete() {
@@ -129,7 +118,8 @@
 					  showCancelButton: true,
 					  confirmButtonColor: '#7066e0',
 					  cancelButtonColor: '#FF99AB',
-					  confirmButtonText: '예'
+					  confirmButtonText: '삭제',
+					  cancelButtonText: '아니오'
 				}).then((result) => {
 					if (result.isConfirmed) {
 						$.ajax({

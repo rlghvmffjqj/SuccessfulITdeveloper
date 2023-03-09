@@ -23,8 +23,8 @@ public class RequestsDao {
 		return sqlSession.selectList("requests.getRequestsList", search);
 	}
 
-	public int getRequestsListCount() {
-		return sqlSession.selectOne("requests.getRequestsListCount");
+	public int getRequestsListCount(Requests search) {
+		return sqlSession.selectOne("requests.getRequestsListCount", search);
 	}
 
 	public Requests getRequestsOne(int requestsKeyNum) {

@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>${mainContents.mainContentsTitle}</title>
-	<%@ include file="/WEB-INF/jsp/common/_Head.jsp"%>
-	<script type="text/javascript" src="<c:url value='/js/jquery/jquery-ui.js'/>"></script>
-	<%@ include file="/WEB-INF/jsp/common/_Table.jsp"%>
-	<script>
+<title>${mainContents.mainContentsTitle}</title>
+<%@ include file="/WEB-INF/jsp/common/_Head.jsp"%>
+<script type="text/javascript" src="<c:url value='/js/jquery/jquery-ui.js'/>"></script>
+<%@ include file="/WEB-INF/jsp/common/_Table.jsp"%>
+<script>
 		$(function() {
 	    	$.cookie('name',"${mainContents.topItemsName}"+","+"${mainContents.middleItemsName}");
 	    });
@@ -18,63 +18,75 @@
 	<%@ include file="/WEB-INF/jsp/common/_LeftMenu.jsp"%>
 	<%@ include file="/WEB-INF/jsp/common/_RightMenu.jsp"%>
 	<div class="mainDiv">
-		<form id="form" name="form" method ="post">
-			<h1>${mainContents.mainContentsTitle}</h1>
-			<div class="divBox" >
+		<form id="form" name="form" action="<c:url value='/category/categoryUpdate'/>" method="post">
+			<input type="hidden" id="topItemsName" name="topItemsName" value="${mainContents.topItemsName}">
+			<input type="hidden" id="middleItemsName" name="middleItemsName" value="${mainContents.middleItemsName}">
+			<input type="hidden" id="mainContentsKeyNum" name="mainContentsKeyNum" value="${mainContentsKeyNum}">
+			<h1 style="float: left;">${mainContents.mainContentsTitle}</h1>
+			<sec:authorize access="hasRole('ADMIN')">
+				<div style="width: 100%; float: right;">
+					<button class="btn btnBlue btnBlock middleBtn contentsViewBtn" id="updateBtn" type="submit">수정</button>
+					<button class="btn btnRed btnBlock middleBtn contentsViewBtn" id="deleteBtn" type="button">삭제</button>
+				</div>
+			</sec:authorize>
+			<div class="divBox">
 				<div style="min-height: 300px;">
 					<div>${mainContents.mainContentsDetail}</div>
 				</div>
 			</div>
 		</form>
-		
+
 		<div class="commentDiv">
 			<c:forEach var="mainComments" items="${mainCommentsList}">
-				<c:if test="${mainComments.mainContentsDepth == 0}">
+				<c:if test="${mainComments.mainCommentsDepth == 0}">
 					<div class="commentView">
-						<span id="mainCommentsKeyNum" style="display:none">${mainComments.mainCommentsKeyNum}</span>
-						<span class="mainCommentsName" id="mainCommentsName">${mainComments.mainCommentsName}</span>
-						<span class="mainCommentsDate" id="mainCommentsDate">${mainComments.mainCommentsDate}</span>
-						<a class="mainCommentsReply" id="mainCommentsReply" href="#!" onClick="mainCommentsReply(this);">답글</a>
-						<div class="mainCommentsUpdate">
+						<span id="mainCommentsKeyNum" style="display: none">${mainComments.mainCommentsKeyNum}</span>
+						<span class="commentsName" id="mainCommentsName">${mainComments.mainCommentsName}</span>
+						<span class="commentsDate" id="mainCommentsDate">${mainComments.mainCommentsDate}</span>
+						<a class="commentsReply" id="mainCommentsReply" href="#!" onClick="mainCommentsReply(this);">답글</a>
+						<div class="commentsUpdate">
 							<a href="#!" onClick="mainCommentsUpdate(this);">···</a>
-							<div class="mainCommentsUpdateLink">
-								<a href="#!" class="mainCommentsUpdateA" onclick="updateComment(this);">수정</a>
-								<a href="#!" class="mainCommentsUpdateA" onclick="deleteComment(this);">삭제</a>
+							<div class="commentsUpdateLink">
+								<a href="#!" class="commentsUpdateA" onclick="updateComment(this);">수정</a> 
+								<a href="#!" class="commentsUpdateA" onclick="deleteComment(this);">삭제</a>
 							</div>
 						</div>
-						<p class="mainCommentsContents" id="mainCommentsContents">${mainComments.mainCommentsContents}</p>
+						<p class="commentsContents" id="mainCommentsContents">${mainComments.mainCommentsContents}</p>
 					</div>
 				</c:if>
-				<c:if test="${mainComments.mainContentsDepth > 0}">
-					<div class="commentAnswerView" style="margin-left: ${mainComments.mainContentsDepth*5}%;">
-						<span id="mainCommentsKeyNum" style="display:none">${mainComments.mainCommentsKeyNum}</span>
-						<span class="mainCommentsName" id="mainCommentsName">${mainComments.mainCommentsName}</span>
-						<span class="mainCommentsDate" id="mainCommentsDate">${mainComments.mainCommentsDate}</span>
-						<a class="mainCommentsReply" id="mainCommentsReply" href="#!" onClick="mainCommentsReply(this);">답글</a>
-						<div class="mainCommentsUpdate">
+				<c:if test="${mainComments.mainCommentsDepth > 0}">
+					<div class="commentAnswerView"
+						style="margin-left: ${mainComments.mainCommentsDepth*5}%;">
+						<span id="mainCommentsKeyNum" style="display: none">${mainComments.mainCommentsKeyNum}</span>
+						<span class="commentsName" id="mainCommentsName">${mainComments.mainCommentsName}</span>
+						<span class="commentsDate" id="mainCommentsDate">${mainComments.mainCommentsDate}</span>
+						<a class="commentsReply" id="mainCommentsReply" href="#!"
+							onClick="mainCommentsReply(this);">답글</a>
+						<div class="commentsUpdate">
 							<a href="#!" onClick="mainCommentsUpdate(this);">···</a>
-							<div class="mainCommentsUpdateLink">
-								<a href="#!" class="mainCommentsUpdateA" onclick="updateComment(this);">수정</a>
-								<a href="#!" class="mainCommentsUpdateA" onclick="deleteComment(this);">삭제</a>
+							<div class="commentsUpdateLink">
+								<a href="#!" class="commentsUpdateA"
+									onclick="updateComment(this);">수정</a> <a href="#!"
+									class="commentsUpdateA" onclick="deleteComment(this);">삭제</a>
 							</div>
 						</div>
-						<p class="mainCommentsContents" id="mainCommentsContents">${mainComments.mainCommentsContents}</p>
+						<p class="commentsContents" id="mainCommentsContents">${mainComments.mainCommentsContents}</p>
 					</div>
 				</c:if>
 			</c:forEach>
 		</div>
-		
+
 		<div>
-			<form id="commentform" name="commentform" method ="post">
+			<form id="commentform" name="commentform" method="post">
 				<input type="hidden" id="mainContentsKeyNum" name="mainContentsKeyNum" value="${mainContentsKeyNum}">
 				<div class="comment-form">
 					<div class="field">
-							<input class="commentHead" type="text" name="mainCommentsName" placeholder="이름" value="">
-							<input class="commentHead" type="password" name="mainCommentsPassword" maxlength="8" placeholder="비밀번호" value="">
+						<input class="commentHead" type="text" name="mainCommentsName" placeholder="이름" value=""> 
+						<input class="commentHead" type="password" name="mainCommentsPassword" maxlength="8" placeholder="비밀번호" value="">
 					</div>
-			
+
 					<textarea class="commentBody" name="mainCommentsContents" cols="" rows="4" placeholder="여러분의 소중한 댓글을 입력바랍니다."></textarea>
-					<div class="submit">
+					<div class="submit" style="height: 55px;">
 						<div class="secret">
 							<input type="checkbox" name="mainCommentsSecret" id="secret">
 							<label>비밀글</label>
@@ -84,38 +96,42 @@
 				</div>
 			</form>
 		</div>
+		<div>
+			<a class="pageMove" href="<c:url value='/category/beforePageMove'/>?contentNumber=${mainContentsKeyNum}">＜ 이전글</a>
+			<a class="pageMove" href="<c:url value='/category/nextPageMove'/>?contentNumber=${mainContentsKeyNum}" style="float: right">다음글 ＞</a>
+		</div>
 	</div>
-	
+
 	<%@ include file="/WEB-INF/jsp/common/_FooterMenu.jsp"%>
-	
-	<div id="dialog-reply" title="답글달기" style='display:none'>
-		<form id="commentReplyform" name="commentReplyform" method ="post" onsubmit="return false">
-	  		<input class="commentHeadDialog" type="text" name="mainCommentsNameDialog" placeholder="이름" value="">
+
+	<div id="dialog-reply" title="답글달기" style='display: none'>
+		<form id="commentReplyform" name="commentReplyform" method="post" onsubmit="return false">
+			<input class="commentHeadDialog" type="text" name="mainCommentsNameDialog" placeholder="이름" value=""> 
 			<input class="commentHeadDialog" type="password" name="mainCommentsPasswordDialog" maxlength="8" placeholder="비밀번호" value="">
-	  		<textarea class="commentBodyDialog" name="mainCommentsContentsDialog" cols="" rows="4" placeholder="여러분의 소중한 댓글을 입력바랍니다."></textarea>
-	  		<input type="checkbox" name="mainCommentsSecretDialog" id="secret">
-	  		<label class="commentSecretDialog">비밀글</label>
+			<textarea class="commentBodyDialog" name="mainCommentsContentsDialog" cols="" rows="4" placeholder="여러분의 소중한 댓글을 입력바랍니다."></textarea>
+			<input type="checkbox" name="mainCommentsSecretDialog" id="secret">
+			<label class="commentSecretDialog">비밀글</label>
 		</form>
 	</div>
-	
-	<div id="dialog-delete" title="댓글삭제" style='display:none'>
-		<form id="commentDeleteform" name="commentDeleteform" method ="post" onsubmit="return false">
-	  		<input class="commentUpdateDialog" type="password" id="mainCommentsPasswordDeleteDialog" name="mainCommentsPasswordDialog" placeholder="비밀번호" value="">
+
+	<div id="dialog-delete" title="댓글삭제" style='display: none'>
+		<form id="commentDeleteform" name="commentDeleteform" method="post" onsubmit="return false">
+			<input class="commentUpdateDialog" type="password" id="mainCommentsPasswordDeleteDialog" name="mainCommentsPasswordDialog" placeholder="비밀번호" value="">
 		</form>
 	</div>
-	
-	<div id="dialog-updateCheck" title="댓글 수정" style='display:none'>
-		<form id="commentUpdateCheckform" name="commentUpdateCheckform" method ="post" onsubmit="return false">
-	  		<input class="commentUpdateDialog" type="password" id="mainCommentsPasswordUpdateDialog" name="mainCommentsPasswordDialog" placeholder="비밀번호" value="">
+
+	<div id="dialog-updateCheck" title="댓글 수정" style='display: none'>
+		<form id="commentUpdateCheckform" name="commentUpdateCheckform" method="post" onsubmit="return false">
+			<input class="commentUpdateDialog" type="password" id="mainCommentsPasswordUpdateDialog" name="mainCommentsPasswordDialog" placeholder="비밀번호" value="">
 		</form>
 	</div>
-	
-	<div id="dialog-update" title="답글 수정" style='display:none'>
-		<form id="commentUpdateform" name="commentUpdateform" method ="post" onsubmit="return false">
-	  		<input class="commentHeadDialog" type="text" id="mainCommentsNameDialog" name="mainCommentsNameDialog" placeholder="이름" value="">
-	  		<textarea class="commentBodyDialog" name="mainCommentsContentsDialog" cols="" rows="4" placeholder="여러분의 소중한 댓글을 입력바랍니다."></textarea>
-	  		<input type="checkbox" name="mainCommentsSecretDialog" id="mainCommentsSecretDialog">
-	  		<label class="commentSecretDialog">비밀글</label>
+
+	<div id="dialog-update" title="답글 수정" style='display: none'>
+		<form id="commentUpdateform" name="commentUpdateform" method="post" onsubmit="return false">
+			<input class="commentHeadDialog" type="text" id="mainCommentsNameDialog" name="mainCommentsNameDialog" placeholder="이름" value="">
+			<textarea class="commentBodyDialog" name="mainCommentsContentsDialog" cols="" rows="4" placeholder="여러분의 소중한 댓글을 입력바랍니다."></textarea>
+			<input type="checkbox" name="mainCommentsSecretDialog" id="mainCommentsSecretDialog"> 
+			<label class="commentSecretDialog">비밀글</label>
 		</form>
 	</div>
 </body>
@@ -158,7 +174,7 @@
 	        },
 	    });
 	}
-	
+
 	$('#btnComments').click(function() {
 		var postData = $('#commentform').serializeObject();
 		$.ajax({
@@ -319,6 +335,52 @@
 	        },
 	    });
 	}
+	
+	$('#deleteBtn').click(function() {
+		var mainContentsKeyNum = $('#mainContentsKeyNum').val();
+		var topItemsName = "${mainContents.topItemsName}";
+		var middleItemsName = "${mainContents.middleItemsName}";
+		
+		Swal.fire({
+			  title: '삭제!',
+			  text: "게시물 삭제 하시겠습니까?",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#7066e0',
+			  cancelButtonColor: '#FF99AB',
+			  confirmButtonText: '삭제',
+			  cancelButtonText: '아니오'
+		}).then((result) => {
+			if (result.isConfirmed) {
+				$.ajax({
+				    type: 'post',
+				    url: "<c:url value='/category/delete'/>",
+				    data: {"chkList":mainContentsKeyNum},
+				    async: false,
+				    success: function (data) {
+				    	if(data == "OK"){
+							Swal.fire({
+								icon: 'success',
+								title: '성공!',
+								text: '작업을 완료했습니다.',
+							}).then(() => {
+								location.replace("<c:url value='/category/"+topItemsName+"/"+middleItemsName+"'/>");
+							});
+						} else{
+							Swal.fire({
+								icon: 'error',
+								title: '실패!',
+								text: '작업을 실패하였습니다.',
+							});
+						}
+				    },
+				    error: function(e) {
+				        console.log(e);
+				    }
+				});
+			}
+		})
+	});
 	
 </script>
 </html>

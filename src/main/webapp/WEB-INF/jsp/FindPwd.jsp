@@ -39,7 +39,7 @@
 				<!-- The Modal -->
 			    <div id="modal" class="modal">
 					<!-- Modal content -->
-					<div class="modal-content" style="margin: 19% auto;">
+					<div class="modal-find" style="margin: 19% auto;">
 						<a onclick="close_pop();" style="float: right; font-weight: bold; color: #999999; cursor: pointer;">X</a><br><br>
 						<input style="width:100%; margin: 2px;" type="password" id="usersPw" name="usersPw" class="formControl" required="required" placeholder="비밀번호">
 						<span id="pwdEssential" style="color: red; font-size: 13px; float: left; display: none;">※ 필수 정보입니다.</span>

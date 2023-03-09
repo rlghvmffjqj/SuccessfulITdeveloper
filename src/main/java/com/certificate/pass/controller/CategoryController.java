@@ -97,9 +97,21 @@ public class CategoryController {
 	
 	@PostMapping(value = "/category/categoryWrite")
 	public String categoryWrite(String topItemsName, String middleItemsName, Model model) {
+		model.addAttribute("viewType", "insert");
 		model.addAttribute("topItemsName",topItemsName);
 		model.addAttribute("middleItemsName",middleItemsName);
 		
+		return "/category/CategoryWrite";
+	}
+	
+	@PostMapping(value = "/category/categoryUpdate")
+	public String categoryUpdate(String topItemsName, String middleItemsName, int mainContentsKeyNum, Model model) {
+		MainContents mainContents = categoryService.getMainContentsOne(mainContentsKeyNum);
+		
+		model.addAttribute("mainContents", mainContents);
+		model.addAttribute("viewType", "update");
+		model.addAttribute("topItemsName",topItemsName);
+		model.addAttribute("middleItemsName",middleItemsName);
 		return "/category/CategoryWrite";
 	}
 	
@@ -112,12 +124,22 @@ public class CategoryController {
 		return categoryService.insertMainContents(mainContents, principal);
 	}
 	
-	@PostMapping(value = "/category/mainContentsView")
-	public String mainContentsView(int mainContentsKeyNum, Principal principal, Model model) {
-		MainContents mainContents = categoryService.getMainContentsOne(mainContentsKeyNum);
-		List<MainComments> mainCommentsList = categoryService.getMainCommentsList(mainContentsKeyNum, principal);
+	@ResponseBody
+	@PostMapping(value = "/category/mainContentsUpdate")
+	public int mainContentsUpdate(MainContents mainContents, Principal principal) {
+		mainContents.setMainContentsModifiedDate(principal.getName());
+		mainContents.setMainContentsModifiedDate(categoryService.nowDate());
+		
+		return categoryService.updateMainContents(mainContents, principal);
+	}
+	
+	@GetMapping(value = "/category/mainContentsView")
+	public String mainContentsView(int contentNumber, Principal principal, Model model) {
+		MainContents mainContents = categoryService.getMainContentsOne(contentNumber);
+		List<MainComments> mainCommentsList = categoryService.getMainCommentsList(contentNumber, principal);
+		categoryService.countPlus(contentNumber);
 		model.addAttribute("mainContents", mainContents);
-		model.addAttribute("mainContentsKeyNum", mainContentsKeyNum);
+		model.addAttribute("mainContentsKeyNum", contentNumber);
 		model.addAttribute("mainCommentsList", mainCommentsList);
 		return "/category/CategoryView";
 	}
@@ -125,7 +147,7 @@ public class CategoryController {
 	@ResponseBody
 	@PostMapping(value = "/category/delete")
 	public String mainContentsDelete(@RequestParam int[] chkList, Principal principal) {
-		return categoryService.delMainContents(chkList, principal);
+		return categoryService.delMainContents(chkList);
 	}
 	
 	@ResponseBody
@@ -141,12 +163,17 @@ public class CategoryController {
 	
 	@ResponseBody
 	@PostMapping(value = "/category/mainCommentsReply")
-	public String mainCommentsReply(MainComments mainComments, Integer mainCommentsKeyNum) {
+	public String mainCommentsReply(MainComments mainComments, Integer mainCommentsKeyNum, Principal principal) {
 		MainComments parentComment = categoryService.getMainCommentsOne(mainCommentsKeyNum);
 		mainComments.setMainCommentsParentKeyNum(parentComment.getMainCommentsKeyNum());
 		mainComments.setMainContentsKeyNum(parentComment.getMainContentsKeyNum());
-		mainComments.setMainContentsDepth(parentComment.getMainContentsDepth()+1);
+		mainComments.setMainCommentsDepth(parentComment.getMainCommentsDepth()+1);
 		mainComments.setMainCommentsDate(categoryService.nowDate());
+		
+		try {
+			mainComments.setMainCommentsRegistrant(principal.getName());
+			mainComments.setMainCommentsRegistrationDate(categoryService.nowDate());
+		} catch (Exception e) {}
 		return categoryService.insertMainCommentsReply(mainComments);
 	}
 	
@@ -170,6 +197,36 @@ public class CategoryController {
 		MainComments parentComment = categoryService.getMainCommentsOne(mainCommentsKeyNum);
 		mainComments.setMainCommentsDate(categoryService.nowDate());
 		return categoryService.mainCommentsUpdate(mainComments,parentComment);
+	}
+	
+	@GetMapping(value = "/category/beforePageMove")
+	public String beforePageMove(int contentNumber, Model model) {
+		int mainContentsKeyNum;
+		try {
+			mainContentsKeyNum  = categoryService.beforePageMove(contentNumber);
+		} catch (Exception e) {
+			String loc = "/category/mainContentsView?contentNumber="+contentNumber;
+			String msg = "이전 페이지가 존재 하지 않습니다.";
+
+			model.addAttribute("loc", loc).addAttribute("msg", msg);
+			return "common/msg";
+		}
+		return "redirect:/category/mainContentsView?contentNumber="+mainContentsKeyNum ;
+	}
+	
+	@GetMapping(value = "/category/nextPageMove")
+	public String nextPageMove(int contentNumber, Model model) {
+		int mainContentsKeyNum;
+		try {
+			mainContentsKeyNum  = categoryService.nextPageMove(contentNumber);
+		} catch (Exception e) {
+			String loc = "/category/mainContentsView?contentNumber="+contentNumber;
+			String msg = "다음 페이지가 존재 하지 않습니다.";
+
+			model.addAttribute("loc", loc).addAttribute("msg", msg);
+			return "common/msg";
+		}
+		return "redirect:/category/mainContentsView?contentNumber="+mainContentsKeyNum ;
 	}
 
 }

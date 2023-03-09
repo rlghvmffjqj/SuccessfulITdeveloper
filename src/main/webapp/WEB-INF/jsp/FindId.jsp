@@ -28,7 +28,7 @@
 				<!-- The Modal -->
 			    <div id="modal" class="modal">
 					<!-- Modal content -->
-					<div class="modal-content" style="margin: 19% auto;">
+					<div class="modal-find" style="margin: 19% auto;">
 						<a onclick="close_pop();" style="float: right; font-weight: bold; color: #999999; cursor: pointer;">X</a><br><br>
 						<span id="findId"></span><button type="button" class="btn btnPrimary btnBlock" style="display: inline; width: 55px; margin-left: 20px;" onclick="loginCheck();">선택</button><br><br>
 					</div>

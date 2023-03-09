@@ -62,7 +62,7 @@
 	</delete>
 	
 	<insert id="insertMainComments">
-		INSERT INTO mainComments(mainCommentsParentKeyNum,mainContentsKeyNum,mainContentsDepth,mainCommentsContents,mainCommentsName,mainCommentsPassword,mainCommentsDate,mainCommentsSecret,mainCommentsRegistrant,mainCommentsRegistrationDate)
+		INSERT INTO mainComments(mainCommentsParentKeyNum,mainContentsKeyNum,mainCommentsDepth,mainCommentsContents,mainCommentsName,mainCommentsPassword,mainCommentsDate,mainCommentsSecret,mainCommentsRegistrant,mainCommentsRegistrationDate)
 		VALUES(0,#{mainContentsKeyNum},0,#{mainCommentsContents},#{mainCommentsName},#{mainCommentsPassword},#{mainCommentsDate},#{mainCommentsSecret},#{mainCommentsRegistrant},#{mainCommentsRegistrationDate});
 	</insert>
 	
@@ -75,8 +75,8 @@
 	</select>
 	
 	<insert id="insertMainCommentsReply">
-		INSERT INTO mainComments(mainCommentsParentKeyNum,mainContentsKeyNum,mainContentsDepth,mainCommentsContents,mainCommentsName,mainCommentsPassword,mainCommentsDate,mainCommentsSecret)
-		VALUES(#{mainCommentsParentKeyNum},#{mainContentsKeyNum},#{mainContentsDepth},#{mainCommentsContentsDialog},#{mainCommentsNameDialog},#{mainCommentsPasswordDialog},#{mainCommentsDate},#{mainCommentsSecretDialog});
+		INSERT INTO mainComments(mainCommentsParentKeyNum,mainContentsKeyNum,mainCommentsDepth,mainCommentsContents,mainCommentsName,mainCommentsPassword,mainCommentsDate,mainCommentsSecret,mainCommentsRegistrant,mainCommentsRegistrationDate)
+		VALUES(#{mainCommentsParentKeyNum},#{mainContentsKeyNum},#{mainCommentsDepth},#{mainCommentsContentsDialog},#{mainCommentsNameDialog},#{mainCommentsPasswordDialog},#{mainCommentsDate},#{mainCommentsSecretDialog},#{mainCommentsRegistrant},#{mainCommentsRegistrationDate});
 	</insert>
 	
 	<delete id="mainCommentsDelete" parameterType="_int">
@@ -96,4 +96,28 @@
 		DELETE FROM mainComments WHERE mainContentsKeyNum = #{mainContentsKeyNum};
 	</delete>
 	
+	<update id="countPlus" parameterType="_int">
+		UPDATE mainContents SET mainContentsCount = mainContentsCount + 1 WHERE mainContentsKeyNum = #{mainContentsKeyNum};
+	</update>
+	
+	<update id="updateMainContents">
+		UPDATE mainContents SET mainContentsTitle = #{mainContentsTitle}, mainContentsDetail = #{mainContentsDetail}
+		WHERE  mainContentsKeyNum = #{mainContentsKeyNum};
+	</update>
+	
+	<select id="beforePageMove" resultType="_int">
+		 <![CDATA[
+		SELECT MAX(mainContentsKeyNum) FROM maincontents
+		WHERE topItemsName = #{topItemsName} AND middleItemsName = #{middleItemsName}
+		AND mainContentsKeyNum < #{mainContentsKeyNum};
+		]]>
+	</select>
+	
+	<select id="nextPageMove" resultType="_int">
+		 <![CDATA[
+		SELECT MIN(mainContentsKeyNum) FROM maincontents
+		WHERE topItemsName = #{topItemsName} AND middleItemsName = #{middleItemsName}
+		AND mainContentsKeyNum > #{mainContentsKeyNum};
+		]]>
+	</select>
 </mapper>
