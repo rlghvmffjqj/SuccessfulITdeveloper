@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.certificate.pass.vo.Category;
+import com.certificate.pass.vo.Favorites;
 import com.certificate.pass.vo.MainComments;
 import com.certificate.pass.vo.MainContents;
 
@@ -119,7 +120,19 @@ public class CategoryDao {
 		return sqlSession.selectOne("category.getCategoryListCount",search);
 	}
 
-	public int getFavoritesCount(MainContents mainContents) {
-		return sqlSession.selectOne("category.getFavoritesCount",mainContents);
+	public int getFavoritesCount(int mainContentsKeyNum) {
+		return sqlSession.selectOne("category.getFavoritesCount",mainContentsKeyNum);
+	}
+
+	public void favoritesPlus(Favorites favorites) {
+		sqlSession.insert("category.favoritesPlus",favorites);
+	}
+
+	public void favoritesMinus(Favorites favorites) {
+		sqlSession.delete("category.favoritesMinus",favorites);
+	}
+
+	public int getFavoritesUsers(Favorites favorites) {
+		return sqlSession.selectOne("category.getFavoritesUsers",favorites);
 	}
 }

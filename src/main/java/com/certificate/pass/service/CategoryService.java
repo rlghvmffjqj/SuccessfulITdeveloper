@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -14,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.certificate.pass.dao.CategoryDao;
 import com.certificate.pass.vo.Category;
+import com.certificate.pass.vo.Favorites;
 import com.certificate.pass.vo.MainComments;
 import com.certificate.pass.vo.MainContents;
 
@@ -232,13 +235,29 @@ public class CategoryService {
 		return categoryDao.nextPageMove(mainContents);
 	}
 
-	public int getFavoritesCount(MainContents mainContents) {
-		return categoryDao.getFavoritesCount(mainContents);
+	public int getFavoritesCount(int mainContentsKeyNum) {
+		return categoryDao.getFavoritesCount(mainContentsKeyNum);
 	}
 
-	public String favoritesPlus(Category category) {
-		// TODO Auto-generated method stub
-		return null;
+	public void favoritesPlus(Favorites favorites) {
+		categoryDao.favoritesPlus(favorites);
+	}
+
+	public void favoritesMinus(Favorites favorites) {
+		categoryDao.favoritesMinus(favorites);
+	}
+
+	public boolean getFavoritesUsers(Favorites favorites) {
+		int count = categoryDao.getFavoritesUsers(favorites);
+		if(count > 0)
+			return true;
+		return false;
+	}
+	
+	public String getIpAddress(HttpServletRequest req) {
+		String ip = req.getHeader("X-Forwarded-For");
+		if (ip == null) ip = req.getRemoteAddr();
+		return ip;
 	}
 
 }

@@ -13,9 +13,8 @@ import lombok.ToString;
 public class Favorites {
 	private int favoritesKeyNum;
 	private String usersId;
-	private String topItemsName;
-	private String middleItemsName;
-	private boolean favoritesState;
+	private Integer mainContentsKeyNum;
+	private String favoritesIp;
 	private String favoritesRegistrant;
 	private String favoritesRegistrationDate;
 	private String favoritesModifier;

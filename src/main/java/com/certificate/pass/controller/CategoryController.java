@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.certificate.pass.service.CategoryService;
 import com.certificate.pass.vo.Category;
+import com.certificate.pass.vo.Favorites;
 import com.certificate.pass.vo.MainComments;
 import com.certificate.pass.vo.MainContents;
 
@@ -134,16 +137,26 @@ public class CategoryController {
 	}
 	
 	@GetMapping(value = "/category/mainContentsView")
-	public String mainContentsView(int contentNumber, Principal principal, Model model) {
+	public String mainContentsView(int contentNumber, Principal principal, Model model, HttpServletRequest req) {
 		MainContents mainContents = categoryService.getMainContentsOne(contentNumber);
 		List<MainComments> mainCommentsList = categoryService.getMainCommentsList(contentNumber, principal);
-		int favoritesCount = categoryService.getFavoritesCount(mainContents);
+		int favoritesCount = categoryService.getFavoritesCount(contentNumber);
+		Favorites favorites = new Favorites(); 
+		favorites.setFavoritesIp(categoryService.getIpAddress(req));
+		favorites.setMainContentsKeyNum(contentNumber);
+		try {
+			favorites.setUsersId(principal.getName());
+		} catch (Exception e) {
+			favorites.setUsersId("Guest");
+		}
+		boolean favoritesUsers = categoryService.getFavoritesUsers(favorites);
 		
 		categoryService.countPlus(contentNumber);
 		model.addAttribute("mainContents", mainContents);
 		model.addAttribute("mainContentsKeyNum", contentNumber);
 		model.addAttribute("mainCommentsList", mainCommentsList);
 		model.addAttribute("favoritesCount", favoritesCount);
+		model.addAttribute("favoritesUsers", favoritesUsers);
 		return "/category/CategoryView";
 	}
 	
@@ -234,13 +247,34 @@ public class CategoryController {
 	
 	@ResponseBody
 	@PostMapping(value = "/category/favoritesPlus")
-	public String favoritesPlus(Category category, Principal principal) {
+	public void favoritesPlus(int mainContentsKeyNum, Principal principal, HttpServletRequest req) {
+		Favorites favorites = new Favorites();
+		favorites.setFavoritesIp(categoryService.getIpAddress(req));
+		favorites.setMainContentsKeyNum(mainContentsKeyNum);
+		favorites.setFavoritesRegistrationDate(categoryService.nowDate());
 		try {
-			
+			favorites.setUsersId(principal.getName());
+			favorites.setFavoritesRegistrant(principal.getName());
 		} catch (Exception e) {
-			return "NoUser";
+			favorites.setUsersId("Guest");
+			favorites.setFavoritesRegistrant("Guest");
 		}
-		return categoryService.favoritesPlus(category);
+		categoryService.favoritesPlus(favorites);
 	}
+	
+	@ResponseBody
+	@PostMapping(value = "/category/favoritesMinus")
+	public void favoritesMinus(int mainContentsKeyNum, Principal principal, HttpServletRequest req) {
+		Favorites favorites = new Favorites();
+		favorites.setFavoritesIp(categoryService.getIpAddress(req));
+		favorites.setMainContentsKeyNum(mainContentsKeyNum);
+		try {
+			favorites.setUsersId(principal.getName());
+		} catch (Exception e) {
+			favorites.setUsersId("Guest");
+		}
+		categoryService.favoritesMinus(favorites);
+	}
+	
 
 }

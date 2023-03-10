@@ -127,9 +127,22 @@
 		]]>
 	</select>
 	
-	<select id="getFavoritesCount" resultType="_int">
+	<select id="getFavoritesCount" parameterType="_int" resultType="_int">
 		SELECT COUNT(*) FROM favorites
-		WHERE topItemsName = #{topItemsName} AND middleItemsName = #{middleItemsName};
+		WHERE mainContentsKeyNum = #{mainContentsKeyNum};
+	</select>
+	
+	<insert id="favoritesPlus">
+		INSERT INTO favorites(usersId,mainContentsKeyNum,favoritesIp,favoritesRegistrant,favoritesRegistrationDate)
+		VALUES(#{usersId},#{mainContentsKeyNum},#{favoritesIp},#{favoritesRegistrant},#{favoritesRegistrationDate});
+	</insert>
+	
+	<delete id="favoritesMinus">
+		DELETE FROM favorites WHERE usersId = #{usersId} AND mainContentsKeyNum = #{mainContentsKeyNum} AND favoritesIp = #{favoritesIp};
+	</delete>
+	
+	<select id="getFavoritesUsers" resultType="_int">
+		SELECT COUNT(*) FROM favorites WHERE usersId = #{usersId} AND mainContentsKeyNum = #{mainContentsKeyNum} AND favoritesIp = #{favoritesIp};
 	</select>
 	
 	<!-- ==================================================================================== -->

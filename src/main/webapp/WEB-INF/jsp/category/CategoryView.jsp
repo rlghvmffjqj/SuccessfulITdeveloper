@@ -32,8 +32,8 @@
 			<div class="divBox">
 				<div style="min-height: 300px;">
 					<div class="right_area">
-						<a href="javascript:;" class="icon heart" style="text-decoration:none; color:inherit; cursor: pointer; float: left;">
-							<img src="https://cdn-icons-png.flaticon.com/512/812/812327.png" alt="좋아요">
+						<a href="javascript:;" class="icon heart" id="heart" style="text-decoration:none; color:inherit; cursor: pointer; float: left;">
+							<img src="https://cdn-icons-png.flaticon.com/512/812/812327.png" id="favorites" alt="좋아요">
 						</a>
 						<span id="favoritesCount" style="float: initial; margin-left: 1%;">${favoritesCount}</span>
 					</div>
@@ -142,6 +142,19 @@
 	</div>
 </body>
 <script>
+	$(function() {
+		var $likeBtn =$('.icon.heart');
+		if(${favoritesUsers}) {
+			$likeBtn.toggleClass('active2');
+
+	        if($likeBtn.hasClass('active2')) {
+				$('#favorites').attr({
+	            	'src': 'https://cdn-icons-png.flaticon.com/512/803/803087.png', alt:'좋아요 완료'
+				});
+	        }
+		}
+	});
+
 	function mainCommentsReply(reply) {
 		var mainCommentsKeyNum = reply.previousElementSibling.previousElementSibling.previousElementSibling.innerText;
 		$('#dialog-reply').dialog({
@@ -390,7 +403,7 @@
 	
 	$(function(){
 	    var $likeBtn =$('.icon.heart');
-	    var postDate = $("#form").serializeObject();
+	    var mainContentsKeyNum = $('#mainContentsKeyNum').val();
 
 		$likeBtn.click(function() {
 			$likeBtn.toggleClass('active2');
@@ -404,20 +417,33 @@
 				$.ajax({
 				    type: 'post',
 				    url: "<c:url value='/category/favoritesPlus'/>",
-				    data: postDate,
+				    data: {"mainContentsKeyNum": mainContentsKeyNum},
 				    async: false,
-				    success: function (data) {
-				    	
-				    }
+				    success: function () {
+				    }, 
+				    error: function(error) {
+						console.log(error);
+					}
 				});
-	         } else {
-	        	 $('#favoritesCount').text(Number(favoritesCount)-1); 
+			} else {
+				$('#favoritesCount').text(Number(favoritesCount)-1); 
 				$(this).find('i').removeClass('fas').addClass('far')
 				$(this).find('img').attr({
 					'src': 'https://cdn-icons-png.flaticon.com/512/812/812327.png',	alt:"좋아요"
 	           })
-	         }
-	     })
+	           $.ajax({
+				    type: 'post',
+				    url: "<c:url value='/category/favoritesMinus'/>",
+				    data: {"mainContentsKeyNum": mainContentsKeyNum},
+				    async: false,
+				    success: function () {
+				    }, 
+				    error: function(error) {
+						console.log(error);
+					}
+				});
+			}
+		})
 	})
 </script>
 
