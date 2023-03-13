@@ -7,7 +7,7 @@
 	<%@ include file="/WEB-INF/jsp/common/_Head.jsp"%>
 	<script>
 	    $(function() {
-	    	$.cookie('name','index');
+	    	$.cookie('name','index', { path: '/successfulITdeveloper'});
 	    });
     </script>
 </head>

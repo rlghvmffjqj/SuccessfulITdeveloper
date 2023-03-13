@@ -57,13 +57,13 @@
 	<%@ include file="/WEB-INF/jsp/common/_LeftMenu.jsp"%>
 	<%@ include file="/WEB-INF/jsp/common/_RightMenu.jsp"%>
 	<div class="mainDiv">
-		<form id="form" name="form" method ="post" action="<c:url value='/category/categoryWrite'/>" method="post" onsubmit="return false">
+		<form id="form" name="form" method ="post" action="<c:url value='/category/categoryWrite'/>">
 			<input type="hidden" id="topItemsName" name="topItemsName" class="form-control" value="${topItemsName}">
 			<input type="hidden" id="middleItemsName" name="middleItemsName" class="form-control" value="${middleItemsName}">
 			<div class="divBox" >
 			    <div class="col-lg-2">
 			    	<label class="labelFontSize">제목</label>
-					<input type="text" id="mainContentsTitle" name="mainContentsTitle" class="formControl seachInput"> 
+					<input type="text" id="mainContentsTitle" name="mainContentsTitle" class="formControl seachInput">
 			    </div>
 			    <div class="col-lg-12">
 			    	<button class="btn btnDefault btnm" type="button" id="btnReset" style="float: right">
@@ -182,6 +182,7 @@
 		$("input[type=text]").keypress(function(event) {
 			if (window.event.keyCode == 13) {
 				tableRefresh();
+				event.preventDefault();
 			}
 		});
 		

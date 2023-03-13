@@ -9,7 +9,7 @@
 <%@ include file="/WEB-INF/jsp/common/_Table.jsp"%>
 <script>
 		$(function() {
-	    	$.cookie('name',"${mainContents.topItemsName}"+","+"${mainContents.middleItemsName}");
+	    	$.cookie('name',"${mainContents.topItemsName}"+","+"${mainContents.middleItemsName}", { path: '/successfulITdeveloper'});
 	    });
     </script>
 </head>
@@ -36,6 +36,7 @@
 							<img src="https://cdn-icons-png.flaticon.com/512/812/812327.png" id="favorites" alt="좋아요">
 						</a>
 						<span id="favoritesCount" style="float: initial; margin-left: 1%;">${favoritesCount}</span>
+						<span style="float: right; font-size: 14px; color: gray;">${mainContents.mainContentsRegistrationDate}</span>
 					</div>
 					<div>${mainContents.mainContentsDetail}</div>
 				</div>
