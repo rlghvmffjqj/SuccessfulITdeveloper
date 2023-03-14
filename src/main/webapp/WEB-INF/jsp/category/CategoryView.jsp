@@ -22,7 +22,7 @@
 			<input type="hidden" id="topItemsName" name="topItemsName" value="${mainContents.topItemsName}">
 			<input type="hidden" id="middleItemsName" name="middleItemsName" value="${mainContents.middleItemsName}">
 			<input type="hidden" id="mainContentsKeyNum" name="mainContentsKeyNum" value="${mainContentsKeyNum}">
-			<h1 style="float: left;">${mainContents.mainContentsTitle}</h1>
+			<span class="mainTitle" style="float: left;">${mainContents.mainContentsTitle}</span>
 			<sec:authorize access="hasRole('ADMIN')">
 				<div style="width: 100%; float: right;">
 					<button class="btn btnBlue btnBlock middleBtn contentsViewBtn" id="updateBtn" type="submit">수정</button>
@@ -31,7 +31,7 @@
 			</sec:authorize>
 			<div class="divBox">
 				<div style="min-height: 300px;">
-					<div style="height:20px";>
+					<div style="height:20px;">
 						<span style="float: right; font-size: 14px; color: gray;">${mainContents.mainContentsRegistrationDate}</span>
 					</div>
 					<div>${mainContents.mainContentsDetail}</div>
@@ -455,14 +455,14 @@
 	    display: flex;
 	    align-items: center;
 	    justify-content: center;
-	    width: calc(50vw * (45 / 1920));
-	    height: calc(50vw * (45 / 1920));
+	    width: 30%;
+	    height: 30%;
 	    background-color: #fff;
 	}
 	
 	.icon.heart img{
-	    width: calc(80vw * (24 / 1920));
-	    height: calc(80vw * (24 / 1920));
+	    width: 100%;
+	    height: 100%;
 	}
 	
 	.icon.heart.fas{

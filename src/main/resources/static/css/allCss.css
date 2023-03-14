@@ -379,12 +379,6 @@ a.button {
 	text-align: center;
 }
 
-.middleBtn {
-	width: 80px; 
-	height: 30px; 
-	float: left; 
-	margin: 2px;
-}
 
 table {
 	border-collapse: collapse;
@@ -598,3 +592,32 @@ table {
     text-align: center;
     width: 60px;
 }
+
+@media (min-width: 1024px) and (max-width: 2000px) {
+	.mainTitle{
+		font-size: 25px;
+	    font-weight: 600;
+	}
+	
+	.middleBtn {
+		width: 80px; 
+		height: 30px; 
+		float: right; 
+		margin: 2px;
+	}
+}
+
+@media (min-width: 0px) and (max-width: 1024px) {
+	.mainTitle{
+		font-size: 20px;
+	    font-weight: 600;
+	}
+	
+	.middleBtn {
+		width: 45px; 
+		height: 30px; 
+		float: right; 
+		margin: 2px;
+	}
+}
+
