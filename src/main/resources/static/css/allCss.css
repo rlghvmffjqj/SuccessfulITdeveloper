@@ -61,24 +61,30 @@ p {
 }
 
 .btnDarkgreen {
-	background-color: #483838;
+	background-color: #42855B;
     color: #fff;
+    border: 1px solid #42855B !important;
     cursor: pointer;
 }
 
 .btnDarkgreen:hover {
-	background-color: #928484;
+	background-color: #84bf9a;
 }
 
 .btnRed {
 	background-color: #f79b9b;
     color: #fff;
+    border-radius: 5px;
+    background-color: #F73D24;
+    border: 1px solid #F73D24;
     cursor: pointer;
 }
 
 .btnBlue {
-	background-color: #99a0ff;
-    color: #fff;
+	background-color: white;
+    border: 1px solid #2FAFF3;
+    border-radius: 5px;
+    color: #2FAFF3;
     cursor: pointer;
 }
 
@@ -86,16 +92,20 @@ p {
 	background-color: #fca9a9;
 }
 
+.btnBlue:hover {
+	background-color: #e0f4ff;
+}
+
 .btnPrimary:hover {
 	background-color: #555555;
 }
 
 .btnDefault {
-	background-color: #e0e0e0;
+	background-color: white;
 }
 
 .btnDefault:hover {
-	background-color: white;
+	background-color: #e4e4e4;
 }
 
 input#check_btn{
@@ -291,10 +301,11 @@ a.button {
     vertical-align: middle;
     margin-right: 10px;
     border: 1px solid black;
+    border-radius: 5px;
 }
 
 .seachInput {
-	width: 90%;
+	width: 85%;
     height: 30px;
     padding-inline: 10px;
 }
@@ -345,7 +356,7 @@ a.button {
 	box-shadow: 0px 3px 5px darkgrey; 
 	display:none; 
 	overflow: hidden;
-	padding-left: 28%;
+	/* padding-left: 28%; */
 }
 
 .width90 {
@@ -577,4 +588,13 @@ table {
 
 .pageMove:hover {
 	color: #ff9494;
+}
+
+.right_area {
+	margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    text-align: center;
+    width: 60px;
 }

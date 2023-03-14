@@ -9,22 +9,24 @@
 	<script>
 	    $(function() {
 	    	$.removeCookie('name', {path:'/successfulITdeveloper'});
-    		$.cookie('name',"${topItemsName}"+","+"${middleItemsName}", { path: '/successfulITdeveloper'});
+    		$.cookie('name',"integratedList", { path: '/successfulITdeveloper'});
 	    });
     </script>
     <script>
 		$(document).ready(function(){
 			var formData = $('#form').serializeObject();
 			$("#list").jqGrid({
-				url: "<c:url value='/category'/>",
+				url: "<c:url value='/integrated'/>",
 				mtype: 'POST',
 				postData: formData,
 				datatype: 'json',
-				colNames:['키','제목','등록자','등록일'],
+				colNames:['키','제목','대메뉴','중메뉴','등록자','등록일'],
 				colModel:[
 					{name:'mainContentsKeyNum', index:'mainContentsKeyNum',align:'center', width: 50, hidden:true},
 					{name:'mainContentsTitle', index:'mainContentsTitle', align:'center', width: 500, formatter: linkFormatter},
-					{name:'mainContentsRegistrant', index:'mainContentsRegistrant',align:'center', width: 150},
+					{name:'topItemsName', index:'topItemsName',align:'center', width: 100},
+					{name:'middleItemsName', index:'middleItemsName',align:'center', width: 150},
+					{name:'mainContentsRegistrant', index:'mainContentsRegistrant',align:'center', width: 100},
 					{name:'mainContentsRegistrationDate', index:'mainContentsRegistrationDate', width: 150, align:'center'},
 				],
 				jsonReader : {
@@ -34,7 +36,7 @@
 		        pager: '#pager',			// 페이징
 		        rowNum: 25,					// 보여중 행의 수
 		        sortname: 'mainContentsKeyNum', 	// 기본 정렬 
-		        sortorder: 'desc',			// 정렬 방식
+		        sortorder: 'asc',			// 정렬 방식
 		        
 		        multiselect: true,			// 체크박스를 이용한 다중선택
 		        viewrecords: false,			// 시작과 끝 레코드 번호 표시
@@ -57,13 +59,19 @@
 	<%@ include file="/WEB-INF/jsp/common/_LeftMenu.jsp"%>
 	<%@ include file="/WEB-INF/jsp/common/_RightMenu.jsp"%>
 	<div class="mainDiv">
-		<form id="form" name="form" method ="post" action="<c:url value='/category/categoryWrite'/>">
-			<input type="hidden" id="topItemsName" name="topItemsName" class="form-control" value="${topItemsName}">
-			<input type="hidden" id="middleItemsName" name="middleItemsName" class="form-control" value="${middleItemsName}">
+		<form id="form" name="form" method ="post" action="<c:url value='/integrated/integratedWrite'/>">
 			<div class="divBox" >
 			    <div class="col-lg-2">
 			    	<label class="labelFontSize">제목</label>
 					<input type="text" id="mainContentsTitle" name="mainContentsTitle" class="formControl seachInput">
+			    </div>
+			    <div class="col-lg-2">
+			    	<label class="labelFontSize">대메뉴</label>
+					<input type="text" id="topItemsName" name="topItemsName" class="formControl seachInput">
+			    </div>
+			    <div class="col-lg-2">
+			    	<label class="labelFontSize">중메뉴</label>
+					<input type="text" id="middleItemsName" name="middleItemsName" class="formControl seachInput">
 			    </div>
 			    <div class="col-lg-12">
 			    	<button class="btn btnDefault btnm" type="button" id="btnReset" style="float: right">
@@ -77,12 +85,6 @@
 		
 			<div style="width: 100%; height: 15px;"></div>
 			<div class="divBox">
-				<sec:authorize access="hasRole('ADMIN')">
-					<div style="width: 100%; height: 35px;">
-						<button class="btn btnBlue btnBlock middleBtn" type="submit" style="width: 100px;">게시물 등록</button>
-						<button class="btn btnRed btnBlock middleBtn" type="button" style="width: 100px;" onClick="btnDelete();">게시물 삭제</button>
-					</div>
-				</sec:authorize>
 				<div class="jqGrid_wrapper">
 					<table id="list"></table>
 					<div id="pager"></div>
@@ -100,60 +102,6 @@
 		
 		function mainContentsView(mainContentsKeyNum) {
 			location.href="<c:url value='/category/mainContentsView'/>?contentNumber="+mainContentsKeyNum;
-		}
-		
-		function btnDelete() {
-			var chkList = $("#list").getGridParam('selarrrow');
-			if(chkList == 0) {
-				Swal.fire({               
-					icon: 'error',          
-					title: '실패!',           
-					text: '선택한 행이 존재하지 않습니다.',    
-				});    
-			} else {
-				Swal.fire({
-					  title: '삭제!',
-					  text: "게시물 삭제 하시겠습니까?",
-					  icon: 'warning',
-					  showCancelButton: true,
-					  confirmButtonColor: '#7066e0',
-					  cancelButtonColor: '#FF99AB',
-					  confirmButtonText: '삭제',
-					  cancelButtonText: '아니오'
-				}).then((result) => {
-					if (result.isConfirmed) {
-						$.ajax({
-				            type: 'POST',
-				            url: "<c:url value='/category/delete'/>",
-				            data: {
-								chkList: chkList
-							},
-				            dataType: "text",
-							async: false,
-							traditional: true,
-				            success: function (data) {
-				            	if(data == "OK"){
-									Swal.fire({
-										icon: 'success',
-										title: '성공!',
-										text: '작업을 완료했습니다.',
-									});
-									tableRefresh();
-								} else{
-									Swal.fire({
-										icon: 'error',
-										title: '실패!',
-										text: '작업을 실패하였습니다.',
-									});
-								}
-				            },
-				            error: function(e) {
-				                // TODO 에러 화면
-				            }
-				        });
-					}
-				})
-			}
 		}
 		
 		function tableRefresh() {

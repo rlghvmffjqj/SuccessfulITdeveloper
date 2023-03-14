@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="integrated">
+	<resultMap type="com.certificate.pass.vo.MainContents" id="mainContents"></resultMap>
+	
+	<select id="getIntegratedList" parameterType="string" resultMap="mainContents">
+		SELECT * FROM mainContents
+			<include refid="sqlIntegrated" />
+	</select>
+	
+	<select id="getIntegratedListCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*) FROM mainContents
+			<include refid="sqlIntegrated" />
+	</select>
+	
+	<!-- ==================================================================================== -->
+	
+	<sql id="sqlIntegrated">
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="mainContentsTitle != null and mainContentsTitle != ''">
+				AND mainContentsTitle LIKE CONCAT('%',#{mainContentsTitle},'%')
+			</if>
+			<if test="topItemsName != null and topItemsName != ''">
+				AND topItemsName LIKE CONCAT('%',#{topItemsName},'%')
+			</if>
+			<if test="middleItemsName != null and middleItemsName != ''">
+				AND middleItemsName LIKE CONCAT('%',#{middleItemsName},'%')
+			</if>
+		</trim>
+	</sql>
+</mapper>

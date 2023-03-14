@@ -31,17 +31,15 @@
 			</sec:authorize>
 			<div class="divBox">
 				<div style="min-height: 300px;">
-					<div style="height:20px";>
+					<div class="right_area">
+						<a href="javascript:;" class="icon heart" id="heart" style="text-decoration:none; color:inherit; cursor: pointer; float: left;">
+							<img src="https://cdn-icons-png.flaticon.com/512/812/812327.png" id="favorites" alt="좋아요">
+						</a>
+						<span id="favoritesCount" style="float: initial; margin-left: 1%;">${favoritesCount}</span>
 						<span style="float: right; font-size: 14px; color: gray;">${mainContents.mainContentsRegistrationDate}</span>
 					</div>
 					<div>${mainContents.mainContentsDetail}</div>
 				</div>
-			</div>
-			<div class="right_area">
-				<a href="javascript:;" class="icon heart" id="heart" style="text-decoration:none; color:inherit; cursor: pointer; float: left;">
-					<img src="https://cdn-icons-png.flaticon.com/512/812/812327.png" id="favorites" alt="좋아요">
-				</a>
-				<span id="favoritesCount" style="float: initial; margin-left: 20%;">${favoritesCount}</span>
 			</div>
 		</form>
 

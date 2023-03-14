@@ -32,6 +32,8 @@ $(function() {
 		$('#adminSettingSubMenu').show();
 	} else if($.cookie('name') == 'freeBoardList') {
 		$('.freeBoard').addClass('active');
+	} else if($.cookie('name') == 'integratedList') {
+		$('.integrated').addClass('active');
 	}
 	
 	if(arr.length == 2) {
@@ -55,6 +57,7 @@ $(function() {
     </a>
 
     <a href="<c:url value='/index'/>" class="mainMenu index" id="index">HOME</a>
+    <a href="<c:url value='/integrated/integratedList'/>" class="mainMenu integrated" id="integrated">통합검색</a>
     <a href="<c:url value='/freeBoard/freeBoardList'/>" class="mainMenu freeBoard" id="freeBoard">자유게시판</a>
     <sec:authorize access="hasAnyRole('ADMIN','MEMBER')">
     	<a href="<c:url value='/requestsWrite'/>" class="mainMenu inquiry" id="inquiry">문의하기</a>
@@ -64,47 +67,52 @@ $(function() {
     	<a href="<c:url value='/employeeList'/>" class="mainMenu adminSetting" id="adminSetting">관리자설정</a>
     </sec:authorize>
     
-    <div id="member">
-	    <a href="#!" style="float: right; margin-right: 20%;" id="topMendAShow">
-	        <img style="border-radius: 50%; width: 35px; margin: 10px;" src="<c:url value='/images/profile.png' />">
-	        <img style="float: right; width: 12px; margin-top: 23px;" src="<c:url value='/images/down.png' />">
-	        <span id="topMenuSpan" style="float: right; color: white; font-size: 18px; margin: 14px;"><sec:authentication property="name"/></span>
-	    </a>
-	    <ul style="display: none; z-index: 1;" class="topMenuUl" id="topMendUlShow">
-	    	<img style="width: 28px; margin: 10px; position: absolute; right: 44px; transform: translateY(-34px);" src="<c:url value='/images/triangle.png' />">
-	        <li class="topMenuLi">
-	            <a href="#" onclick="profileView()" class="topMenuA">
-	                Profile
-	            </a>
-	        </li>
-	        <li class="topMenuLi">
-	            <a href="#" onclick="kakaoLogout()" class="topMenuA">
-	                Logout
-	            </a>
-	        </li>
-	    </ul>
-    </div>
-    <div id="noMember">
-    	<button class="btnPrimary btnBlock topMenuLogin" type="button" onClick="login();">로그인</button>
-    </div>
+    
+    <sec:authorize access="isAuthenticated()">
+	    <div id="member">
+		    <a href="#!" style="float: right; margin-right: 20%;" id="topMendAShow">
+		        <img style="border-radius: 50%; width: 35px; margin: 10px;" src="<c:url value='/images/profile.png' />">
+		        <img style="float: right; width: 12px; margin-top: 23px;" src="<c:url value='/images/down.png' />">
+		        <span id="topMenuSpan" style="float: right; color: white; font-size: 18px; margin: 14px;"><sec:authentication property="name"/></span>
+		    </a>
+		    <ul style="display: none; z-index: 1;" class="topMenuUl" id="topMendUlShow">
+		    	<img style="width: 28px; margin: 10px; position: absolute; right: 44px; transform: translateY(-34px);" src="<c:url value='/images/triangle.png' />">
+		        <li class="topMenuLi">
+		            <a href="#" onclick="profileView()" class="topMenuA">
+		                Profile
+		            </a>
+		        </li>
+		        <li class="topMenuLi">
+		            <a href="#" onclick="kakaoLogout()" class="topMenuA">
+		                Logout
+		            </a>
+		        </li>
+		    </ul>
+	    </div>
+    </sec:authorize>
+    <sec:authorize access="isAnonymous()">
+	    <div id="noMember">
+	    	<button class="btnPrimary btnBlock topMenuLogin" type="button" onClick="login();">로그인</button>
+	    </div>
+    </sec:authorize>
 </div>
 
 <div id="menu" class="subMenu">
 	<div style="height: 7px;"></div>
-	<%-- <c:forEach var="middleItemsName" items="${middleItemsNameList}">
-		<a href="<c:url value='/category/${topItemsName}/${middleItemsName}'/>" class="mediumMenu ${middleItemsName}" id="${middleItemsName}">${middleItemsName}</a>
-	</c:forEach> --%>
+	<div style="width: 28%; float: left; height: 1px;"></div>
 </div>
 
 
 <div id="requestsSubMenu" class="subMenu">
 	<div style="height: 7px;"></div>
+	<div style="width: 28%; float: left; height: 1px;"></div>
 	<a href="<c:url value='/requestsWrite'/>" class="mediumMenu requestsWrite" id="requestsWrite">문의하기</a>
 	<a href="<c:url value='/requestsList'/>" class="mediumMenu requestsList" id="requestsList">문의내역</a>
 </div>
 
 <div id="adminSettingSubMenu" class="subMenu">
 	<div style="height: 7px;"></div>
+	<div style="width: 28%; float: left; height: 1px;"></div>
 	<sec:authorize access="hasRole('ADMIN')">
 		<a href="<c:url value='/employeeList'/>" class="mediumMenu employee" id="employee">회원 정보</a>
 		<a href="<c:url value='/announcementWrite'/>" class="mediumMenu announcement" id="announcement">공지사항</a>
@@ -155,15 +163,6 @@ $(function() {
 		        console.log(e);
 		    }
 		});
-		
-		
-		if($("#topMenuSpan").text() == "anonymousUser") {
-			$("#member").hide();
-			$("#noMember").show();
-		} else {
-			$("#noMember").hide();
-			$("#member").show();
-		}
 	});
 	
 	$('#topMendAShow').click(function() {
