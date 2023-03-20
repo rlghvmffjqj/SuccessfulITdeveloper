@@ -95,7 +95,7 @@
 	<script>
 		/* =========== jpgrid의 formatter 함수 ========= */
 		function linkFormatter(cellValue, options, rowdata, action) {
-			return '<a onclick="mainContentsView('+"'"+rowdata.mainContentsKeyNum+"'"+')" style="color:#366cb3;">' + cellValue + '</a>';
+			return '<a href="#!" onclick="mainContentsView('+"'"+rowdata.mainContentsKeyNum+"'"+')" style="color:#366cb3;">' + cellValue + '</a>';
 		}
 		
 		function mainContentsView(mainContentsKeyNum) {

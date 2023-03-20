@@ -7,11 +7,49 @@
 <%@ include file="/WEB-INF/jsp/common/_Head.jsp"%>
 <script type="text/javascript" src="<c:url value='/js/jquery/jquery-ui.js'/>"></script>
 <%@ include file="/WEB-INF/jsp/common/_Table.jsp"%>
-<script>
+	<script>
 		$(function() {
 	    	$.cookie('name',"${mainContents.topItemsName}"+","+"${mainContents.middleItemsName}", { path: '/ITDeveloper'});
 	    });
     </script>
+        <script>
+		$(document).ready(function(){
+			var formData = $('#form').serializeObject();
+			$("#list").jqGrid({
+				url: "<c:url value='/category'/>",
+				mtype: 'POST',
+				postData: formData,
+				datatype: 'json',
+				colNames:['키',"'${mainContents.topItemsName}/${mainContents.middleItemsName}' 카테고리 다른 글",'등록일'],
+				colModel:[
+					{name:'mainContentsKeyNum', index:'mainContentsKeyNum',align:'left', width: '5%', hidden:true},
+					{name:'mainContentsTitle', index:'mainContentsTitle', align:'left', width: '90%', formatter: linkFormatter},
+					{name:'mainContentsRegistrationDate', index:'mainContentsRegistrationDate', width: '15%', align:'left'},
+				],
+				jsonReader : {
+		        	id: 'mainContentsKeyNum',
+		        	repeatitems: false
+		        },
+		        pager: '#pager',			// 페이징
+		        rowNum: 5,					// 보여중 행의 수
+		        sortname: 'mainContentsKeyNum', 	// 기본 정렬 
+		        sortorder: 'desc',			// 정렬 방식
+		        
+		        multiselect: false,			// 체크박스를 이용한 다중선택
+		        viewrecords: false,			// 시작과 끝 레코드 번호 표시
+		        gridview: false,				// 그리드뷰 방식 랜더링
+		        sortable: false,				// 컬럼을 마우스 순서 변경
+		        height : '115',
+		        autowidth:true,				// 가로 넒이 자동조절
+		        shrinkToFit: true,			// 컬럼 폭 고정값 유지
+		        altRows: false,				// 라인 강조
+			}); 
+		});
+		
+		$(window).on('resize.list', function () {
+		    jQuery("#list").jqGrid( 'setGridWidth', $(".page-wrapper").width() - $(".departmentTable").width());
+		});
+	</script>
 </head>
 <body>
 	<%@ include file="/WEB-INF/jsp/common/_TopMenu.jsp"%>
@@ -44,6 +82,10 @@
 				<span id="favoritesCount" style="float: initial; margin-left: 20%;">${favoritesCount}</span>
 			</div>
 		</form>
+		<div class="jqGrid_wrapper">
+			<table id="list"></table>
+			<div id="pager"></div>
+		</div>
 
 		<div class="commentDiv">
 			<c:forEach var="mainComments" items="${mainCommentsList}">
@@ -448,6 +490,14 @@
 			}
 		})
 	})
+	
+	function linkFormatter(cellValue, options, rowdata, action) {
+		return '<div href="#!" onclick="mainContentsView('+"'"+rowdata.mainContentsKeyNum+"'"+')" style="color:#188f2f;">' + cellValue + '</div>';
+	}
+	
+	function mainContentsView(mainContentsKeyNum) {
+		location.href="<c:url value='/category/mainContentsView'/>?contentNumber="+mainContentsKeyNum;
+	}
 </script>
 
 <style>
@@ -479,6 +529,22 @@
 	    0%{transform:scale(.2);}
 	    40%{transform:scale(1.2);}
 		100%{transform:scale(1);}
+	}
+	
+	.ui-widget-content {
+		border: 0;
+	}
+	
+	.ui-jqgrid tr.ui-row-ltr td {
+		border: 0;
+	}
+	
+	.ui-widget-content {
+	    color: #188f2f;
+	}
+	
+	.ui-th-column, .ui-jqgrid .ui-jqgrid-htable th.ui-th-column {
+    	text-align: left;
 	}
 </style>
 </html>

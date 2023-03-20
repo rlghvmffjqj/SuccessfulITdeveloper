@@ -597,6 +597,8 @@ table {
 	.mainTitle{
 		font-size: 25px;
 	    font-weight: 600;
+	    margin-top: 4%;
+    	margin-bottom: 3%;
 	}
 	
 	.middleBtn {
@@ -611,6 +613,8 @@ table {
 	.mainTitle{
 		font-size: 20px;
 	    font-weight: 600;
+	    margin-top: 4%;
+    	margin-bottom: 3%;
 	}
 	
 	.middleBtn {
