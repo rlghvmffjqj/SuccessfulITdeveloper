@@ -9,7 +9,7 @@
 	<%@ include file="/WEB-INF/jsp/common/_Table.jsp"%>
 	<script>
 		$(function() {
-	    	$.cookie('name',"freeBoardList", { path: '/successfulITdeveloper'});
+	    	$.cookie('name',"freeBoardList", { path: '/ITDeveloper'});
 	    });
     </script>
 </head>

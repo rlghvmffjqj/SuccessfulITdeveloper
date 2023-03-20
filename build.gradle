@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.7'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'war'
 }
 
 group = 'com.certificate.pass'
@@ -41,4 +42,10 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+bootWar {
+	archiveBaseName = 'ITDeveloper'
+	archiveFileName = 'ITDeveloper.war'
+	archiveVersion = "0.0.0"
 }

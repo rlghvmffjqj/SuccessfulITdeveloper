@@ -16,7 +16,7 @@ span {
 
 p {
 	font-family: math;
-	/* padding: 10px; */
+	font-size: 14px;
 }
 .formControl {
 	display: inline-block;
@@ -148,7 +148,7 @@ input#check_btn:checked + label:before{
     width: 13em;
     transform: translateY(50px);
     position: absolute;
-    right: 330px;
+    right: 5px;
 }
 
 .topMenuLi {

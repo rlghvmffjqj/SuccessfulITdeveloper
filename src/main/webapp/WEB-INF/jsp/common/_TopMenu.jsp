@@ -55,22 +55,22 @@ $(function() {
 	<a href="<c:url value='/pastQuestion'/>">
         <img src="<c:url value='/images/logo.png' />" style="float: left; width: 140px; margin-top: 15px; margin-right: 20px; margin-left: 20%;">
     </a>
-
-    <a href="<c:url value='/index'/>" class="mainMenu index" id="index">HOME</a>
-    <a href="<c:url value='/integrated/integratedList'/>" class="mainMenu integrated" id="integrated">통합검색</a>
-    <a href="<c:url value='/freeBoard/freeBoardList'/>" class="mainMenu freeBoard" id="freeBoard">자유게시판</a>
-    <sec:authorize access="hasAnyRole('ADMIN','MEMBER')">
-    	<a href="<c:url value='/requestsWrite'/>" class="mainMenu inquiry" id="inquiry">문의하기</a>
-    </sec:authorize>
-    
-    <sec:authorize access="hasRole('ADMIN')">
-    	<a href="<c:url value='/employeeList'/>" class="mainMenu adminSetting" id="adminSetting">관리자설정</a>
-    </sec:authorize>
-    
+	<div>
+	    <a href="<c:url value='/index'/>" class="mainMenu index" id="index">HOME</a>
+	    <a href="<c:url value='/integrated/integratedList'/>" class="mainMenu integrated" id="integrated">통합검색</a>
+	    <a href="<c:url value='/freeBoard/freeBoardList'/>" class="mainMenu freeBoard" id="freeBoard">자유게시판</a>
+	    <sec:authorize access="hasAnyRole('ADMIN','MEMBER')">
+	    	<a href="<c:url value='/requestsWrite'/>" class="mainMenu inquiry" id="inquiry">문의하기</a>
+	    </sec:authorize>
+	    
+	    <sec:authorize access="hasRole('ADMIN')">
+	    	<a href="<c:url value='/employeeList'/>" class="mainMenu adminSetting" id="adminSetting">관리자설정</a>
+	    </sec:authorize>
+    </div>
     
     <sec:authorize access="isAuthenticated()">
 	    <div id="member">
-		    <a href="#!" style="float: right; margin-right: 20%;" id="topMendAShow">
+		    <a href="#!" style="float: right; margin-right: 2%;" id="topMendAShow">
 		        <img style="border-radius: 50%; width: 35px; margin: 10px;" src="<c:url value='/images/profile.png' />">
 		        <img style="float: right; width: 12px; margin-top: 23px;" src="<c:url value='/images/down.png' />">
 		        <span id="topMenuSpan" style="float: right; color: white; font-size: 18px; margin: 14px;"><sec:authentication property="name"/></span>

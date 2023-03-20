@@ -8,8 +8,8 @@
 	<%@ include file="/WEB-INF/jsp/common/_Table.jsp"%>
 	<script>
 	    $(function() {
-	    	$.removeCookie('name', {path:'/successfulITdeveloper'});
-    		$.cookie('name',"${topItemsName}"+","+"${middleItemsName}", { path: '/successfulITdeveloper'});
+	    	$.removeCookie('name', {path:'/ITDeveloper'});
+    		$.cookie('name',"${topItemsName}"+","+"${middleItemsName}", { path: '/ITDeveloper'});
 	    });
     </script>
     <script>

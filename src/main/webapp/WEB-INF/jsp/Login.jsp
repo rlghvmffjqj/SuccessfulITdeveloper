@@ -107,7 +107,6 @@
 		
 		/* =========== Enter 검색 ========= */
 		$("input[type=password]").keypress(function(event) {
-			console.log("확인");
 			if (window.event.keyCode == 13) {
 				pwdCheck();
 			}

@@ -8,7 +8,7 @@
 	<%@ include file="/WEB-INF/jsp/common/_Table.jsp"%>
 	<script>
 	    $(function() {
-	    	$.cookie('name','requestsList', { path: '/successfulITdeveloper'});
+	    	$.cookie('name','requestsList', { path: '/ITDeveloper'});
 	    });
     </script>
     <script>

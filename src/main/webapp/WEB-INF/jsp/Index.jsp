@@ -3,11 +3,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Successful IT Developer</title>
+	<title>ITDeveloper</title>
 	<%@ include file="/WEB-INF/jsp/common/_Head.jsp"%>
 	<script>
 	    $(function() {
-	    	$.cookie('name','index', { path: '/successfulITdeveloper'});
+	    	$.cookie('name','index', { path: '/ITDeveloper'});
 	    });
     </script>
 </head>

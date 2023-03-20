@@ -13,7 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="<c:url value='/js/summernote/summernote.css'/>">
 	<script>
 		$(function() {
-	    	$.cookie('name',"${topItemsName}"+","+"${middleItemsName}", { path: '/successfulITdeveloper'});
+	    	$.cookie('name',"${topItemsName}"+","+"${middleItemsName}", { path: '/ITDeveloper'});
 	    });
     </script>
     <style>

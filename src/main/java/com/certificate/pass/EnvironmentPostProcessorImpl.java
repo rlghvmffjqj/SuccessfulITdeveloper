@@ -21,7 +21,7 @@ public class EnvironmentPostProcessorImpl implements EnvironmentPostProcessor {
 		//Resource path = new ClassPathResource("com/secuve/agentInfo/config.yml");
 		
 		// 외부 파일 읽어오기
-		Resource path = new FileSystemResource("C://SuccessfulITDeveloper/config.yml");
+		Resource path = new FileSystemResource("C://ITDeveloper/config.yml");
 		
 		PropertySource<?> propertySource = loadYaml(path);
 		environment.getPropertySources().addLast(propertySource);

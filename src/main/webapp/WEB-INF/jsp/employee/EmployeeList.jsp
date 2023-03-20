@@ -8,7 +8,7 @@
 	<%@ include file="/WEB-INF/jsp/common/_Table.jsp"%>
 	<script>
 	    $(function() {
-	    	$.cookie('name','employee', { path: '/successfulITdeveloper'});
+	    	$.cookie('name','employee', { path: '/ITDeveloper'});
 	    });
     </script>
     <script>
@@ -92,7 +92,7 @@
 		<div style="width: 100%; height: 15px;"></div>
 		<div class="divBox">
 			<div style="width: 100%; height: 35px;">
-				<button class="btn btnDarkgreen btnBlock middleBtn" type="button" style="width: 100px;" onClick="btnLoginLimit();">로그인 제한</button>
+				<button class="btn btnDarkgreen btnBlock middleBtn" type="button" style="width: 100px; border-radius: 5px;" onClick="btnLoginLimit();">로그인 제한</button>
 				<button class="btn btnRed btnBlock middleBtn" type="button" style="width: 100px;" onClick="btnDelete();">탈퇴</button>
 			</div>
 			<div class="jqGrid_wrapper">
