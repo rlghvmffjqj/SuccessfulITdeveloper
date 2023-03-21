@@ -52,7 +52,7 @@ $(function() {
 </script>
 
 <div style="width: 100%; height: 60px; background-color: #42855B; padding: 0px; overflow: hidden;">
-	<a href="<c:url value='/pastQuestion'/>">
+	<a href="<c:url value='/index'/>">
         <img src="<c:url value='/images/logo.png' />" style="float: left; width: 140px; margin-top: 15px; margin-right: 20px; margin-left: 20%;">
     </a>
 	<div>

@@ -56,6 +56,7 @@
 	<%@ include file="/WEB-INF/jsp/common/_LeftMenu.jsp"%>
 	<%@ include file="/WEB-INF/jsp/common/_RightMenu.jsp"%>
 	<div class="mainDiv">
+		<ins class="kakao_ad_area" data-ad-unit = "DAN-wM1sK95kjkvzzCRS" data-ad-width = "728" data-ad-height = "90"></ins>
 		<form id="form" name="form" action="<c:url value='/category/categoryUpdate'/>" method="post">
 			<input type="hidden" id="topItemsName" name="topItemsName" value="${mainContents.topItemsName}">
 			<input type="hidden" id="middleItemsName" name="middleItemsName" value="${mainContents.middleItemsName}">

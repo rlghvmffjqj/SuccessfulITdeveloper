@@ -34,12 +34,16 @@ p {
     height: 1000px;
     width: 19%;
     float: left;
+    text-align: center;
+    margin-top: 1%;
 }
 
 .rightMenu {
 	height: 1000px;
     width: 19%;
     float: right;
+    text-align: center;
+    margin-top: 1%;
 }
 
 .footerMenu {

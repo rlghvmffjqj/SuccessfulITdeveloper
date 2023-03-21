@@ -42,7 +42,7 @@ public class KakaoController {
 		String reqUrl = 
 				"https://kauth.kakao.com/oauth/authorize"
 				+ "?client_id=a7798e143bff6a362744770e8ad774e0"
-				+ "&redirect_uri=https://172.16.100.90:8443/ITDeveloper/login/kakao"
+				+ "&redirect_uri=https://172.16.100.90:443/ITDeveloper/login/kakao"
 				+ "&response_type=code";
 		
 		return reqUrl;
@@ -54,7 +54,7 @@ public class KakaoController {
 			String reqUrl = 
 					"https://kauth.kakao.com/oauth/logout"
 					+ "?client_id=a7798e143bff6a362744770e8ad774e0"
-					+ "&logout_redirect_uri=https://172.16.100.90:8443/ITDeveloper/login";
+					+ "&logout_redirect_uri=https://172.16.100.90:443/ITDeveloper/login";
 			return "redirect:"+reqUrl;
 		} else {
 			return "redirect:/logout";
