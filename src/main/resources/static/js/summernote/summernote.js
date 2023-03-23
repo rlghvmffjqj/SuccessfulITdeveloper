@@ -250,6 +250,7 @@ external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default.a.exten
       image: 'Picture',
       insert: 'Insert Image',
       resizeFull: 'Resize full',
+      resizeFullHalf: 'Resize fullHalf',
       resizeHalf: 'Resize half',
       resizeQuarter: 'Resize quarter',
       resizeNone: 'Original size',
@@ -267,6 +268,7 @@ external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default.a.exten
       maximumFileSizeError: 'Maximum file size exceeded.',
       url: 'Image URL',
       remove: 'Remove Image',
+      border: 'Border',
       original: 'Original'
     },
     video: {
@@ -5450,6 +5452,12 @@ var Editor_Editor = /*#__PURE__*/function () {
 
       _this.context.triggerEvent('media.delete', $target, _this.$editable);
     });
+    
+    this.border = this.wrapCommand(function () {
+      var $target = external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default()(_this.restoreTarget());
+	  $target.css('border','1px solid #e0e0e0');
+    });
+    
     /**
      * float me
      *
@@ -7867,6 +7875,13 @@ var Buttons_Buttons = /*#__PURE__*/function () {
           click: _this3.context.createInvokeHandler('editor.resize', '1')
         }).render();
       });
+      this.context.memo('button.resizeFullHalf', function () {
+        return _this3.button({
+          contents: '<span class="note-fontsize-10">75%</span>',
+          tooltip: _this3.lang.image.resizeFullHalf,
+          click: _this3.context.createInvokeHandler('editor.resize', '0.75')
+        }).render();
+      });
       this.context.memo('button.resizeHalf', function () {
         return _this3.button({
           contents: '<span class="note-fontsize-10">50%</span>',
@@ -7916,6 +7931,14 @@ var Buttons_Buttons = /*#__PURE__*/function () {
           contents: _this3.ui.icon(_this3.options.icons.trash),
           tooltip: _this3.lang.image.remove,
           click: _this3.context.createInvokeHandler('editor.removeMedia')
+        }).render();
+      });
+      
+      this.context.memo('button.border', function () {
+        return _this3.button({
+          contents: '<span class="note-fontsize-10">border</span>',
+          tooltip: _this3.lang.image.border,
+          click: _this3.context.createInvokeHandler('editor.border')
         }).render();
       });
     }
@@ -9790,7 +9813,7 @@ external_root_jQuery_commonjs2_jquery_commonjs_jquery_amd_jquery_default.a.summe
     // popover
     popatmouse: true,
     popover: {
-      image: [['resize', ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone']], ['float', ['floatLeft', 'floatRight', 'floatNone']], ['remove', ['removeMedia']]],
+      image: [['resize', ['resizeFull','resizeFullHalf', 'resizeHalf', 'resizeQuarter', 'resizeNone']], ['float', ['floatLeft', 'floatRight', 'floatNone']], ['remove', ['removeMedia']],['border']],
       link: [['link', ['linkDialogShow', 'unlink']]],
       table: [['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']], ['delete', ['deleteRow', 'deleteCol', 'deleteTable']]],
       air: [['color', ['color']], ['font', ['bold', 'underline', 'clear']], ['para', ['ul', 'paragraph']], ['table', ['table']], ['insert', ['link', 'picture']], ['view', ['fullscreen', 'codeview']]]

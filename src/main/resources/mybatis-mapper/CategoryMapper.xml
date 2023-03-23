@@ -121,19 +121,19 @@
 	</update>
 	
 	<select id="beforePageMove" resultType="_int">
-		 <![CDATA[
-		SELECT MAX(mainContentsKeyNum) FROM maincontents
-		WHERE topItemsName = #{topItemsName} AND middleItemsName = #{middleItemsName}
-		AND mainContentsKeyNum < #{mainContentsKeyNum};
-		]]>
-	</select>
-	
-	<select id="nextPageMove" resultType="_int">
-		 <![CDATA[
+		<![CDATA[
 		SELECT MIN(mainContentsKeyNum) FROM maincontents
 		WHERE topItemsName = #{topItemsName} AND middleItemsName = #{middleItemsName}
 		AND mainContentsKeyNum > #{mainContentsKeyNum};
 		]]>
+	</select>
+	
+	<select id="nextPageMove" resultType="_int">
+		<![CDATA[
+		SELECT MAX(mainContentsKeyNum) FROM maincontents
+		WHERE topItemsName = #{topItemsName} AND middleItemsName = #{middleItemsName}
+		AND mainContentsKeyNum < #{mainContentsKeyNum};
+		]]>		 
 	</select>
 	
 	<select id="getFavoritesCount" parameterType="_int" resultType="_int">

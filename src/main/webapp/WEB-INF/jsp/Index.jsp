@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta name="google-site-verification" content="xIWfFJYp6uIejvm5HdDdwyVmWPR5pIbvKzCW11YVaQA" />
 	<title>ITDeveloper</title>
 	<%@ include file="/WEB-INF/jsp/common/_Head.jsp"%>
 	<script>
