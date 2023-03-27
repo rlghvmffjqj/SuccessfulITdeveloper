@@ -36,6 +36,7 @@ p {
     float: left;
     text-align: center;
     margin-top: 1%;
+    overflow: hidden;
 }
 
 .rightMenu {
@@ -44,6 +45,7 @@ p {
     float: right;
     text-align: center;
     margin-top: 1%;
+    overflow: hidden;
 }
 
 .footerMenu {
@@ -373,6 +375,7 @@ a.button {
     width: 59%;
     border-left: 1px solid lightgray;
     border-right: 1px solid lightgray;
+    overflow: hidden;
 }
 
 .width100 {
