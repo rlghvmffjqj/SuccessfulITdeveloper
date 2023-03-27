@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.certificate.pass.service.CategoryService;
 import com.certificate.pass.vo.Category;
+import com.certificate.pass.vo.ConnectUser;
 import com.certificate.pass.vo.Favorites;
 import com.certificate.pass.vo.MainComments;
 import com.certificate.pass.vo.MainContents;
@@ -138,6 +139,10 @@ public class CategoryController {
 	
 	@GetMapping(value = "/category/mainContentsView")
 	public String mainContentsView(int contentNumber, Principal principal, Model model, HttpServletRequest req) {
+		ConnectUser connectUser = new ConnectUser();
+		connectUser.setConnectUserIp(req.getRemoteAddr());
+		connectUser.setConnectUserPort(req.getRemotePort());
+		categoryService.insertConnectUser(connectUser);
 		MainContents mainContents = categoryService.getMainContentsOne(contentNumber);
 		List<MainComments> mainCommentsList = categoryService.getMainCommentsList(contentNumber, principal);
 		int favoritesCount = categoryService.getFavoritesCount(contentNumber);

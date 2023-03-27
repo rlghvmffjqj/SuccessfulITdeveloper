@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.certificate.pass.dao.CategoryDao;
 import com.certificate.pass.vo.Category;
+import com.certificate.pass.vo.ConnectUser;
 import com.certificate.pass.vo.Favorites;
 import com.certificate.pass.vo.MainComments;
 import com.certificate.pass.vo.MainContents;
@@ -258,6 +259,10 @@ public class CategoryService {
 		String ip = req.getHeader("X-Forwarded-For");
 		if (ip == null) ip = req.getRemoteAddr();
 		return ip;
+	}
+
+	public void insertConnectUser(ConnectUser connectUser) {
+		categoryDao.insertConnectUser(connectUser);
 	}
 
 }

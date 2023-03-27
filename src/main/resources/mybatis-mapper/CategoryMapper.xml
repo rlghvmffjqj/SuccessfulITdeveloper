@@ -154,6 +154,11 @@
 		SELECT COUNT(*) FROM favorites WHERE usersId = #{usersId} AND mainContentsKeyNum = #{mainContentsKeyNum} AND favoritesIp = #{favoritesIp};
 	</select>
 	
+	<insert id="insertConnectUser">
+		INSERT INTO connectUser(connectUserIp, connectUserPort)
+		VALUES(#{connectUserIp}, #{connectUserPort});
+	</insert>
+	
 	<!-- ==================================================================================== -->
 	
 	<sql id="sqlCategory">

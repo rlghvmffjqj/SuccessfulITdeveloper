@@ -31,7 +31,7 @@ p {
 }
 
 .leftMenu {
-    height: 1000px;
+    height: 100%;
     width: 19%;
     float: left;
     text-align: center;
@@ -40,7 +40,7 @@ p {
 }
 
 .rightMenu {
-	height: 1000px;
+	height: 100%;
     width: 19%;
     float: right;
     text-align: center;
@@ -376,6 +376,7 @@ a.button {
     border-left: 1px solid lightgray;
     border-right: 1px solid lightgray;
     overflow: hidden;
+    min-height: 1150px;
 }
 
 .width100 {

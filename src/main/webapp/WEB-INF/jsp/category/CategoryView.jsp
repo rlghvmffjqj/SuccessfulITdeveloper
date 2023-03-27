@@ -1,8 +1,27 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=yes">
+<meta name="content-language" content="kr">
+<meta name="title" content="${mainContents.mainContentsTitle}">
+<meta name="keywords" content="IT 개발자를 위한 공간">
+<meta name="description" content="IT 개발자를 위한 공간">
+<meta name="robots" content="all">
+<meta name="Author" content="IT 개발자">
+<meta name="Copyright" content="IT 개발자">
+<meta property="og:site_name" content="${mainContents.mainContentsTitle}">
+<meta property="og:title" content="${mainContents.mainContentsTitle}">
+<meta property="og:description" content="IT 개발자를 위한 공간">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://khkim.itdeveloper.kro.kr/ITDeveloper/category/mainContentsView?contentNumber=${mainContentsKeyNum}">
+<meta property="og:image" content="https://khkim.itdeveloper.kro.kr/ITDeveloper/images/favicon.png">
+<meta property="og:image:width" content="100">
+<meta property="og:image:height" content="100">
+<meta property="og:locale" content="ko_KR">
+
 <title>${mainContents.mainContentsTitle}</title>
 <%@ include file="/WEB-INF/jsp/common/_Head.jsp"%>
 <script type="text/javascript" src="<c:url value='/js/jquery/jquery-ui.js'/>"></script>

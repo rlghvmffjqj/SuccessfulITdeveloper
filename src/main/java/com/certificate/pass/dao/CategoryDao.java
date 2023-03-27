@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.certificate.pass.vo.Category;
+import com.certificate.pass.vo.ConnectUser;
 import com.certificate.pass.vo.Favorites;
 import com.certificate.pass.vo.MainComments;
 import com.certificate.pass.vo.MainContents;
@@ -134,5 +135,9 @@ public class CategoryDao {
 
 	public int getFavoritesUsers(Favorites favorites) {
 		return sqlSession.selectOne("category.getFavoritesUsers",favorites);
+	}
+
+	public void insertConnectUser(ConnectUser connectUser) {
+		sqlSession.insert("category.insertConnectUser",connectUser);
 	}
 }
