@@ -4,6 +4,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=yes">
 
 <!-- Favicon -->
 <link rel="icon" href="<c:url value='/images/favicon.png'/>" type="image/x-icon">

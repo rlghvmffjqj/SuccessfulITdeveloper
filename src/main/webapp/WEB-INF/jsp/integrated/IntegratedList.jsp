@@ -50,7 +50,7 @@
 		});
 		
 		$(window).on('resize.list', function () {
-		    jQuery("#list").jqGrid( 'setGridWidth', $(".page-wrapper").width() - $(".departmentTable").width() - 10);
+			jQuery("#list").jqGrid( 'setGridWidth', $(".mainDiv").width() - 30 );
 		});
 	</script>
 </head>

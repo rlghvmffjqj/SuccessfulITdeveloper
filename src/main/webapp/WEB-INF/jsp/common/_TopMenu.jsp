@@ -53,9 +53,12 @@ $(function() {
 
 <div style="width: 100%; height: 60px; background-color: #42855B; padding: 0px; overflow: hidden;">
 	<a href="<c:url value='/index'/>">
-        <img src="<c:url value='/images/logo.png' />" style="float: left; width: 140px; margin-top: 15px; margin-right: 20px; margin-left: 20%;">
+        <img src="<c:url value='/images/logo.png' />" class="mainLogo">
     </a>
-	<div>
+    <a onClick="mobileSubMenuBtn()">
+    	<img class="mobileMenu" src="<c:url value='/images/menu.png' />">
+    </a>
+	<div class="mainMenuDiv">
 	    <a href="<c:url value='/index'/>" class="mainMenu index" id="index">HOME</a>
 	    <a href="<c:url value='/integrated/integratedList'/>" class="mainMenu integrated" id="integrated">통합검색</a>
 	    <a href="<c:url value='/freeBoard/freeBoardList'/>" class="mainMenu freeBoard" id="freeBoard">자유게시판</a>
@@ -71,12 +74,12 @@ $(function() {
     <sec:authorize access="isAuthenticated()">
 	    <div id="member">
 		    <a href="#!" style="float: right; margin-right: 2%;" id="topMendAShow">
-		        <img style="border-radius: 50%; width: 35px; margin: 10px;" src="<c:url value='/images/profile.png' />">
-		        <img style="float: right; width: 12px; margin-top: 23px;" src="<c:url value='/images/down.png' />">
-		        <span id="topMenuSpan" style="float: right; color: white; font-size: 18px; margin: 14px;"><sec:authentication property="name"/></span>
+		        <img class="profile" style="border-radius: 50%; width: 35px; margin: 10px;" src="<c:url value='/images/profile.png' />">
+		        <img class="logoutProfile" src="<c:url value='/images/down.png' />">
+		        <span id="topMenuSpan" class="loginId"><sec:authentication property="name"/></span>
 		    </a>
 		    <ul style="display: none; z-index: 1;" class="topMenuUl" id="topMendUlShow">
-		    	<img style="width: 28px; margin: 10px; position: absolute; right: 44px; transform: translateY(-34px);" src="<c:url value='/images/triangle.png' />">
+		    	<img class="profileTriggle" src="<c:url value='/images/triangle.png' />">
 		        <li class="topMenuLi">
 		            <a href="#" onclick="profileView()" class="topMenuA">
 		                Profile
@@ -98,7 +101,6 @@ $(function() {
 </div>
 
 <div id="menu" class="subMenu">
-	<div style="height: 7px;"></div>
 	<div style="width: 28%; float: left; height: 1px;"></div>
 </div>
 
@@ -120,6 +122,28 @@ $(function() {
 	</sec:authorize>
 </div>
 
+<div class="mobileSubMenu" id="mobileSubMenu" style="display:none">
+	<div style="width:100%; height:60px; float:left; background: #ddd;">
+		<div style="float: left; margin-top: 15px; margin-left: 2%;"><span style="font-size: 20px; font-weight: 600;">전체메뉴</span></div>
+		<a onClick="mobileSubMenuBtn()"><img style="width:20px; float: right; margin-top: 20px; margin-right: 2%;" src="<c:url value='/images/close.png' />"></a>
+	</div>
+	<div style="width:35%; height:100%; float:left; border-right: 1px solid #ddd">
+		<a href="<c:url value='/index'/>" class="mainMenuModile index" id="indexMobile">HOME</a>
+	    <a href="<c:url value='/integrated/integratedList'/>" class="mainMenuModile integrated" id="integratedMobile">통합검색</a>
+	    <a href="<c:url value='/freeBoard/freeBoardList'/>" class="mainMenuModile freeBoard" id="freeBoardMobile">자유게시판</a>
+	    <sec:authorize access="hasAnyRole('ADMIN','MEMBER')">
+	    	<a href="<c:url value='/requestsWrite'/>" class="mainMenuModile inquiry" id="inquiryMobile">문의하기</a>
+	    </sec:authorize>
+	    
+	    <sec:authorize access="hasRole('ADMIN')">
+	    	<a href="<c:url value='/employeeList'/>" class="mainMenuModile adminSetting" id="adminSettingMobile">관리자설정</a>
+	    </sec:authorize>
+	</div>
+	<div style="width:65%; height:100%; float:left;">
+	
+	</div>
+</div>
+
 <script>
 	function kakaoLogout() {
 		var usersId = $('#topMenuSpan').text();
@@ -134,13 +158,16 @@ $(function() {
 		    success: function (data) {
 		    	data.forEach(function(topItemsName){
 		    		var rowItem = "<a href='<c:url value='/category/"+topItemsName+"'/>' class='mainMenu "+topItemsName+"' id='"+topItemsName+"'>"+topItemsName+"</a>";
+		    		var rowItemMobile = "<a href='<c:url value='/category/"+topItemsName+"'/>' class='mainMenuModile "+topItemsName+"Mobile' id='"+topItemsName+"Mobile'>"+topItemsName+"</a>";
 				 	$('#index').after(rowItem);
+				 	$('#indexMobile').after(rowItemMobile);
 		    	})
 		    },
 		    error: function(e) {
 		        console.log(e);
 		    }
 		});
+		
 		
 		var arr =  $.cookie('name').split(",");
 		var topItemsName = arr[0];
@@ -180,4 +207,15 @@ $(function() {
 	function login() {
 		location.href="<c:url value='/login'/>";
 	}
+	
+	function mobileSubMenuBtn() {
+		var check = document.getElementById("mobileSubMenu");
+		console.log(check.style.display);
+		if(check.style.display=='none') {
+			check.style.display = 'block';
+		} else {
+			check.style.display = 'none';
+		}
+	}
+		
 </script>

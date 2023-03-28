@@ -4,7 +4,6 @@
 <html>
 <head>
 
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=yes">
 <meta name="content-language" content="kr">
 <meta name="title" content="${mainContents.mainContentsTitle}">
 <meta name="keywords" content="IT 개발자를 위한 공간">
@@ -90,7 +89,7 @@
 			<div class="divBox">
 				<div style="min-height: 300px;">
 					<div style="height:20px;">
-						<span style="float: right; font-size: 14px; color: gray;">${mainContents.mainContentsRegistrationDate}</span>
+						<span class="mainDate">${mainContents.mainContentsRegistrationDate}</span>
 					</div>
 					<div>${mainContents.mainContentsDetail}</div>
 				</div>

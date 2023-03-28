@@ -14,10 +14,7 @@ span {
 	font-size: auto;
 }
 
-p {
-	font-family: math;
-	font-size: 14px;
-}
+
 .formControl {
 	display: inline-block;
     height: 43px;
@@ -30,23 +27,6 @@ p {
     border: 2px solid #ccc;
 }
 
-.leftMenu {
-    height: 100%;
-    width: 19%;
-    float: left;
-    text-align: center;
-    margin-top: 1%;
-    overflow: hidden;
-}
-
-.rightMenu {
-	height: 100%;
-    width: 19%;
-    float: right;
-    text-align: center;
-    margin-top: 1%;
-    overflow: hidden;
-}
 
 .footerMenu {
 	width: 100%;
@@ -148,15 +128,6 @@ input#check_btn:checked + label:before{
 	background-position: 50%;
 }
 
-.topMenuUl {
-	border-radius: 5px;
-    background-color: darkseagreen;
-    width: 13em;
-    transform: translateY(50px);
-    position: absolute;
-    right: 5px;
-}
-
 .topMenuLi {
 	padding: 0.7em 20px;
     width: 100%;
@@ -167,27 +138,6 @@ input#check_btn:checked + label:before{
 
 .topMenuLi:hover {
 	background: #CADFCA;
-}
-
-.topMenuA {
-    font-size: 15px;
-    color: white;
-    text-decoration: none;
-    background-color: transparent;
-    cursor: pointer;
-    display: block;
-    padding: 0 0.6rem;
-    touch-action: manipulation;
-}
-
-.topMenuLogin {
-	float: right;
-    margin: 17px;
-    margin-right: 400px;
-    background-color: white;
-    color: black;
-    width: 75px;
-    height: 25px;
 }
 
 .topMenuLogin:hover {
@@ -201,6 +151,13 @@ input#check_btn:checked + label:before{
     cursor: pointer;
     font-weight: bold;
     text-decoration: none;
+}
+
+.mainMenuModile {
+	color: black;
+    margin: 20px;
+    cursor: pointer;
+    display: block;
 }
 
 .mainMenu:hover {
@@ -354,29 +311,8 @@ a.button {
     margin-bottom: 1.25em;
 }
 
-.subMenu {
-	width: 100%; 
-	height: 40px; 
-	background-color: white; 
-	padding: 0px;
-	box-shadow: 0px 3px 5px darkgrey; 
-	display:none; 
-	overflow: hidden;
-	/* padding-left: 28%; */
-}
-
 .width90 {
 	width: 90%;
-}
-
-.mainDiv {
-	float: left;
-    padding: 1%;
-    width: 59%;
-    border-left: 1px solid lightgray;
-    border-right: 1px solid lightgray;
-    overflow: hidden;
-    min-height: 1150px;
 }
 
 .width100 {
@@ -396,46 +332,11 @@ table {
 	margin-top: 2%;
 }
 
-.commentHead {
-	float: left;
-    width: 25%;
-    padding: 12px 16px;
-    border: 0;
-    border: 1px solid #ddd;
-    border-bottom: 0px;
-    font-size: 0.875em;
-    color: #777;
-    box-sizing: border-box;
-}
-
-.commentBody {
-	display: block;
-    width: 100%;
-    margin-bottom: 20px;
-    padding: 16px 100px 16px 16px;
-    border: 1px solid #ddd;
-    font-size: 0.875em;
-    color: #777;
-    box-sizing: border-box;
-    resize: none;
-    font-family: 'Noto Sans KR', sans-serif;
-}
 
 .secret {
 	position: relative;
     float: left;
     bottom: 8px;
-}
-
-.commentSend {
-	position: relative;
-    float: right;
-    bottom: 8px;
-    background: #868686;
-    color: white;
-    width: 100px;
-    height: 30px;
-    border: 1px solid #868686;
 }
 
 .commentSend:hover {
@@ -463,12 +364,6 @@ table {
     color: #999;
 }
 
-.commentsUpdate {
-	position: absolute;
-    right: 22%;
-    margin-top: -20px;
-}
-
 .commentsUpdateLink {
 	display: none;
     position: absolute;
@@ -492,23 +387,6 @@ table {
 
 .commentsUpdateA:hover {
 	color: #f55f5f;
-}
-
-.commentsContents {
-	max-width: 85%;
-    padding: 0 0 0 0;
-    font-size: 0.875em;
-    line-height: 1.3125rem;
-    color: #777;
-    box-sizing: border-box;
-}
-
-.commentsReply {
-	position: relative;
-    margin-bottom: 7px;
-    padding: 2px 0 0 30px;
-    font-size: 0.7525em;
-    color: #e48181
 }
 
 .commentsReply:hover {
@@ -582,12 +460,6 @@ table {
 	float: right; 
 }
 
-.pageMove {
-	color: black;
-    font-weight: bold;
-    font-size: 15px;
-}
-
 .pageMove:hover {
 	color: #ff9494;
 }
@@ -615,21 +487,412 @@ table {
 		float: right; 
 		margin: 2px;
 	}
+	
+	p {
+		font-family: math;
+		font-size: 14px;
+	}
+	
+	.leftMenu {
+	    height: 100%;
+	    width: 19%;
+	    float: left;
+	    text-align: center;
+	    margin-top: 1%;
+	    overflow: hidden;
+	}
+	
+	.rightMenu {
+		height: 100%;
+	    width: 19%;
+	    float: right;
+	    text-align: center;
+	    margin-top: 1%;
+	    overflow: hidden;
+	}
+	
+	.mainDiv {
+		float: left;
+	    padding: 1%;
+	    width: 59%;
+	    border-left: 1px solid lightgray;
+	    border-right: 1px solid lightgray;
+	    overflow: hidden;
+	    min-height: 1150px;
+	}
+	
+	.pageMove {
+		color: black;
+	    font-weight: bold;
+	    font-size: 15px;
+	}
+	
+	.secret {
+		position: relative;
+	    float: left;
+	    bottom: 8px;
+	    font-size: 15px;
+	}
+	
+	.commentHead {
+		float: left;
+	    width: 25%;
+	    padding: 12px 16px;
+	    border: 0;
+	    border: 1px solid #ddd;
+	    border-bottom: 0px;
+	    font-size: 0.875em;
+	    color: #777;
+	    box-sizing: border-box;
+	}
+	
+	.commentBody {
+		display: block;
+	    width: 100%;
+	    margin-bottom: 20px;
+	    padding: 16px 100px 16px 16px;
+	    border: 1px solid #ddd;
+	    font-size: 0.875em;
+	    color: #777;
+	    box-sizing: border-box;
+	    resize: none;
+	    font-family: 'Noto Sans KR', sans-serif;
+	}
+	
+	.commentsContents {
+		max-width: 85%;
+	    padding: 0 0 0 0;
+	    font-size: 0.875em;
+	    line-height: 1.3125rem;
+	    color: #777;
+	    box-sizing: border-box;
+	}
+	
+	.commentsReply {
+		position: relative;
+	    margin-bottom: 7px;
+	    padding: 2px 0 0 30px;
+	    font-size: 0.7525em;
+	    color: #e48181
+	}
+	
+	.commentSend {
+		position: relative;
+	    float: right;
+	    bottom: 8px;
+	    background: #868686;
+	    color: white;
+	    width: 100px;
+	    height: 30px;
+	    border: 1px solid #868686;
+	}
+	
+	.commentsUpdate {
+		position: absolute;
+	    right: 22%;
+	    margin-top: -20px;
+	}
+	
+	.mainDate {
+		float: right; 
+		font-size: 14px; 
+		color: gray;
+	}
+	
+	.mainMenuDiv {
+		display: block;
+	}
+	
+	.subMenu {
+	    margin-top: 15px;
+		width: 100%; 
+		height: 40px; 
+		background-color: white; 
+		padding: 0px;
+		box-shadow: 0px 3px 5px darkgrey; 
+		display:none; 
+		overflow: hidden;
+	}
+	
+	.mainLogo {
+		float: left; 
+		width: 140px; 
+		margin-top: 15px; 
+		margin-right: 20px; 
+		margin-left: 20%;
+	}
+	
+	.topMenuLogin {
+		float: right;
+	    margin: 17px;
+	    margin-right: 20%;
+	    background-color: white;
+	    color: black;
+	    width: 75px;
+	    height: 25px;
+	}
+	
+	.mobileMenu {
+		display: none;
+	}
+	
+	.loginId {
+		float: right; 
+		color: white; 
+		font-size: 18px; 
+		margin: 14px;
+	}
+	
+	.logoutProfile {
+		float: right; 
+		width: 12px; 
+		margin-top: 23px;
+	}
+	
+	.profileTriggle {
+		width: 28px; 
+		margin: 10px; 
+		position: absolute; 
+		right: 44px; 
+		transform: translateY(-34px);
+	}
+	
+	.topMenuUl {
+		border-radius: 5px;
+	    background-color: darkseagreen;
+	    width: 13em;
+	    transform: translateY(50px);
+	    position: absolute;
+	    right: 5px;
+	}
+	
+	.topMenuA {
+	    font-size: 15px;
+	    color: white;
+	    text-decoration: none;
+	    background-color: transparent;
+	    cursor: pointer;
+	    display: block;
+	    padding: 0 0.6rem;
+	    touch-action: manipulation;
+	}
+	
+	.mobileSubMenu {
+		display: none;
+	}
+	
 }
 
 @media (min-width: 0px) and (max-width: 1024px) {
+	span {
+		font-size: 10px;
+	}
+	
+	tr>td>div>div {
+		font-size: 10px;
+	}
+	
 	.mainTitle{
-		font-size: 20px;
+		font-size: 14px;
 	    font-weight: 600;
 	    margin-top: 4%;
     	margin-bottom: 3%;
 	}
 	
 	.middleBtn {
-		width: 45px; 
-		height: 30px; 
+		width: 35px;
+	    height: 25px;
+	    float: right;
+	    margin: 1px;
+	    font-size: 10px;
+	}
+	
+	p {
+		font-family: math;
+		font-size: 10px;
+	}
+	
+	.leftMenu {
+		display: none;
+	}
+	
+	.rightMenu {
+		display: none;
+	}
+	
+	.mainDiv {
+	    padding: 1%;
+	    width: 98%;
+	    overflow: hidden;
+	}
+	
+	.pageMove {
+		color: black;
+	    font-weight: bold;
+	    font-size: 11px;
+	}
+	
+	.secret {
+		position: relative;
+	    float: left;
+	    bottom: 8px;
+	    font-size: 12px;
+	}
+	
+	.commentHead {
+		float: left;
+	    width: 25%;
+	    padding: 12px 16px;
+	    border: 0;
+	    border: 1px solid #ddd;
+	    border-bottom: 0px;
+	    font-size: 0.675em;
+	    color: #777;
+	    box-sizing: border-box;
+	}
+	
+	.commentBody {
+		display: block;
+	    width: 100%;
+	    margin-bottom: 20px;
+	    padding: 16px 100px 16px 16px;
+	    border: 1px solid #ddd;
+	    font-size: 0.675em;
+	    color: #777;
+	    box-sizing: border-box;
+	    resize: none;
+	    font-family: 'Noto Sans KR', sans-serif;
+	}
+	
+	.commentsContents {
+		max-width: 85%;
+	    padding: 0 0 0 0;
+	    font-size: 0.775em;
+	    line-height: 1.3125rem;
+	    color: #777;
+	    box-sizing: border-box;
+	}
+	
+	.commentsReply {
+		position: relative;
+	    margin-bottom: 7px;
+	    padding: 2px 0 0 30px;
+	    font-size: 0.6525em;
+	    color: #e48181
+	}
+	
+	.commentSend {
+		position: relative;
+	    float: right;
+	    bottom: 8px;
+	    background: #868686;
+	    color: white;
+	    width: 50px;
+	    font-size: 11px;
+	    border: 1px solid #868686;
+	}
+	
+	.commentsUpdate {
+		position: absolute;
+	    right: 3%;
+	    margin-top: -20px;
+	}
+	
+	.mainDate {
 		float: right; 
-		margin: 2px;
+		font-size: 11px; 
+		color: gray;
+	}
+	
+	.mainMenuDiv {
+		display: none;
+	}
+	
+	.subMenu {
+		display: none;
+	}
+	
+	.mediumMenu {
+		display: none;
+	}
+	
+	.mainLogo {
+		float: left; 
+		width: 100px; 
+		margin-top: 20px; 
+		margin-right: 20px; 
+		margin-left: 3%;
+	}
+	
+	.topMenuLogin {
+		float: right;
+	    margin: 20px;
+	    margin-right: 2%;
+	    background-color: white;
+	    color: black;
+	    width: 60px;
+	    height: 20px;
+	    font-size: 10px;
+	}
+	
+	.mobileMenu {
+		width: 20px;
+    	margin-top: 22px;
+		float: left;
+	}
+	
+	.profile {
+		display: none;
+	}
+	
+	.loginId {
+		float: right; 
+		color: white; 
+		font-size: 15px; 
+		margin: 20px;
+	}
+	
+	.logoutProfile {
+		float: right; 
+		width: 10px; 
+		margin-top: 25px;
+	}
+	
+	.profileTriggle {
+		width: 26px;
+    	margin: 10px;
+    	position: absolute;
+    	right: 15px;
+    	transform: translateY(-32px);
+	}
+	
+	.topMenuUl {
+		border-radius: 5px;
+	    background-color: darkseagreen;
+	    width: 7em;
+	    transform: translateY(50px);
+	    position: absolute;
+	    right: 5px;
+	}
+	
+	.topMenuA {
+	    font-size: 12px;
+	    color: white;
+	    text-decoration: none;
+	    background-color: transparent;
+	    cursor: pointer;
+	    display: block;
+	    padding: 0 0.6rem;
+	    touch-action: manipulation;
+	}
+	
+	.mobileSubMenu {
+		background: white;
+	    width: 100%;
+	    height: 100%;
+	    position: absolute;
+	    z-index: 10;
+	    overflow: auto;
 	}
 }
 

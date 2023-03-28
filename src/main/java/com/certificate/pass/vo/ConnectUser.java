@@ -14,4 +14,5 @@ public class ConnectUser {
 	private int connectUserKeyNum;
 	private String connectUserIp;
 	private Integer connectUserPort;
+	private String connectUserDate;
 }

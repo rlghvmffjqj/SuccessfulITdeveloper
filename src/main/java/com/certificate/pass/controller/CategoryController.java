@@ -142,6 +142,7 @@ public class CategoryController {
 		ConnectUser connectUser = new ConnectUser();
 		connectUser.setConnectUserIp(req.getRemoteAddr());
 		connectUser.setConnectUserPort(req.getRemotePort());
+		connectUser.setConnectUserDate(categoryService.nowDate());
 		categoryService.insertConnectUser(connectUser);
 		MainContents mainContents = categoryService.getMainContentsOne(contentNumber);
 		List<MainComments> mainCommentsList = categoryService.getMainCommentsList(contentNumber, principal);

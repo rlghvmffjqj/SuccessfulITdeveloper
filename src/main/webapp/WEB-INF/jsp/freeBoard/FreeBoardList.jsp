@@ -48,7 +48,7 @@
 	 	});
 		
 		$(window).on('resize.list', function () {
-		    jQuery("#list").jqGrid( 'setGridWidth', $(".page-wrapper").width() );
+			jQuery("#list").jqGrid( 'setGridWidth', $(".mainDiv").width() - 30 );
 		});
 	</script>
 </head>
