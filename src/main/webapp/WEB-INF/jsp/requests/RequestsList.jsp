@@ -19,15 +19,14 @@
 				mtype: 'POST',
 				postData: formData,
 				datatype: 'json',
-				colNames:['Key','사용자ID','사원명','상태','제목'/* ,'내용' */,'날짜'],
+				colNames:['Key','사용자ID','사원명','제목','상태','날짜'],
 				colModel:[
 					{name:'requestsKeyNum', index:'requestsKeyNum', align:'center', width: 40, hidden:true },
-					{name:'employeeId', index:'employeeId', align:'center', width: 200, formatter: linkFormatter},
-					{name:'employeeName', index:'employeeName', align:'center', width: 150},
-					{name:'requestsState', index:'requestsState',align:'center', width: 100},
-					{name:'requestsTitle', index:'requestsTitle', align:'center', width: 400},
-					/* {name:'requestsDetail', index:'requestsDetail', align:'left', width: 600}, */
-					{name:'requestsDate', index:'requestsDate',align:'center', width: 180},
+					{name:'employeeId', index:'employeeId', align:'center', width: 100, formatter: linkFormatter},
+					{name:'employeeName', index:'employeeName', align:'center', width: 70},
+					{name:'requestsTitle', index:'requestsTitle', align:'center', width: 200},
+					{name:'requestsState', index:'requestsState',align:'center', width: 80},
+					{name:'requestsDate', index:'requestsDate',align:'center', width: 150},
 				],
 				jsonReader : {
 		        	id: 'requestsKeyNum',
@@ -73,7 +72,7 @@
 			    </div>
 			    <div class="col-lg-2">
 			    	<label class="labelFontSize">상태</label>
-			    	<select class="formControl selectpicker seachInput" id="requestsState" name="requestsState" style="height: 34px;" data-size="5">
+			    	<select class="formControl selectpicker seachInput selectInput" id="requestsState" name="requestsState"  data-size="5">
 						<option value=""></option>
 						<option value="전송">전송</option>
 						<option value="답변">답변</option>

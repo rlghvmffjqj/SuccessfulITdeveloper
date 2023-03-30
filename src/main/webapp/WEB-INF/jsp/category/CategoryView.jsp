@@ -42,7 +42,7 @@
 				colModel:[
 					{name:'mainContentsKeyNum', index:'mainContentsKeyNum',align:'left', width: '5%', hidden:true},
 					{name:'mainContentsTitle', index:'mainContentsTitle', align:'left', width: '90%', formatter: linkFormatter},
-					{name:'mainContentsRegistrationDate', index:'mainContentsRegistrationDate', width: '15%', align:'left'},
+					{name:'mainContentsDate', index:'mainContentsDate', width: '15%', align:'left'},
 				],
 				jsonReader : {
 		        	id: 'mainContentsKeyNum',
@@ -96,7 +96,7 @@
 			</div>
 			<div class="right_area">
 				<a href="javascript:;" class="icon heart" id="heart" style="text-decoration:none; color:inherit; cursor: pointer; float: left;">
-					<img src="https://cdn-icons-png.flaticon.com/512/812/812327.png" id="favorites" alt="좋아요">
+					<img src="<c:url value='/images/hartOff.png' />" id="favorites" style="width: 20px; height: 20px;">
 				</a>
 				<span id="favoritesCount" style="float: initial; margin-left: 20%;">${favoritesCount}</span>
 			</div>
@@ -213,7 +213,7 @@
 
 	        if($likeBtn.hasClass('active2')) {
 				$('#favorites').attr({
-	            	'src': 'https://cdn-icons-png.flaticon.com/512/803/803087.png', alt:'좋아요 완료'
+	            	'src': '<c:url value='/images/hartOn.png' />', alt:'좋아요 완료'
 				});
 	        }
 		}
@@ -476,7 +476,7 @@
 	        if($likeBtn.hasClass('active2')) {
 	        	$('#favoritesCount').text(Number(favoritesCount)+1);
 				$(this).find('img').attr({
-	            	'src': 'https://cdn-icons-png.flaticon.com/512/803/803087.png', alt:'좋아요 완료'
+	            	'src': '<c:url value='/images/hartOn.png' />', alt:'좋아요 완료'
 				});
 				$.ajax({
 				    type: 'post',
@@ -493,7 +493,7 @@
 				$('#favoritesCount').text(Number(favoritesCount)-1); 
 				$(this).find('i').removeClass('fas').addClass('far')
 				$(this).find('img').attr({
-					'src': 'https://cdn-icons-png.flaticon.com/512/812/812327.png',	alt:"좋아요"
+					'src': '<c:url value='/images/hartOff.png' />',	alt:"좋아요"
 	           })
 	           $.ajax({
 				    type: 'post',
@@ -564,6 +564,10 @@
 	
 	.ui-th-column, .ui-jqgrid .ui-jqgrid-htable th.ui-th-column {
     	text-align: left;
+	}
+	
+	#favoritesCount {
+		font-size: 16px;
 	}
 </style>
 </html>

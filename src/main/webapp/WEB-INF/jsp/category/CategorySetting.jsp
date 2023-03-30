@@ -20,8 +20,8 @@
 	<div class="mainDiv">
 		<div class="divBox" >
 			<form id="form" name="form" method ="post">
-				<div style="width: 68%; height: 50px;">
-					<h2 style="float: left;">메뉴 설정</h2>
+				<div style="width: 100%; height: 50px;">
+					<h2 style="float: left; height: 0px;">메뉴 설정</h2>
 					<button class="saveButton" type="button" onclick='btnSave()'>저장</button>
 				</div>
 				<div class="divTop">
@@ -154,16 +154,17 @@
 	}
 	
 	.munuFormSub {
-		margin-left: 100px;
+		margin-left: 10%;
 	}
 	
 	.saveButton {
-		margin-left: 45%;
 		width: 75px;
-		height: 35px;
-		background: lavender;
-		margin-top: 20px;
-		border: 1px solid;
+	    height: 35px;
+	    background: lavender;
+	    margin-top: 20px;
+	    border: 1px solid;
+	    float: left;
+	    margin-left: 30%;
 	}
 </style>
 </html>

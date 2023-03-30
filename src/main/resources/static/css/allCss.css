@@ -155,7 +155,7 @@ input#check_btn:checked + label:before{
 
 .mainMenuMobile {
 	color: black;
-    padding: 20px;
+    padding: 15px;
     cursor: pointer;
     display: block;
 }
@@ -674,6 +674,7 @@ table {
 		width: 85%;
 	    height: 30px;
 	    padding-inline: 5px;
+	    margin-right: 5%;
 	}
 	
 	.labelFontSize {
@@ -695,6 +696,10 @@ table {
 	
 	.categoryBtn {
 		width: 100px;
+	}
+	
+	.selectInput {
+		height: 34px;
 	}
 }
 
@@ -802,7 +807,8 @@ table {
 	    bottom: 8px;
 	    background: #868686;
 	    color: white;
-	    width: 50px;
+	    width: 60px;
+	    height: 25px;
 	    font-size: 11px;
 	    border: 1px solid #868686;
 	}
@@ -914,6 +920,7 @@ table {
 		width: 85%;
 	    height: 20px;
 	    font-size: 12px;
+	    margin-right: 5%;
 	}
 	
 	.labelFontSize {
@@ -938,13 +945,18 @@ table {
     	height: 25px;
     	font-size: 10px;
 	}
+	
+	.selectInput {
+		height: 24px;
+	}
 }
 
 .mediumMenuMobile {
 	color: black;
-    padding: 20px;
+    padding: 15px;
     cursor: pointer;
     display: block;
+    border-bottom: 1px solid #ddd;
 }
 
 
