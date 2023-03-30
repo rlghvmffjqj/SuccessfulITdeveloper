@@ -23,11 +23,11 @@
 				colNames:['키','제목','대메뉴','중메뉴','등록자','등록일'],
 				colModel:[
 					{name:'mainContentsKeyNum', index:'mainContentsKeyNum',align:'center', width: '5%', hidden:true},
-					{name:'mainContentsTitle', index:'mainContentsTitle', align:'center', width: '50%', formatter: linkFormatter},
-					{name:'topItemsName', index:'topItemsName',align:'center', width: '10%'},
-					{name:'middleItemsName', index:'middleItemsName',align:'center', width: '10%'},
+					{name:'mainContentsTitle', index:'mainContentsTitle', align:'center', width: '90%', formatter: linkFormatter},
+					{name:'topItemsName', index:'topItemsName',align:'center', width: '10%', hidden:true},
+					{name:'middleItemsName', index:'middleItemsName',align:'center', width: '10%', hidden:true},
 					{name:'mainContentsRegistrant', index:'mainContentsRegistrant',align:'center', width: '10%', hidden:true},
-					{name:'mainContentsRegistrationDate', index:'mainContentsRegistrationDate', width: '20%', align:'center'},
+					{name:'mainContentsDate', index:'mainContentsDate', width: '20%', align:'center'},
 				],
 				jsonReader : {
 		        	id: 'mainContentsKeyNum',

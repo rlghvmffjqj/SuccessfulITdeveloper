@@ -17,6 +17,7 @@ public class MainContents {
 	private String mainContentsTitle;
 	private String mainContentsDetail;
 	private Integer mainContentsCount;
+	private String mainContentsDate;
 	private String mainContentsRegistrant;
 	private String mainContentsRegistrationDate;
 	private String mainContentsModifier;

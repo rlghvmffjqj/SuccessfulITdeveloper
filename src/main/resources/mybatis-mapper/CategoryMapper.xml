@@ -20,7 +20,7 @@
     	(
     		SELECT ROW_NUMBER() OVER(ORDER BY ${sidx} ${sord}) RowNo, a.*
     		FROM (
-				SELECT mainContentsKeyNum, topItemsName, middleItemsName, mainContentsTitle, mainContentsCount, mainContentsRegistrant, mainContentsRegistrationDate
+				SELECT mainContentsKeyNum, topItemsName, middleItemsName, mainContentsTitle, mainContentsCount, mainContentsDate, mainContentsRegistrant, mainContentsRegistrationDate
 				FROM mainContents WHERE topItemsName = #{topItemsName} AND middleItemsName = #{middleItemsName}
 					<include refid="sqlCategory" />
 			) a
@@ -65,8 +65,8 @@
 	</delete>
 	
 	<insert id="insertMainContents" parameterType="mainContents" useGeneratedKeys="true" keyProperty="mainContentsKeyNum">
-		INSERT INTO maincontents(topItemsName,middleItemsName,mainContentsTitle,mainContentsDetail,mainContentsCount,mainContentsRegistrant,mainContentsRegistrationDate)
-		VALUES(#{topItemsName},#{middleItemsName},#{mainContentsTitle},#{mainContentsDetail},0,#{mainContentsRegistrant},#{mainContentsRegistrationDate});
+		INSERT INTO maincontents(topItemsName,middleItemsName,mainContentsTitle,mainContentsDetail,mainContentsCount,mainContentsDate,mainContentsRegistrant,mainContentsRegistrationDate)
+		VALUES(#{topItemsName},#{middleItemsName},#{mainContentsTitle},#{mainContentsDetail},0,#{mainContentsDate},#{mainContentsRegistrant},#{mainContentsRegistrationDate});
 	</insert>
 	
 	<select id="getMainContentsOne" parameterType="_int" resultMap="mainContents">

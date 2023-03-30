@@ -10,7 +10,8 @@
     	(
     		SELECT ROW_NUMBER() OVER(ORDER BY ${sidx} ${sord}) RowNo, a.*
     		FROM (
-				SELECT mainContentsKeyNum, topItemsName, middleItemsName, mainContentsTitle, mainContentsCount, mainContentsRegistrant, mainContentsRegistrationDate FROM mainContents
+				SELECT mainContentsKeyNum, topItemsName, middleItemsName, mainContentsTitle, mainContentsCount, mainContentsDate, mainContentsRegistrant, mainContentsRegistrationDate 
+				FROM mainContents
 				<include refid="sqlIntegrated" />
 			) a
 		) b

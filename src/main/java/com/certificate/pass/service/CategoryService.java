@@ -110,6 +110,9 @@ public class CategoryService {
 	}
 
 	public int insertMainContents(MainContents mainContents, Principal principal) {
+		Date now = new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		mainContents.setMainContentsDate(formatter.format(now));
 		int sucess = categoryDao.insertMainContents(mainContents);
 		if (sucess <= 0)
 			return 0;
