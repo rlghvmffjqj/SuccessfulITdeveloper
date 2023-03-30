@@ -3,6 +3,7 @@
 <script>
 $(function() {
 	var arr =  $.cookie('name').split(",");
+	$('.subMenuMobile').hide();
 	
 	if($.cookie('name') == 'index') {
 		$('.index').addClass('active');
@@ -55,6 +56,8 @@ $(function() {
 	} else if($.cookie('name') == 'integratedList') {
 		$('.integrated').addClass('active');
 		$('.integratedMobile').addClass('activeMobile');
+	} else {
+		$('#categorySubMenuMobile').show();
 	}
 	
 	if(arr.length == 2) {
@@ -154,21 +157,21 @@ $(function() {
 	    <a href="<c:url value='/integrated/integratedList'/>" class="mainMenuMobile integratedMobile" id="integratedMobile">통합검색</a>
 	    <a href="<c:url value='/freeBoard/freeBoardList'/>" class="mainMenuMobile freeBoardMobile" id="freeBoardMobile">자유게시판</a>
 	    <sec:authorize access="hasAnyRole('ADMIN','MEMBER')">
-	    	<a href="<c:url value='/requestsWrite'/>" class="mainMenuMobile inquiryMobile" id="inquiryMobile">문의하기</a>
+	    	<a href="#!" onClick="inquiry();" class="mainMenuMobile inquiryMobile" id="inquiryMobile">문의하기</a>
 	    </sec:authorize>
 	    
 	    <sec:authorize access="hasRole('ADMIN')">
-	    	<a href="<c:url value='/employeeList'/>" class="mainMenuMobile adminSettingMobile" id="adminSettingMobile">관리자설정</a>
+	    	<a href="#!" onClick="adminSetting();" class="mainMenuMobile adminSettingMobile" id="adminSettingMobile">관리자설정</a>
 	    </sec:authorize>
 	</div>
 	<div id="menuMobile" style="width:64%; height:100%; float:left;">
-		<div id="requestsSubMenuMobile" class="subMenu">
+		<div id="requestsSubMenuMobile" class="subMenuMobile">
 			<div style="width: 28%; float: left; height: 1px;"></div>
 			<a href="<c:url value='/requestsWrite'/>" class="mediumMenuMobile requestsWriteMobile" id="requestsWriteMobile">문의하기</a>
 			<a href="<c:url value='/requestsList'/>" class="mediumMenuMobile requestsListMobile" id="requestsListMobile">문의내역</a>
 		</div>
 		
-		<div id="adminSettingSubMenuMobile" class="subMenu">
+		<div id="adminSettingSubMenuMobile" class="subMenuMobile">
 			<div style="width: 28%; float: left; height: 1px;"></div>
 			<sec:authorize access="hasRole('ADMIN')">
 				<a href="<c:url value='/employeeList'/>" class="mediumMenuMobile employeeMobile" id="employeeMobile">회원 정보</a>
@@ -176,10 +179,55 @@ $(function() {
 				<a href="<c:url value='/category/categorySetting'/>" class="mediumMenuMobile categoryMobile" id="categoryMobile">메뉴설정</a>
 			</sec:authorize>
 		</div>
+		
+		<div id="categorySubMenuMobile" class="subMenuMobile">
+		</div>
 	</div>
 </div>
 
 <script>
+	function adminSetting() {
+		$('.subMenuMobile').css('display','none');
+		$('#adminSettingSubMenuMobile').css('display','block');
+		$('.mainMenuMobile').removeClass('activeMobile');
+		$("#adminSettingMobile").addClass('activeMobile');
+	}
+	
+	function inquiry() {
+		$('.subMenuMobile').css('display','none');
+		$('#requestsSubMenuMobile').css('display','block');
+		$('.mainMenuMobile').removeClass('activeMobile');
+		$("#inquiryMobile").addClass('activeMobile');
+	}
+	
+	function category(topItemsName) {
+		var topItemsName = topItemsName.text;
+		$('.mainMenuMobile').removeClass('activeMobile');
+		$("#"+topItemsName+"Mobile").addClass('activeMobile');
+		$.ajax({
+		    type: 'post',
+		    url: "<c:url value='/category/middleItems'/>",
+		    data: {"topItemsName":topItemsName},
+		    async: false,
+		    success: function (data) {
+		    	$('.mediumMenuMobile ').remove();
+		    	data.forEach(function(middleItemsName){
+		    		if(topItemsName == middleItemsName) {
+		    			var rowItemMobile = "<a href='<c:url value='/category/"+topItemsName+"/"+middleItemsName+"'/>' class='mediumMenuMobile "+middleItemsName+"SameMobile' id='"+middleItemsName+"Mobile'>"+middleItemsName+"</a>";
+		    		} else {
+		    			var rowItemMobile = "<a href='<c:url value='/category/"+topItemsName+"/"+middleItemsName+"'/>' class='mediumMenuMobile "+middleItemsName+"Mobile' id='"+middleItemsName+"Mobile'>"+middleItemsName+"</a>";
+		    		}
+				 	$('#categorySubMenuMobile').append(rowItemMobile);
+				 	$('.subMenuMobile').css('display','none');
+				 	$('#categorySubMenuMobile').css('display','block');
+		    	})
+		    },
+		    error: function(e) {
+		        console.log(e);
+		    }
+		});
+	}
+
 	function kakaoLogout() {
 		var usersId = $('#topMenuSpan').text();
 		location.href="<c:url value='/kakaologout'/>?usersId="+usersId;
@@ -193,7 +241,7 @@ $(function() {
 		    success: function (data) {
 		    	data.forEach(function(topItemsName){
 		    		var rowItem = "<a href='<c:url value='/category/"+topItemsName+"'/>' class='mainMenu "+topItemsName+"' id='"+topItemsName+"'>"+topItemsName+"</a>";
-		    		var rowItemMobile = "<a href='<c:url value='/category/"+topItemsName+"'/>' class='mainMenuMobile "+topItemsName+"Mobile' id='"+topItemsName+"Mobile'>"+topItemsName+"</a>";
+		    		var rowItemMobile = "<a href='#!' onClick='category("+topItemsName+");' class='mainMenuMobile "+topItemsName+"Mobile' id='"+topItemsName+"Mobile'>"+topItemsName+"</a>";
 				 	$('#index').after(rowItem);
 				 	$('#indexMobile').after(rowItemMobile);
 		    	})
@@ -221,7 +269,7 @@ $(function() {
 		    			var rowItemMobile = "<a href='<c:url value='/category/"+topItemsName+"/"+middleItemsName+"'/>' class='mediumMenuMobile "+middleItemsName+"Mobile' id='"+middleItemsName+"Mobile'>"+middleItemsName+"</a>";
 		    		} 
 				 	$('#menu').append(rowItem);
-				 	$('#menuMobile').append(rowItemMobile);
+				 	$('#categorySubMenuMobile').append(rowItemMobile);
 		    	})
 		    },
 		    error: function(e) {
