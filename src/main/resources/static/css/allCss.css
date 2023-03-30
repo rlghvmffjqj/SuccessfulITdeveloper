@@ -153,9 +153,9 @@ input#check_btn:checked + label:before{
     text-decoration: none;
 }
 
-.mainMenuModile {
+.mainMenuMobile {
 	color: black;
-    margin: 20px;
+    padding: 20px;
     cursor: pointer;
     display: block;
 }
@@ -182,9 +182,21 @@ input#check_btn:checked + label:before{
     padding-bottom: 15px;
 }
 
+.activeMobile {
+	font-weight: bold;
+    color: white;
+    background: #95cb95;
+}
+
 .activeSub {
 	font-weight: bold;
     color: #42855B;
+}
+
+.activeSubMobile {
+	font-weight: bold;
+    color: white !important;
+    background: #8bb18b;
 }
 
 a.button {
@@ -253,29 +265,6 @@ a.button {
     float: left;
     width: 100%;
     margin: 5px;
-}
-
-.btnm {
-    display: inline-block;
-    min-width: 100px;
-    height: 35px;
-    line-height: 1;
-    text-align: center;
-    vertical-align: middle;
-    margin-right: 10px;
-    border: 1px solid black;
-    border-radius: 5px;
-}
-
-.seachInput {
-	width: 85%;
-    height: 30px;
-    padding-inline: 10px;
-}
-
-.labelFontSize {
-	font-size: 13px;
-	width: 100%;
 }
 
 .divBox {
@@ -681,6 +670,32 @@ table {
 		display: none;
 	}
 	
+	.seachInput {
+		width: 85%;
+	    height: 30px;
+	    padding-inline: 5px;
+	}
+	
+	.labelFontSize {
+		font-size: 13px;
+		width: 100%;
+	}
+	
+	.btnm {
+	    display: inline-block;
+	    min-width: 100px;
+	    height: 35px;
+	    line-height: 1;
+	    text-align: center;
+	    vertical-align: middle;
+	    margin-right: 10px;
+	    border: 1px solid black;
+	    border-radius: 5px;
+	}
+	
+	.categoryBtn {
+		width: 100px;
+	}
 }
 
 @media (min-width: 0px) and (max-width: 1024px) {
@@ -894,5 +909,42 @@ table {
 	    z-index: 10;
 	    overflow: auto;
 	}
+	
+	.seachInput {
+		width: 85%;
+	    height: 20px;
+	    font-size: 12px;
+	}
+	
+	.labelFontSize {
+		font-size: 11px;
+		width: 100%;
+	}
+	
+	.btnm {
+	    display: inline-block;
+	    min-width: 60px;
+	    height: 25px;
+	    line-height: 1;
+	    text-align: center;
+	    vertical-align: middle;
+	    margin-right: 10px;
+	    border: 1px solid black;
+	    border-radius: 5px;
+	}
+	
+	.categoryBtn {
+		width: 70px !important;
+    	height: 25px;
+    	font-size: 10px;
+	}
 }
+
+.mediumMenuMobile {
+	color: black;
+    padding: 20px;
+    cursor: pointer;
+    display: block;
+}
+
 

@@ -12,7 +12,7 @@
     	(
     		SELECT ROW_NUMBER() OVER(ORDER BY ${sidx} ${sord}) RowNo, a.*
     		FROM (
-				SELECT * 
+				SELECT freeBoardKeyNum, freeBoardTitle, freeBoardCount, freeBoardUserId, freeBoardDate, freeBoardRegistrant, freeBoardRegistrationDate
 				FROM freeBoard
 					<include refid="sqlFreeBoard" />
 			) a

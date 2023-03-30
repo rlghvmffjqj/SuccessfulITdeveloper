@@ -15,7 +15,8 @@
     	(
     		SELECT ROW_NUMBER() OVER(ORDER BY ${sidx} ${sord}) RowNo, a.*
     		FROM (
-				SELECT r.*, e.employeeName 
+				SELECT r.requestsCommentKeyNum, r.requestsKeyNum, r.requestsCommentDate, r.requestsCommentRegistrant, r.requestsCommentRegistrationDate,
+				e.employeeName 
 				FROM requests r INNER JOIN employee e
 				ON r.employeeId = e.employeeId
 					<include refid="sqlRequests" />

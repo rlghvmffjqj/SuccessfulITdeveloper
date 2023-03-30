@@ -21,11 +21,11 @@
 				datatype: 'json',
 				colNames:['사용자ID','사원명','이메일','상태','역할'],
 				colModel:[
-					{name:'employeeId', index:'employeeId', align:'center', width: 250, formatter: linkFormatter},
-					{name:'employeeName', index:'employeeName',align:'center', width: 150},
-					{name:'employeeEmail', index:'employeeEmail', width: 300, align:'center'},
-					{name:'employeeStatus', index:'employeeStatus', align:'center', width: 150},
-					{name:'usersRole', index:'usersRole', align:'center', width: 200},
+					{name:'employeeId', index:'employeeId', align:'center', width: '20%', formatter: linkFormatter},
+					{name:'employeeName', index:'employeeName',align:'center', width: '20%'},
+					{name:'employeeEmail', index:'employeeEmail', width: '20%', align:'center'},
+					{name:'employeeStatus', index:'employeeStatus', align:'center', width: '20%'},
+					{name:'usersRole', index:'usersRole', align:'center', width: '20%'},
 				],
 				jsonReader : {
 		        	id: 'employeeId',
@@ -42,7 +42,7 @@
 		        sortable: true,				// 컬럼을 마우스 순서 변경
 		        height : '670',
 		        autowidth:true,				// 가로 넒이 자동조절
-		        shrinkToFit: false,			// 컬럼 폭 고정값 유지
+		        shrinkToFit: true,			// 컬럼 폭 고정값 유지
 		        altRows: false,				// 라인 강조
 			}); 
 		});

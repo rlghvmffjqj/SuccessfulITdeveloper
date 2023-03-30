@@ -6,44 +6,68 @@ $(function() {
 	
 	if($.cookie('name') == 'index') {
 		$('.index').addClass('active');
+		$('.indexMobile').addClass('activeMobile');
 	} else if($.cookie('name') == 'adminSetting') {
 		$('.adminSetting').addClass('active');
+		$('.adminSettingMobile').addClass('activeMobile');
 		$('.employee').addClass('activeSub');
+		$('.employeeMobile').addClass('activeSubMobile');
 		$('#adminSettingSubMenu').show();
+		$('#adminSettingSubMenuMobile').show();
 	} else if($.cookie('name') == 'requestsWrite') {
 		$('.inquiry').addClass('active');
+		$('.inquiryMobile').addClass('activeMobile');
 		$('.requestsWrite').addClass('activeSub');
+		$('.requestsWriteMobile').addClass('activeSubMobile');
 		$('#requestsSubMenu').show();
+		$('#requestsSubMenuMobile').show();
 	} else if($.cookie('name') == 'requestsList') {
 		$('.inquiry').addClass('active');
+		$('.inquiryMobile').addClass('activeMobile');
 		$('.requestsList').addClass('activeSub');
+		$('.requestsListMobile').addClass('activeSubMobile');
 		$('#requestsSubMenu').show();
+		$('#requestsSubMenuMobile').show();
 	} else if($.cookie('name') == 'employee') {
 		$('.adminSetting').addClass('active');
+		$('.adminSettingMobile').addClass('activeMobile');
 		$('.employee').addClass('activeSub');
+		$('.employeeMobile').addClass('activeSubMobile');
 		$('#adminSettingSubMenu').show();
+		$('#adminSettingSubMenuMobile').show();
 	} else if($.cookie('name') == 'announcementWrite') {
 		$('.adminSetting').addClass('active');
+		$('.adminSettingMobile').addClass('activeMobile');
 		$('.announcement').addClass('activeSub');
+		$('.announcementMobile').addClass('activeSubMobile');
 		$('#adminSettingSubMenu').show();
+		$('#adminSettingSubMenuMobile').show();
 	} else if($.cookie('name') == 'categorySetting') {
 		$('.adminSetting').addClass('active');
+		$('.adminSettingMobile').addClass('activeMobile');
 		$('.category').addClass('activeSub');
+		$('.categoryMobile').addClass('activeSubMobile');
 		$('#adminSettingSubMenu').show();
+		$('#adminSettingSubMenuMobile').show();
 	} else if($.cookie('name') == 'freeBoardList') {
 		$('.freeBoard').addClass('active');
+		$('.freeBoardMobile').addClass('activeMobile');
 	} else if($.cookie('name') == 'integratedList') {
 		$('.integrated').addClass('active');
+		$('.integratedMobile').addClass('activeMobile');
 	}
 	
 	if(arr.length == 2) {
 		setTimeout(() => {
 			$('#menu').show();
 			$('.'+arr[0]).addClass('active');
+			$('.'+arr[0]+'Mobile').addClass('activeMobile');
 			if(arr[0] == arr[1]) {
 				$('.'+arr[1]+"Same").addClass('activeSub');
+				$('.'+arr[1]+"SameMobile").addClass('activeSub');
 			} else {
 				$('.'+arr[1]).addClass('activeSub');
+				$('.'+arr[1]+'Mobile').addClass('activeSubMobile');
 			}
 		}, 100);
 	}
@@ -106,14 +130,12 @@ $(function() {
 
 
 <div id="requestsSubMenu" class="subMenu">
-	<div style="height: 7px;"></div>
 	<div style="width: 28%; float: left; height: 1px;"></div>
 	<a href="<c:url value='/requestsWrite'/>" class="mediumMenu requestsWrite" id="requestsWrite">문의하기</a>
 	<a href="<c:url value='/requestsList'/>" class="mediumMenu requestsList" id="requestsList">문의내역</a>
 </div>
 
 <div id="adminSettingSubMenu" class="subMenu">
-	<div style="height: 7px;"></div>
 	<div style="width: 28%; float: left; height: 1px;"></div>
 	<sec:authorize access="hasRole('ADMIN')">
 		<a href="<c:url value='/employeeList'/>" class="mediumMenu employee" id="employee">회원 정보</a>
@@ -124,23 +146,36 @@ $(function() {
 
 <div class="mobileSubMenu" id="mobileSubMenu" style="display:none">
 	<div style="width:100%; height:60px; float:left; background: #ddd;">
-		<div style="float: left; margin-top: 15px; margin-left: 2%;"><span style="font-size: 20px; font-weight: 600;">전체메뉴</span></div>
+		<div style="float: left; margin-top: 17px; margin-left: 2%;"><span style="font-size: 20px; font-weight: 600;">전체메뉴</span></div>
 		<a onClick="mobileSubMenuBtn()"><img style="width:20px; float: right; margin-top: 20px; margin-right: 2%;" src="<c:url value='/images/close.png' />"></a>
 	</div>
 	<div style="width:35%; height:100%; float:left; border-right: 1px solid #ddd">
-		<a href="<c:url value='/index'/>" class="mainMenuModile index" id="indexMobile">HOME</a>
-	    <a href="<c:url value='/integrated/integratedList'/>" class="mainMenuModile integrated" id="integratedMobile">통합검색</a>
-	    <a href="<c:url value='/freeBoard/freeBoardList'/>" class="mainMenuModile freeBoard" id="freeBoardMobile">자유게시판</a>
+		<a href="<c:url value='/index'/>" class="mainMenuMobile indexMobile" id="indexMobile">HOME</a>
+	    <a href="<c:url value='/integrated/integratedList'/>" class="mainMenuMobile integratedMobile" id="integratedMobile">통합검색</a>
+	    <a href="<c:url value='/freeBoard/freeBoardList'/>" class="mainMenuMobile freeBoardMobile" id="freeBoardMobile">자유게시판</a>
 	    <sec:authorize access="hasAnyRole('ADMIN','MEMBER')">
-	    	<a href="<c:url value='/requestsWrite'/>" class="mainMenuModile inquiry" id="inquiryMobile">문의하기</a>
+	    	<a href="<c:url value='/requestsWrite'/>" class="mainMenuMobile inquiryMobile" id="inquiryMobile">문의하기</a>
 	    </sec:authorize>
 	    
 	    <sec:authorize access="hasRole('ADMIN')">
-	    	<a href="<c:url value='/employeeList'/>" class="mainMenuModile adminSetting" id="adminSettingMobile">관리자설정</a>
+	    	<a href="<c:url value='/employeeList'/>" class="mainMenuMobile adminSettingMobile" id="adminSettingMobile">관리자설정</a>
 	    </sec:authorize>
 	</div>
-	<div style="width:65%; height:100%; float:left;">
-	
+	<div id="menuMobile" style="width:64%; height:100%; float:left;">
+		<div id="requestsSubMenuMobile" class="subMenu">
+			<div style="width: 28%; float: left; height: 1px;"></div>
+			<a href="<c:url value='/requestsWrite'/>" class="mediumMenuMobile requestsWriteMobile" id="requestsWriteMobile">문의하기</a>
+			<a href="<c:url value='/requestsList'/>" class="mediumMenuMobile requestsListMobile" id="requestsListMobile">문의내역</a>
+		</div>
+		
+		<div id="adminSettingSubMenuMobile" class="subMenu">
+			<div style="width: 28%; float: left; height: 1px;"></div>
+			<sec:authorize access="hasRole('ADMIN')">
+				<a href="<c:url value='/employeeList'/>" class="mediumMenuMobile employeeMobile" id="employeeMobile">회원 정보</a>
+				<a href="<c:url value='/announcementWrite'/>" class="mediumMenuMobile announcementMobile" id="announcementMobile">공지사항</a>
+				<a href="<c:url value='/category/categorySetting'/>" class="mediumMenuMobile categoryMobile" id="categoryMobile">메뉴설정</a>
+			</sec:authorize>
+		</div>
 	</div>
 </div>
 
@@ -158,7 +193,7 @@ $(function() {
 		    success: function (data) {
 		    	data.forEach(function(topItemsName){
 		    		var rowItem = "<a href='<c:url value='/category/"+topItemsName+"'/>' class='mainMenu "+topItemsName+"' id='"+topItemsName+"'>"+topItemsName+"</a>";
-		    		var rowItemMobile = "<a href='<c:url value='/category/"+topItemsName+"'/>' class='mainMenuModile "+topItemsName+"Mobile' id='"+topItemsName+"Mobile'>"+topItemsName+"</a>";
+		    		var rowItemMobile = "<a href='<c:url value='/category/"+topItemsName+"'/>' class='mainMenuMobile "+topItemsName+"Mobile' id='"+topItemsName+"Mobile'>"+topItemsName+"</a>";
 				 	$('#index').after(rowItem);
 				 	$('#indexMobile').after(rowItemMobile);
 		    	})
@@ -180,10 +215,13 @@ $(function() {
 		    	data.forEach(function(middleItemsName){
 		    		if(topItemsName == middleItemsName) {
 		    			var rowItem = "<a href='<c:url value='/category/"+topItemsName+"/"+middleItemsName+"'/>' class='mediumMenu "+middleItemsName+"Same' id='"+middleItemsName+"'>"+middleItemsName+"</a>";
+		    			var rowItemMobile = "<a href='<c:url value='/category/"+topItemsName+"/"+middleItemsName+"'/>' class='mediumMenuMobile "+middleItemsName+"SameMobile' id='"+middleItemsName+"Mobile'>"+middleItemsName+"</a>";
 		    		} else {
 		    			var rowItem = "<a href='<c:url value='/category/"+topItemsName+"/"+middleItemsName+"'/>' class='mediumMenu "+middleItemsName+"' id='"+middleItemsName+"'>"+middleItemsName+"</a>";
+		    			var rowItemMobile = "<a href='<c:url value='/category/"+topItemsName+"/"+middleItemsName+"'/>' class='mediumMenuMobile "+middleItemsName+"Mobile' id='"+middleItemsName+"Mobile'>"+middleItemsName+"</a>";
 		    		} 
 				 	$('#menu').append(rowItem);
+				 	$('#menuMobile').append(rowItemMobile);
 		    	})
 		    },
 		    error: function(e) {

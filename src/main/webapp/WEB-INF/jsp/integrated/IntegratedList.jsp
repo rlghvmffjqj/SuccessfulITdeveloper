@@ -22,12 +22,12 @@
 				datatype: 'json',
 				colNames:['키','제목','대메뉴','중메뉴','등록자','등록일'],
 				colModel:[
-					{name:'mainContentsKeyNum', index:'mainContentsKeyNum',align:'center', width: 50, hidden:true},
-					{name:'mainContentsTitle', index:'mainContentsTitle', align:'center', width: 500, formatter: linkFormatter},
-					{name:'topItemsName', index:'topItemsName',align:'center', width: 100},
-					{name:'middleItemsName', index:'middleItemsName',align:'center', width: 150},
-					{name:'mainContentsRegistrant', index:'mainContentsRegistrant',align:'center', width: 100},
-					{name:'mainContentsRegistrationDate', index:'mainContentsRegistrationDate', width: 150, align:'center'},
+					{name:'mainContentsKeyNum', index:'mainContentsKeyNum',align:'center', width: '5%', hidden:true},
+					{name:'mainContentsTitle', index:'mainContentsTitle', align:'center', width: '50%', formatter: linkFormatter},
+					{name:'topItemsName', index:'topItemsName',align:'center', width: '10%'},
+					{name:'middleItemsName', index:'middleItemsName',align:'center', width: '10%'},
+					{name:'mainContentsRegistrant', index:'mainContentsRegistrant',align:'center', width: '10%', hidden:true},
+					{name:'mainContentsRegistrationDate', index:'mainContentsRegistrationDate', width: '20%', align:'center'},
 				],
 				jsonReader : {
 		        	id: 'mainContentsKeyNum',
@@ -44,7 +44,7 @@
 		        sortable: true,				// 컬럼을 마우스 순서 변경
 		        height : '670',
 		        autowidth:true,				// 가로 넒이 자동조절
-		        shrinkToFit: false,			// 컬럼 폭 고정값 유지
+		        shrinkToFit: true,			// 컬럼 폭 고정값 유지
 		        altRows: false,				// 라인 강조
 			}); 
 		});

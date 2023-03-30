@@ -20,7 +20,8 @@
     	(
     		SELECT ROW_NUMBER() OVER(ORDER BY ${sidx} ${sord}) RowNo, a.*
     		FROM (
-				SELECT * FROM mainContents WHERE topItemsName = #{topItemsName} AND middleItemsName = #{middleItemsName}
+				SELECT mainContentsKeyNum, topItemsName, middleItemsName, mainContentsTitle, mainContentsCount, mainContentsRegistrant, mainContentsRegistrationDate
+				FROM mainContents WHERE topItemsName = #{topItemsName} AND middleItemsName = #{middleItemsName}
 					<include refid="sqlCategory" />
 			) a
 		) b

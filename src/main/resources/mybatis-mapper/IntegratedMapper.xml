@@ -5,8 +5,16 @@
 	<resultMap type="com.certificate.pass.vo.MainContents" id="mainContents"></resultMap>
 	
 	<select id="getIntegratedList" parameterType="string" resultMap="mainContents">
-		SELECT * FROM mainContents
-			<include refid="sqlIntegrated" />
+		SELECT *
+    	FROM
+    	(
+    		SELECT ROW_NUMBER() OVER(ORDER BY ${sidx} ${sord}) RowNo, a.*
+    		FROM (
+				SELECT mainContentsKeyNum, topItemsName, middleItemsName, mainContentsTitle, mainContentsCount, mainContentsRegistrant, mainContentsRegistrationDate FROM mainContents
+				<include refid="sqlIntegrated" />
+			) a
+		) b
+    	WHERE b.RowNo between (1+(${page} - 1 ) * ${rows}) and (${page} * ${rows});
 	</select>
 	
 	<select id="getIntegratedListCount" parameterType="string" resultType="_int">

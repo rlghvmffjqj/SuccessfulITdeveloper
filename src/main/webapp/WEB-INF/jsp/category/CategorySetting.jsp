@@ -20,14 +20,14 @@
 	<div class="mainDiv">
 		<div class="divBox" >
 			<form id="form" name="form" method ="post">
-				<div style="width: 56%; height: 100px;">
+				<div style="width: 68%; height: 50px;">
 					<h2 style="float: left;">메뉴 설정</h2>
 					<button class="saveButton" type="button" onclick='btnSave()'>저장</button>
 				</div>
 				<div class="divTop">
 					<div><div><div id="blank"></div></div></div>
 					<c:forEach var="top" items="${topMenu}">
-						<div>
+						<div style="border-bottom: 1px indianred dashed; padding-bottom: 3%; padding-top: 3%;">
 							<div class="menuForm">
 								<input class="menuInput" id="topItemsName" name="topItemsName" value="${top}"><button class="menuBtn" type="button" onclick='topMenuPlus(this)'>+</button><button class="menuBtn" type="button" onclick='topMenuMinus(this)'>-</button>
 							</div>
@@ -46,7 +46,6 @@
 									</div>
 								</c:if>
 							</div>
-							<div style="height:30px">--------------------------------------------------------------------------------------------------</div>
 							<input type='hidden' class="menuInput" id="topItemsName" name="topItemsName" value="|">
 							<input type='hidden' class="menuInput" id="middleItemsName" name="middleItemsName" value="|">
 						</div>
@@ -144,7 +143,7 @@
 	}
 	
 	.menuInput {
-		width: 80%;
+		width: 60%;
     	height: 30px;
     	float: left;
 	}
@@ -159,7 +158,7 @@
 	}
 	
 	.saveButton {
-		float: right;
+		margin-left: 45%;
 		width: 75px;
 		height: 35px;
 		background: lavender;

@@ -21,11 +21,11 @@
 				datatype: 'json',
 				colNames:['Key','제목','등록자','등록일','조회수'],
 				colModel:[
-					{name:'freeBoardKeyNum', index:'freeBoardKeyNum', align:'center', width: 40, hidden:true },
-					{name:'freeBoardTitle', index:'freeBoardTitle', align:'center', width: 400, formatter: linkFormatter},
-					{name:'freeBoardUserId', index:'freeBoardUserId', align:'center', width: 150},
-					{name:'freeBoardDate', index:'freeBoardDate',align:'center', width: 150},
-					{name:'freeBoardCount', index:'freeBoardCount', align:'center', width: 100},
+					{name:'freeBoardKeyNum', index:'freeBoardKeyNum', align:'center', width: '5%', hidden:true },
+					{name:'freeBoardTitle', index:'freeBoardTitle', align:'center', width: '50%', formatter: linkFormatter},
+					{name:'freeBoardUserId', index:'freeBoardUserId', align:'center', width: '15%'},
+					{name:'freeBoardDate', index:'freeBoardDate',align:'center', width: '20%'},
+					{name:'freeBoardCount', index:'freeBoardCount', align:'center', width: '15%'},
 				],
 				jsonReader : {
 		        	id: 'freeBoardKeyNum',
@@ -42,7 +42,7 @@
 		        sortable: true,				// 컬럼을 마우스 순서 변경
 		        height : '670',
 		        autowidth:true,				// 가로 넒이 자동조절
-		        shrinkToFit: false,			// 컬럼 폭 고정값 유지
+		        shrinkToFit: true,			// 컬럼 폭 고정값 유지
 		        altRows: false,				// 라인 강조
 			}); 
 	 	});

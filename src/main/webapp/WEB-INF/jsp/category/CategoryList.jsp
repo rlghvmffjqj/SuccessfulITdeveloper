@@ -22,10 +22,10 @@
 				datatype: 'json',
 				colNames:['키','제목','등록자','등록일'],
 				colModel:[
-					{name:'mainContentsKeyNum', index:'mainContentsKeyNum',align:'center', width: 50, hidden:true},
-					{name:'mainContentsTitle', index:'mainContentsTitle', align:'center', width: 500, formatter: linkFormatter},
-					{name:'mainContentsRegistrant', index:'mainContentsRegistrant',align:'center', width: 150},
-					{name:'mainContentsRegistrationDate', index:'mainContentsRegistrationDate', width: 150, align:'center'},
+					{name:'mainContentsKeyNum', index:'mainContentsKeyNum',align:'center', width: '5%', hidden:true},
+					{name:'mainContentsTitle', index:'mainContentsTitle', align:'center', width: '60%', formatter: linkFormatter},
+					{name:'mainContentsRegistrant', index:'mainContentsRegistrant',align:'center', width: '15%', hidden:true},
+					{name:'mainContentsRegistrationDate', index:'mainContentsRegistrationDate', width: '25%', align:'center'},
 				],
 				jsonReader : {
 		        	id: 'mainContentsKeyNum',
@@ -42,13 +42,13 @@
 		        sortable: true,				// 컬럼을 마우스 순서 변경
 		        height : '670',
 		        autowidth:true,				// 가로 넒이 자동조절
-		        shrinkToFit: false,			// 컬럼 폭 고정값 유지
+		        shrinkToFit: true,			// 컬럼 폭 고정값 유지
 		        altRows: false,				// 라인 강조
 			}); 
 		});
 		
 		$(window).on('resize.list', function () {
-		    jQuery("#list").jqGrid( 'setGridWidth', $(".mainDiv").width() - 30 );
+		    jQuery("#list").jqGrid( 'setGridWidth', $(".divBox").width());
 		});
 	</script>
 </head>
@@ -79,8 +79,8 @@
 			<div class="divBox">
 				<sec:authorize access="hasRole('ADMIN')">
 					<div style="width: 100%; height: 35px;">
-						<button class="btn btnBlue btnBlock middleBtn" type="submit" style="width: 100px;">게시물 등록</button>
-						<button class="btn btnRed btnBlock middleBtn" type="button" style="width: 100px;" onClick="btnDelete();">게시물 삭제</button>
+						<button class="btn btnBlue btnBlock middleBtn categoryBtn" type="submit">게시물 등록</button>
+						<button class="btn btnRed btnBlock middleBtn categoryBtn" type="button" onClick="btnDelete();">게시물 삭제</button>
 					</div>
 				</sec:authorize>
 				<div class="jqGrid_wrapper">
