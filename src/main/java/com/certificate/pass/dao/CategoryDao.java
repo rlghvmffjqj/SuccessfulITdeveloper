@@ -140,4 +140,8 @@ public class CategoryDao {
 	public void insertConnectUser(ConnectUser connectUser) {
 		sqlSession.insert("category.insertConnectUser",connectUser);
 	}
+
+	public int mainCommentsUpdateContents(MainComments mainComments) {
+		return sqlSession.update("category.mainCommentsUpdateContents",mainComments);
+	}
 }

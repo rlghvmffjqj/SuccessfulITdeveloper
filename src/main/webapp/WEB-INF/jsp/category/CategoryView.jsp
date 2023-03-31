@@ -150,10 +150,12 @@
 			<form id="commentform" name="commentform" method="post">
 				<input type="hidden" id="mainContentsKeyNum" name="mainContentsKeyNum" value="${mainContentsKeyNum}">
 				<div class="comment-form">
-					<div class="field">
-						<input class="commentHead" type="text" name="mainCommentsName" placeholder="이름" value=""> 
-						<input class="commentHead" type="password" name="mainCommentsPassword" maxlength="8" placeholder="비밀번호" value="">
-					</div>
+					<sec:authorize access="isAnonymous()">
+						<div class="field">
+							<input class="commentHead" type="text" name="mainCommentsName" placeholder="이름" value=""> 
+							<input class="commentHead" type="password" name="mainCommentsPassword" maxlength="8" placeholder="비밀번호" value="">
+						</div>
+					</sec:authorize>
 
 					<textarea class="commentBody" name="mainCommentsContents" cols="" rows="4" placeholder="여러분의 소중한 댓글을 입력바랍니다."></textarea>
 					<div class="submit" style="height: 55px;">
@@ -176,8 +178,10 @@
 
 	<div id="dialog-reply" title="답글달기" style='display: none'>
 		<form id="commentReplyform" name="commentReplyform" method="post" onsubmit="return false">
-			<input class="commentHeadDialog" type="text" name="mainCommentsNameDialog" placeholder="이름" value=""> 
-			<input class="commentHeadDialog" type="password" name="mainCommentsPasswordDialog" maxlength="8" placeholder="비밀번호" value="">
+			<sec:authorize access="isAnonymous()">
+				<input class="commentHeadDialog" type="text" name="mainCommentsNameDialog" placeholder="이름" value=""> 
+				<input class="commentHeadDialog" type="password" name="mainCommentsPasswordDialog" maxlength="8" placeholder="비밀번호" value="">
+			</sec:authorize>
 			<textarea class="commentBodyDialog" name="mainCommentsContentsDialog" cols="" rows="4" placeholder="여러분의 소중한 댓글을 입력바랍니다."></textarea>
 			<input type="checkbox" name="mainCommentsSecretDialog" id="secret">
 			<label class="commentSecretDialog">비밀글</label>
@@ -198,7 +202,9 @@
 
 	<div id="dialog-update" title="답글 수정" style='display: none'>
 		<form id="commentUpdateform" name="commentUpdateform" method="post" onsubmit="return false">
-			<input class="commentHeadDialog" type="text" id="mainCommentsNameDialog" name="mainCommentsNameDialog" placeholder="이름" value="">
+			<sec:authorize access="isAnonymous()">
+				<input class="commentHeadDialog" type="text" id="mainCommentsNameDialog" name="mainCommentsNameDialog" placeholder="이름" value="">
+			</sec:authorize>
 			<textarea class="commentBodyDialog" name="mainCommentsContentsDialog" cols="" rows="4" placeholder="여러분의 소중한 댓글을 입력바랍니다."></textarea>
 			<input type="checkbox" name="mainCommentsSecretDialog" id="mainCommentsSecretDialog"> 
 			<label class="commentSecretDialog">비밀글</label>
@@ -247,11 +253,24 @@
 					).then(() => {
 						location.reload();
 					});
-				} else {
+				} else if(data=="FALSE") {
 					Swal.fire({
 						icon: 'error',
 						title: '실패!',
 						text: '작업을 실패하였습니다.',
+					});
+				} else {
+					var message;
+					if(data=="NotName")
+						message="이름";
+					else if(data=="NotPwd")
+						message="패스워드";
+					else if(data=="NotContents")
+						message="답글";
+					Swal.fire({
+						icon: 'error',
+						title: '실패!',
+						text: message+'을(를) 입력바랍니다.',
 					});
 				}
 	        },
@@ -274,11 +293,24 @@
 					).then(() => {
 						location.reload();
 					});
-				} else {
+				} else if(data=="FALSE") {
 					Swal.fire({
 						icon: 'error',
 						title: '실패!',
 						text: '작업을 실패하였습니다.',
+					});
+				} else {
+					var message;
+					if(data=="NotName")
+						message="이름";
+					else if(data=="NotPwd")
+						message="패스워드";
+					else if(data=="NotContents")
+						message="댓글";
+					Swal.fire({
+						icon: 'error',
+						title: '실패!',
+						text: message+'을(를) 입력바랍니다.',
 					});
 				}
 	        },
@@ -322,7 +354,13 @@
 						icon: 'error',
 						title: '불일치',
 						text: '패스워드가 일치하지 않습니다.',
-					});    
+					});
+	        	} else if(data=="NotPwd") {
+	        		Swal.fire({
+						icon: 'error',
+						title: '실패',
+						text: '패스워드를 입력해주세요.',
+					});
 				} else {
 					Swal.fire({
 						icon: 'error',
@@ -407,7 +445,13 @@
 						icon: 'error',
 						title: '불일치',
 						text: '패스워드가 일치하지 않습니다.',
-					});    
+					}); 
+	        	} else if(data=="NotPwd") {
+	        		Swal.fire({
+						icon: 'error',
+						title: '실패',
+						text: '패스워드를 입력해주세요.',
+					});
 				} else {
 					Swal.fire({
 						icon: 'error',

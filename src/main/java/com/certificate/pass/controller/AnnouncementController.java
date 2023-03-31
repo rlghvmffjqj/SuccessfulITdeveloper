@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.certificate.pass.service.AnnouncementService;
 import com.certificate.pass.vo.Announcement;
-import com.certificate.pass.vo.Requests;
 
 @Controller
 public class AnnouncementController {

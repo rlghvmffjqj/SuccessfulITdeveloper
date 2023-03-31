@@ -121,20 +121,33 @@ public class CategoryController {
 	
 	@ResponseBody
 	@PostMapping(value = "/category/mainContentsWrite")
-	public int mainContentsWrite(MainContents mainContents, Principal principal) {
+	public Map<String, Object> mainContentsWrite(MainContents mainContents, Principal principal) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(principal.getName() != "admin" && !principal.getName().equals("admin")) {
+			map.put("resault", "FALSE");
+			return map;
+		}
 		mainContents.setMainContentsRegistrant(principal.getName());
 		mainContents.setMainContentsRegistrationDate(categoryService.nowDate());
-		
-		return categoryService.insertMainContents(mainContents, principal);
+		map.put("mainContentsKeyNum", categoryService.insertMainContents(mainContents, principal));
+		map.put("resault", categoryService.validation(mainContents));
+		return map;
 	}
 	
 	@ResponseBody
 	@PostMapping(value = "/category/mainContentsUpdate")
-	public int mainContentsUpdate(MainContents mainContents, Principal principal) {
+	public Map<String, Object> mainContentsUpdate(MainContents mainContents, Principal principal) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(principal.getName() != "admin" && !principal.getName().equals("admin")) {
+			map.put("resault", "FALSE");
+			return map;
+		}
 		mainContents.setMainContentsModifiedDate(principal.getName());
 		mainContents.setMainContentsModifiedDate(categoryService.nowDate());
 		
-		return categoryService.updateMainContents(mainContents, principal);
+		map.put("mainContentsKeyNum", categoryService.updateMainContents(mainContents, principal));
+		map.put("resault", categoryService.validation(mainContents));
+		return map;
 	}
 	
 	@GetMapping(value = "/category/mainContentsView")
@@ -169,6 +182,8 @@ public class CategoryController {
 	@ResponseBody
 	@PostMapping(value = "/category/delete")
 	public String mainContentsDelete(@RequestParam int[] chkList, Principal principal) {
+		if(principal.getName() != "admin" && !principal.getName().equals("admin"))
+			return "FALSE";
 		return categoryService.delMainContents(chkList);
 	}
 	
@@ -201,16 +216,16 @@ public class CategoryController {
 	
 	@ResponseBody
 	@PostMapping(value = "/category/mainCommentsDelete")
-	public String mainCommentsDelete(MainComments mainComments, Integer mainCommentsKeyNum) {
+	public String mainCommentsDelete(MainComments mainComments, Integer mainCommentsKeyNum, Principal principal) {
 		MainComments parentComment = categoryService.getMainCommentsOne(mainCommentsKeyNum);
-		return categoryService.mainCommentsDelete(mainComments,parentComment);
+		return categoryService.mainCommentsDelete(mainComments,parentComment, principal);
 	}
 	
 	@ResponseBody
 	@PostMapping(value = "/category/mainCommentsUpdateCheck")
-	public String mainCommentsUpdateCheck(MainComments mainComments, Integer mainCommentsKeyNum) {
+	public String mainCommentsUpdateCheck(MainComments mainComments, Integer mainCommentsKeyNum, Principal principal) {
 		MainComments parentComment = categoryService.getMainCommentsOne(mainCommentsKeyNum);
-		return categoryService.mainCommentsUpdateCheck(mainComments,parentComment);
+		return categoryService.mainCommentsUpdateCheck(mainComments,parentComment, principal);
 	}
 	
 	@ResponseBody

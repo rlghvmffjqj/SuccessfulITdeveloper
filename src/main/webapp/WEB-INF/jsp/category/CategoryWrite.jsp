@@ -96,19 +96,31 @@
 		    data: formData,
 		    async: false,
 		    success: function (data) {
-		    	if(data == 0) {
+		    	if(data.resault == "FALSE") {
 		    		Swal.fire({               
 						icon: 'error',          
 						title: '실패!',           
 						text: '작업을 실패했습니다.',    
 					});
-		    	} else {
+		    	} else if(data.resault == "NotTitle") {
+		    		Swal.fire({               
+						icon: 'error',          
+						title: '실패!',           
+						text: '제목을 입력 바랍니다.',    
+					});
+		    	} else if(data.resault == "NotDatail") {
+		    		Swal.fire({               
+						icon: 'error',          
+						title: '실패!',           
+						text: '내용을 입력 바랍니다.',    
+					});
+		    	} else if(data.resault == "OK") {
 		    		Swal.fire({
 						icon: 'success',
 						title: '성공!',
 						text: '게시글 등록 완료!',
 					}).then((result) => {
-						location.href="<c:url value='/category/mainContentsView'/>?contentNumber="+data;
+						location.href="<c:url value='/category/mainContentsView'/>?contentNumber="+data.mainContentsKeyNum;
 					});
 				}
 		    },
@@ -145,19 +157,31 @@
 		    data: formData,
 		    async: false,
 		    success: function (data) {
-		    	if(data == 0) {
+		    	if(data.resault == "FALSE") {
 		    		Swal.fire({               
 						icon: 'error',          
 						title: '실패!',           
 						text: '작업을 실패했습니다.',    
 					});
-		    	} else {
+		    	} else if(data.resault == "NotTitle") {
+		    		Swal.fire({               
+						icon: 'error',          
+						title: '실패!',           
+						text: '제목을 입력 바랍니다.',    
+					});
+		    	} else if(data.resault == "NotDatail") {
+		    		Swal.fire({               
+						icon: 'error',          
+						title: '실패!',           
+						text: '내용을 입력 바랍니다.',    
+					});
+		    	} else if(data.resault == "OK") {
 		    		Swal.fire({
 						icon: 'success',
 						title: '성공!',
 						text: '게시글 수정 완료!',
 					}).then((result) => {
-						location.href="<c:url value='/category/mainContentsView'/>?contentNumber="+data;
+						location.href="<c:url value='/category/mainContentsView'/>?contentNumber="+data.mainContentsKeyNum;
 					});
 				}
 		    },

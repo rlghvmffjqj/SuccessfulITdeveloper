@@ -1,5 +1,7 @@
 package com.certificate.pass.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +26,11 @@ public class UsersController {
 	}
 	
 	@GetMapping("/login")
-	public String loginView() {
+	public String loginView(HttpServletRequest request, Model model) {
+		String uri = request.getHeader("Referer");
+	    if (uri != null && !uri.contains("/login")) {
+	        request.getSession().setAttribute("prevPage", uri);
+	    }
 		return "/Login";
 	}
 	

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +35,9 @@
 		        sortname: 'mainContentsKeyNum', 	// 기본 정렬 
 		        sortorder: 'desc',			// 정렬 방식
 		        
-		        multiselect: true,			// 체크박스를 이용한 다중선택
+		        <sec:authorize access="hasRole('ADMIN')">
+		        	multiselect: true,			// 체크박스를 이용한 다중선택
+		        </sec:authorize>
 		        viewrecords: false,			// 시작과 끝 레코드 번호 표시
 		        gridview: true,				// 그리드뷰 방식 랜더링
 		        sortable: true,				// 컬럼을 마우스 순서 변경

@@ -5,26 +5,34 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.certificate.pass.dao.CategoryDao;
+import com.certificate.pass.dao.EmployeeDao;
+import com.certificate.pass.dao.UsersJpaDao;
 import com.certificate.pass.vo.Category;
 import com.certificate.pass.vo.ConnectUser;
+import com.certificate.pass.vo.Employee;
 import com.certificate.pass.vo.Favorites;
 import com.certificate.pass.vo.MainComments;
 import com.certificate.pass.vo.MainContents;
+import com.certificate.pass.vo.Users;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, rollbackFor = {Exception.class, RuntimeException.class})
 public class CategoryService {
 	@Autowired CategoryDao categoryDao;
+	@Autowired UsersJpaDao usersJpaDao;
+	@Autowired EmployeeDao employeeDao;
 
 	public List<String> topItems() {
 		return categoryDao.topItems();
@@ -135,6 +143,22 @@ public class CategoryService {
 	}
 
 	public String insertMainComments(MainComments mainComments) {
+		if(mainComments.getMainCommentsRegistrant() == "" || mainComments.getMainCommentsRegistrant() == null) {
+			if(mainComments.getMainCommentsName() == "" || mainComments.getMainCommentsName() == null) {
+				return "NotName";
+			}
+			if(mainComments.getMainCommentsPassword() == "" || mainComments.getMainCommentsPassword() == null) {
+				return "NotPwd";
+			}
+		} else {
+			Optional<Users> users = usersJpaDao.findByUsersId(mainComments.getMainCommentsRegistrant());
+			Employee employee = employeeDao.getEmployeeOne(mainComments.getMainCommentsRegistrant());
+			mainComments.setMainCommentsName(employee.getEmployeeName());
+			mainComments.setMainCommentsPassword(users.get().getUsersPw());
+		}
+		if(mainComments.getMainCommentsContents() == "") {
+			return "NotContents";
+		}
 		int sucess = categoryDao.insertMainComments(mainComments);
 		if (sucess <= 0)
 			return "FALSE";
@@ -186,15 +210,36 @@ public class CategoryService {
 	}
 
 	public String insertMainCommentsReply(MainComments mainComments) {
+		if(mainComments.getMainCommentsRegistrant() == "" || mainComments.getMainCommentsRegistrant() == null) {
+			if(mainComments.getMainCommentsNameDialog() == "" || mainComments.getMainCommentsNameDialog() == null) {
+				return "NotName";
+			}
+			if(mainComments.getMainCommentsPasswordDialog() == "" || mainComments.getMainCommentsPasswordDialog() == null) {
+				return "NotPwd";
+			}
+		} else {
+			Optional<Users> users = usersJpaDao.findByUsersId(mainComments.getMainCommentsRegistrant());
+			Employee employee = employeeDao.getEmployeeOne(mainComments.getMainCommentsRegistrant());
+			mainComments.setMainCommentsNameDialog(employee.getEmployeeName());
+			mainComments.setMainCommentsPasswordDialog(users.get().getUsersPw());
+		}
+		if(mainComments.getMainCommentsContentsDialog() == "") {
+			return "NotContents";
+		}
 		int sucess = categoryDao.insertMainCommentsReply(mainComments);
 		if (sucess <= 0)
 			return "FALSE";
 		return "OK";
 	}
 
-	public String mainCommentsDelete(MainComments mainComments, MainComments parentComment) {
-		if(!mainComments.getMainCommentsPasswordDialog().equals(parentComment.getMainCommentsPassword())) {
-			return "Inconsistency";
+	public String mainCommentsDelete(MainComments mainComments, MainComments parentComment, Principal principal) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		if(mainComments.getMainCommentsPasswordDialog() == "") 
+			return "NotPwd";
+		if(!passwordEncoder.matches(mainComments.getMainCommentsPasswordDialog(),parentComment.getMainCommentsPassword())) {
+			if(!mainComments.getMainCommentsPasswordDialog().equals(parentComment.getMainCommentsPassword())) {
+				return "Inconsistency";
+			}
 		}
 		int sucess = categoryDao.mainCommentsDelete(parentComment.getMainCommentsKeyNum());
 		if (sucess <= 0)
@@ -203,7 +248,16 @@ public class CategoryService {
 		return "OK";
 	}
 
-	public String mainCommentsUpdateCheck(MainComments mainComments, MainComments parentComment) {
+	public String mainCommentsUpdateCheck(MainComments mainComments, MainComments parentComment,  Principal principal) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		if(mainComments.getMainCommentsPasswordDialog() == "") 
+			return "NotPwd";
+		try {
+			Optional<Users> users = usersJpaDao.findByUsersId(principal.getName());
+			if(passwordEncoder.matches(mainComments.getMainCommentsPasswordDialog(),users.get().getUsersPw())) {
+				return "OK";
+			}
+		} catch (Exception e) {}
 		if(!mainComments.getMainCommentsPasswordDialog().equals(parentComment.getMainCommentsPassword())) {
 			return "Inconsistency";
 		}
@@ -212,7 +266,11 @@ public class CategoryService {
 
 	public String mainCommentsUpdate(MainComments mainComments, MainComments parentComment) {
 		mainComments.setMainCommentsKeyNum(parentComment.getMainCommentsKeyNum());
-		int sucess = categoryDao.mainCommentsUpdate(mainComments);
+		int sucess;
+		if(mainComments.getMainCommentsNameDialog() == "" || mainComments.getMainCommentsNameDialog() == null) 
+			sucess = categoryDao.mainCommentsUpdateContents(mainComments);
+		else 
+			sucess = categoryDao.mainCommentsUpdate(mainComments);
 		if (sucess <= 0)
 			return "FALSE";
 		return "OK";
@@ -266,6 +324,14 @@ public class CategoryService {
 
 	public void insertConnectUser(ConnectUser connectUser) {
 		categoryDao.insertConnectUser(connectUser);
+	}
+
+	public String validation(MainContents mainContents) {
+		if(mainContents.getMainContentsTitle() == "" || mainContents.getMainContentsTitle() == null)
+			return "NotTitle";
+		if(mainContents.getMainContentsDetail() == "" || mainContents.getMainContentsDetail() == null)
+			return "NotDatail";
+		return "OK";
 	}
 
 }

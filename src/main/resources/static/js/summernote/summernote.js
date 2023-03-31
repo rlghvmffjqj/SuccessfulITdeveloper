@@ -6336,7 +6336,7 @@ var Clipboard_Clipboard = /*#__PURE__*/function () {
 
       setTimeout(function () {
         _this.context.invoke('editor.afterCommand');
-      }, 10);
+      }, 1000);
     }
   }]);
 

@@ -10,20 +10,31 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class Securityconfig extends WebSecurityConfigurerAdapter{
+	
+	private final AuthenticationSuccessHandler authenticationSuccessHandler;
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		// 접속 권한
-		http.authorizeRequests();
-			//.antMatchers("/successfulITdeveloper").hasAnyRole("MEMBER","ADMIN")
-			//.antMatchers("/").hasAnyRole("MEMBER","ADMIN");
+		http.authorizeRequests()
+			.antMatchers("/requestsWrite").hasRole("ADMIN")
+			.antMatchers("/employeeList").hasRole("ADMIN")
+			.antMatchers("/employee/**").hasRole("ADMIN")
+			.antMatchers("/announcementWrite").hasRole("ADMIN")
+			.antMatchers("/category/categorySetting").hasRole("ADMIN")
+			.antMatchers("/category/categorySettingSave").hasRole("ADMIN")
+			.antMatchers("/").permitAll();
 		
 		// 로그인 설정
 		http.formLogin()
@@ -32,7 +43,9 @@ public class Securityconfig extends WebSecurityConfigurerAdapter{
 			.passwordParameter("usersPw")
 			.defaultSuccessUrl("/index")
 			.failureUrl("/loginFail")
+			.successHandler(authenticationSuccessHandler)
 			.permitAll();
+			
 		
 		// 로그아웃 설정
 		http.logout()

@@ -104,6 +104,11 @@
 		WHERE mainCommentsKeyNum = #{mainCommentsKeyNum};
 	</update>
 	
+	<update id="mainCommentsUpdateContents">
+		UPDATE mainComments SET mainCommentsContents = #{mainCommentsContentsDialog}, mainCommentsSecret = #{mainCommentsSecretDialog}, mainCommentsDate = #{mainCommentsDate} 
+		WHERE mainCommentsKeyNum = #{mainCommentsKeyNum};
+	</update>
+	
 	<delete id="mainCommentsChildDelete" parameterType="_int">
 		DELETE FROM mainComments WHERE mainCommentsParentKeyNum = #{mainCommentsKeyNum};
 	</delete>

@@ -140,10 +140,6 @@ input#check_btn:checked + label:before{
 	background: #CADFCA;
 }
 
-.topMenuLogin:hover {
-	background-color: silver;
-}
-
 .mainMenu {
 	color: white;
     float: left;
@@ -611,16 +607,6 @@ table {
 		margin-left: 20%;
 	}
 	
-	.topMenuLogin {
-		float: right;
-	    margin: 17px;
-	    margin-right: 20%;
-	    background-color: white;
-	    color: black;
-	    width: 75px;
-	    height: 25px;
-	}
-	
 	.mobileMenu {
 		display: none;
 	}
@@ -700,6 +686,12 @@ table {
 	
 	.selectInput {
 		height: 34px;
+	}
+	
+	.table-bordered > tbody > tr > td {
+		border: 1px solid #ddd;
+		padding: 10px;
+	    font-size: 12px;
 	}
 }
 
@@ -845,17 +837,6 @@ table {
 		margin-left: 3%;
 	}
 	
-	.topMenuLogin {
-		float: right;
-	    margin: 20px;
-	    margin-right: 2%;
-	    background-color: white;
-	    color: black;
-	    width: 60px;
-	    height: 20px;
-	    font-size: 10px;
-	}
-	
 	.mobileMenu {
 		width: 20px;
     	margin-top: 22px;
@@ -949,6 +930,12 @@ table {
 	.selectInput {
 		height: 24px;
 	}
+	
+	.table-bordered > tbody > tr > td {
+		border: 1px solid #ddd;
+		padding: 5px;
+	    font-size: 10px;
+	}
 }
 
 .mediumMenuMobile {
@@ -958,5 +945,4 @@ table {
     display: block;
     border-bottom: 1px solid #ddd;
 }
-
 
