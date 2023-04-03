@@ -1,6 +1,8 @@
 package com.certificate.pass.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,16 +87,12 @@ public class CategoryDao {
 		return sqlSession.insert("category.insertMainCommentsReply",mainComments);
 	}
 
-	public int mainCommentsDelete(Integer mainCommentsKeyNum) {
-		return sqlSession.delete("category.mainCommentsDelete",mainCommentsKeyNum);
+	public int mainCommentsDelete(String mainCommentsFullPath) {
+		return sqlSession.delete("category.mainCommentsDelete",mainCommentsFullPath+"%");
 	}
 
 	public int mainCommentsUpdate(MainComments mainComments) {
 		return sqlSession.update("category.mainCommentsUpdate",mainComments);
-	}
-
-	public void mainCommentsChildDelete(Integer mainCommentsKeyNum) {
-		sqlSession.delete("category.mainCommentsChildDelete",mainCommentsKeyNum);
 	}
 
 	public void delMainContentsComments(int mainContentsKeyNum) {
@@ -143,5 +141,12 @@ public class CategoryDao {
 
 	public int mainCommentsUpdateContents(MainComments mainComments) {
 		return sqlSession.update("category.mainCommentsUpdateContents",mainComments);
+	}
+
+	public void fullPatchUpdate(int mainCommentsKeyNum, String mainCommentsFullPath) {
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("mainCommentsKeyNum", mainCommentsKeyNum);
+		parameters.put("mainCommentsFullPath", mainCommentsFullPath);
+		sqlSession.update("category.fullPatchUpdate",parameters);
 	}
 }

@@ -162,6 +162,7 @@ public class CategoryService {
 		int sucess = categoryDao.insertMainComments(mainComments);
 		if (sucess <= 0)
 			return "FALSE";
+		categoryDao.fullPatchUpdate(mainComments.getMainCommentsKeyNum(), "/"+mainComments.getMainCommentsKeyNum());
 		return "OK";
 	}
 
@@ -229,11 +230,20 @@ public class CategoryService {
 		int sucess = categoryDao.insertMainCommentsReply(mainComments);
 		if (sucess <= 0)
 			return "FALSE";
+		categoryDao.fullPatchUpdate(mainComments.getMainCommentsKeyNum(), mainComments.getMainCommentsFullPath()+"/"+mainComments.getMainCommentsKeyNum());
 		return "OK";
 	}
 
 	public String mainCommentsDelete(MainComments mainComments, MainComments parentComment, Principal principal) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		try {
+			if(parentComment.getMainCommentsRegistrant().equals(principal.getName())) {
+				int sucess = categoryDao.mainCommentsDelete(parentComment.getMainCommentsFullPath());
+				if (sucess <= 0)
+					return "FALSE";
+				return "OK";
+			}
+		} catch (Exception e) {}
 		if(mainComments.getMainCommentsPasswordDialog() == "") 
 			return "NotPwd";
 		if(!passwordEncoder.matches(mainComments.getMainCommentsPasswordDialog(),parentComment.getMainCommentsPassword())) {
@@ -241,10 +251,9 @@ public class CategoryService {
 				return "Inconsistency";
 			}
 		}
-		int sucess = categoryDao.mainCommentsDelete(parentComment.getMainCommentsKeyNum());
+		int sucess = categoryDao.mainCommentsDelete(parentComment.getMainCommentsFullPath());
 		if (sucess <= 0)
 			return "FALSE";
-		categoryDao.mainCommentsChildDelete(parentComment.getMainCommentsKeyNum());
 		return "OK";
 	}
 
@@ -262,6 +271,17 @@ public class CategoryService {
 			return "Inconsistency";
 		}
 		return "OK";
+	}
+	
+	public String mainCommentsUserCheck(MainComments mainComments, MainComments parentComment,  Principal principal) {
+		try {
+			if(parentComment.getMainCommentsRegistrant().equals(principal.getName())) {
+				return "OK";
+			}
+		} catch (Exception e) {
+			return "FALSE";
+		}
+		return "FALSE";
 	}
 
 	public String mainCommentsUpdate(MainComments mainComments, MainComments parentComment) {

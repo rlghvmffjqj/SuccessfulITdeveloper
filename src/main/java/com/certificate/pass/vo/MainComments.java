@@ -15,6 +15,7 @@ public class MainComments {
 	private Integer mainCommentsParentKeyNum;
 	private Integer mainContentsKeyNum;
 	private Integer mainCommentsDepth;
+	private String mainCommentsFullPath;
 	private String mainCommentsContents;
 	private String mainCommentsName;
 	private String mainCommentsPassword;

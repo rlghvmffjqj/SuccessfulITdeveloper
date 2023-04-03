@@ -328,6 +328,31 @@
 	function updateComment(update) {
 		var mainCommentsKeyNum = update.parentElement.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText;
 		var mainCommentsName = update.parentElement.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerText;
+		
+		var postData = $('#commentUpdateCheckform').serializeArray();
+		postData.push({name : "mainCommentsKeyNum", value : mainCommentsKeyNum});
+		$.ajax({
+	        type: 'post',
+	        url: "<c:url value='/category/mainCommentsUserCheck'/>",
+	        async: false,
+	        data: postData,
+	        success: function (data) {
+	        	if(data=="OK") {
+					commentUpdate(mainCommentsKeyNum,mainCommentsName);
+	        	} else if(data=="Inconsistency") {
+	        		Swal.fire({
+						icon: 'error',
+						title: '불일치',
+						text: '패스워드가 일치하지 않습니다.',
+					});
+				} else {
+					updateCommentPwd(mainCommentsKeyNum,mainCommentsName);
+				}
+	        },
+	    });
+	}
+	
+	function updateCommentPwd(mainCommentsKeyNum,mainCommentsName) {
 		$('#dialog-updateCheck').dialog({
 			modal: true, 
 			buttons: {
@@ -413,6 +438,31 @@
 	
 	function deleteComment(del) {
 		var mainCommentsKeyNum = del.parentElement.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText;
+		
+		var postData = $('#commentDeleteform').serializeArray();
+		postData.push({name : "mainCommentsKeyNum", value : mainCommentsKeyNum});
+		$.ajax({
+	        type: 'post',
+	        url: "<c:url value='/category/mainCommentsUserCheck'/>",
+	        async: false,
+	        data: postData,
+	        success: function (data) {
+	        	if(data=="OK") {
+	        		deleteSubmit(mainCommentsKeyNum,mainCommentsName);
+	        	} else if(data=="Inconsistency") {
+	        		Swal.fire({
+						icon: 'error',
+						title: '불일치',
+						text: '패스워드가 일치하지 않습니다.',
+					});
+				} else {
+					deleteCommentPwd(mainCommentsKeyNum,mainCommentsName);
+				}
+	        },
+	    });
+	}
+	
+	function deleteCommentPwd(mainCommentsKeyNum) {
 		$('#dialog-delete').dialog({
 			modal: true, 
 			buttons: {

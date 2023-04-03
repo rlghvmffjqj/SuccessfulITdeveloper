@@ -206,6 +206,7 @@ public class CategoryController {
 		mainComments.setMainContentsKeyNum(parentComment.getMainContentsKeyNum());
 		mainComments.setMainCommentsDepth(parentComment.getMainCommentsDepth()+1);
 		mainComments.setMainCommentsDate(categoryService.nowDate());
+		mainComments.setMainCommentsFullPath(parentComment.getMainCommentsFullPath());
 		
 		try {
 			mainComments.setMainCommentsRegistrant(principal.getName());
@@ -226,6 +227,13 @@ public class CategoryController {
 	public String mainCommentsUpdateCheck(MainComments mainComments, Integer mainCommentsKeyNum, Principal principal) {
 		MainComments parentComment = categoryService.getMainCommentsOne(mainCommentsKeyNum);
 		return categoryService.mainCommentsUpdateCheck(mainComments,parentComment, principal);
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "/category/mainCommentsUserCheck")
+	public String mainCommentsUpdateUserCheck(MainComments mainComments, Integer mainCommentsKeyNum, Principal principal) {
+		MainComments parentComment = categoryService.getMainCommentsOne(mainCommentsKeyNum);
+		return categoryService.mainCommentsUserCheck(mainComments,parentComment, principal);
 	}
 	
 	@ResponseBody

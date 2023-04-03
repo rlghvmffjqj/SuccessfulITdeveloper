@@ -17,3 +17,5 @@
 <script type="text/javascript" src="<c:url value='/js/jquery/jquery.serializeObject.js'/>"></script>
 
 <script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+
+<script>history.scrollRestoration = "auto"</script>

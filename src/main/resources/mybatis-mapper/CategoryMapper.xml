@@ -77,9 +77,9 @@
 		DELETE FROM mainContents WHERE mainContentsKeyNum = #{mainContentsKeyNum};
 	</delete>
 	
-	<insert id="insertMainComments">
-		INSERT INTO mainComments(mainCommentsParentKeyNum,mainContentsKeyNum,mainCommentsDepth,mainCommentsContents,mainCommentsName,mainCommentsPassword,mainCommentsDate,mainCommentsSecret,mainCommentsRegistrant,mainCommentsRegistrationDate)
-		VALUES(0,#{mainContentsKeyNum},0,#{mainCommentsContents},#{mainCommentsName},#{mainCommentsPassword},#{mainCommentsDate},#{mainCommentsSecret},#{mainCommentsRegistrant},#{mainCommentsRegistrationDate});
+	<insert id="insertMainComments" parameterType="mainComments" useGeneratedKeys="true" keyProperty="mainCommentsKeyNum">
+		INSERT INTO mainComments(mainCommentsParentKeyNum,mainContentsKeyNum,mainCommentsDepth,mainCommentsFullPath,mainCommentsContents,mainCommentsName,mainCommentsPassword,mainCommentsDate,mainCommentsSecret,mainCommentsRegistrant,mainCommentsRegistrationDate)
+		VALUES(0,#{mainContentsKeyNum},0,#{mainCommentsFullPath},#{mainCommentsContents},#{mainCommentsName},#{mainCommentsPassword},#{mainCommentsDate},#{mainCommentsSecret},#{mainCommentsRegistrant},#{mainCommentsRegistrationDate});
 	</insert>
 	
 	<select id="getMainCommentsList" parameterType="_int" resultMap="mainComments">
@@ -90,13 +90,13 @@
 		SELECT * FROM mainComments WHERE mainCommentsKeyNum = #{mainCommentsKeyNum};
 	</select>
 	
-	<insert id="insertMainCommentsReply">
+	<insert id="insertMainCommentsReply" parameterType="mainComments" useGeneratedKeys="true" keyProperty="mainCommentsKeyNum">
 		INSERT INTO mainComments(mainCommentsParentKeyNum,mainContentsKeyNum,mainCommentsDepth,mainCommentsContents,mainCommentsName,mainCommentsPassword,mainCommentsDate,mainCommentsSecret,mainCommentsRegistrant,mainCommentsRegistrationDate)
 		VALUES(#{mainCommentsParentKeyNum},#{mainContentsKeyNum},#{mainCommentsDepth},#{mainCommentsContentsDialog},#{mainCommentsNameDialog},#{mainCommentsPasswordDialog},#{mainCommentsDate},#{mainCommentsSecretDialog},#{mainCommentsRegistrant},#{mainCommentsRegistrationDate});
 	</insert>
 	
-	<delete id="mainCommentsDelete" parameterType="_int">
-		DELETE FROM mainComments WHERE mainCommentsKeyNum = #{mainCommentsKeyNum};
+	<delete id="mainCommentsDelete" parameterType="string">
+		DELETE FROM mainComments WHERE mainCommentsFullPath like #{mainCommentsFullPath};
 	</delete>
 	
 	<update id="mainCommentsUpdate">
@@ -108,10 +108,6 @@
 		UPDATE mainComments SET mainCommentsContents = #{mainCommentsContentsDialog}, mainCommentsSecret = #{mainCommentsSecretDialog}, mainCommentsDate = #{mainCommentsDate} 
 		WHERE mainCommentsKeyNum = #{mainCommentsKeyNum};
 	</update>
-	
-	<delete id="mainCommentsChildDelete" parameterType="_int">
-		DELETE FROM mainComments WHERE mainCommentsParentKeyNum = #{mainCommentsKeyNum};
-	</delete>
 	
 	<delete id="delMainContentsComments" parameterType="_int">
 		DELETE FROM mainComments WHERE mainContentsKeyNum = #{mainContentsKeyNum};
@@ -164,6 +160,10 @@
 		INSERT INTO connectUser(connectUserIp, connectUserPort, connectUserDate)
 		VALUES(#{connectUserIp}, #{connectUserPort}, #{connectUserDate});
 	</insert>
+	
+	<update id="fullPatchUpdate">
+		UPDATE mainComments SET mainCommentsFullPath = #{mainCommentsFullPath} WHERE mainCommentsKeyNum = #{mainCommentsKeyNum};
+	</update>
 	
 	<!-- ==================================================================================== -->
 	
