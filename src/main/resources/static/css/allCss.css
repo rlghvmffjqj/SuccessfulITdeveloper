@@ -693,6 +693,13 @@ table {
 		padding: 10px;
 	    font-size: 12px;
 	}
+	
+	.loginImg {
+		width: 50px; 
+		float: right; 
+		margin-right: 20%; 
+		margin-top: 5px;
+	}
 }
 
 @media (min-width: 0px) and (max-width: 1024px) {
@@ -935,6 +942,13 @@ table {
 		border: 1px solid #ddd;
 		padding: 5px;
 	    font-size: 10px;
+	}
+	
+	.loginImg {
+		width: 40px;
+    	float: right;
+    	margin-right: 5%;
+    	margin-top: 10px;
 	}
 }
 
