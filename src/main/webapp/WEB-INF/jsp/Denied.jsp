@@ -15,7 +15,7 @@
                 <h1>접근 거부</h1>
                 <h5>No Access</h5>
                 <p>oops! No Access</p>
-                <a href="/ITDeveloper/login" class="btn btn-error btn-lg waves-effect">back to home page</a>
+                <a href="/AgentInfo/login" class="btn btn-error btn-lg waves-effect">back to home page</a>
             </div>
         </div>
     </div>
