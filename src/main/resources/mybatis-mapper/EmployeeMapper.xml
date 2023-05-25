@@ -4,43 +4,6 @@
 <mapper namespace="employee">
 	<resultMap type="com.certificate.pass.vo.Employee" id="employee"></resultMap>
 	
-	<select id="getUsersPw" parameterType="string" resultType="string">
-		SELECT usersPw FROM users WHERE usersId = #{usersId};
-	</select>
-	
-	<update id="lastLogin">
-		UPDATE employee SET lastLogin = #{lastLogin} WHERE employeeId = #{usersId};
-	</update>
-	
-	<insert id="insertEmployee">
-		INSERT INTO employee(employeeId, employeeName, employeeEmail, employeeStatus, employeeRegistrant, employeeRegistrationDate) 
-		VALUES(#{employeeId}, #{employeeName}, #{employeeEmail}, #{employeeStatus}, #{employeeRegistrant}, #{employeeRegistrationDate});
-	</insert>
-	
-	<select id="getEmployeeOne" parameterType="string" resultMap="employee">
-		SELECT * FROM employee
-		WHERE employeeId = #{employeeId};
-	</select>
-	
-	<select id="getEmployeeEmailOne" parameterType="string" resultMap="employee">
-		SELECT * FROM employee
-		WHERE employeeEmail = #{employeeEmail};
-	</select>
-	
-	<select id="getEmployeeMatch" parameterType="string" resultMap="employee">
-		SELECT * FROM employee
-		WHERE employeeEmail = #{employeeEmail}
-		AND employeeId = #{employeeId};
-	</select>
-	
-	<update id="updateUsersPw">
-		UPDATE users SET usersPw = #{usersPw} WHERE usersId = #{usersId};
-	</update>
-	
-	<select id="getState" parameterType="string" resultType="string">
-		SELECT usersState FROM users WHERE usersId = #{usersId};
-	</select>
-	
 	<select id="getEmployeeCount" resultType="_int">
 		SELECT COUNT(*) FROM employee e INNER JOIN users u
 		ON e.employeeId = u.usersId

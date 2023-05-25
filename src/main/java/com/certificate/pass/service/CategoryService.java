@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,20 +17,23 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.certificate.pass.dao.CategoryDao;
 import com.certificate.pass.dao.EmployeeDao;
-import com.certificate.pass.dao.UsersJpaDao;
+import com.certificate.pass.emtity.EmployeeEntity;
+import com.certificate.pass.emtity.UsersEntity;
+import com.certificate.pass.jpaDao.EmployeeJpaDao;
+import com.certificate.pass.jpaDao.UsersJpaDao;
 import com.certificate.pass.vo.Category;
 import com.certificate.pass.vo.ConnectUser;
 import com.certificate.pass.vo.Employee;
 import com.certificate.pass.vo.Favorites;
 import com.certificate.pass.vo.MainComments;
 import com.certificate.pass.vo.MainContents;
-import com.certificate.pass.vo.Users;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED, rollbackFor = {Exception.class, RuntimeException.class})
 public class CategoryService {
 	@Autowired CategoryDao categoryDao;
 	@Autowired UsersJpaDao usersJpaDao;
+	@Autowired EmployeeJpaDao employeeJpaDao;
 	@Autowired EmployeeDao employeeDao;
 
 	public List<String> topItems() {
@@ -151,10 +153,10 @@ public class CategoryService {
 				return "NotPwd";
 			}
 		} else {
-			Optional<Users> users = usersJpaDao.findByUsersId(mainComments.getMainCommentsRegistrant());
-			Employee employee = employeeDao.getEmployeeOne(mainComments.getMainCommentsRegistrant());
-			mainComments.setMainCommentsName(employee.getEmployeeName());
-			mainComments.setMainCommentsPassword(users.get().getUsersPw());
+			UsersEntity users = usersJpaDao.findByUsersId(mainComments.getMainCommentsRegistrant());
+			EmployeeEntity employeeEntity = employeeJpaDao.findByEmployeeId(mainComments.getMainCommentsRegistrant());
+			mainComments.setMainCommentsName(employeeEntity.getEmployeeName());
+			mainComments.setMainCommentsPassword(users.getUsersPw());
 		}
 		if(mainComments.getMainCommentsContents() == "") {
 			return "NotContents";
@@ -219,10 +221,10 @@ public class CategoryService {
 				return "NotPwd";
 			}
 		} else {
-			Optional<Users> users = usersJpaDao.findByUsersId(mainComments.getMainCommentsRegistrant());
-			Employee employee = employeeDao.getEmployeeOne(mainComments.getMainCommentsRegistrant());
-			mainComments.setMainCommentsNameDialog(employee.getEmployeeName());
-			mainComments.setMainCommentsPasswordDialog(users.get().getUsersPw());
+			UsersEntity users = usersJpaDao.findByUsersId(mainComments.getMainCommentsRegistrant());
+			EmployeeEntity employeeEntity = employeeJpaDao.findByEmployeeId(mainComments.getMainCommentsRegistrant());
+			mainComments.setMainCommentsNameDialog(employeeEntity.getEmployeeName());
+			mainComments.setMainCommentsPasswordDialog(users.getUsersPw());
 		}
 		if(mainComments.getMainCommentsContentsDialog() == "") {
 			return "NotContents";
@@ -262,8 +264,8 @@ public class CategoryService {
 		if(mainComments.getMainCommentsPasswordDialog() == "") 
 			return "NotPwd";
 		try {
-			Optional<Users> users = usersJpaDao.findByUsersId(principal.getName());
-			if(passwordEncoder.matches(mainComments.getMainCommentsPasswordDialog(),users.get().getUsersPw())) {
+			UsersEntity users = usersJpaDao.findByUsersId(principal.getName());
+			if(passwordEncoder.matches(mainComments.getMainCommentsPasswordDialog(),users.getUsersPw())) {
 				return "OK";
 			}
 		} catch (Exception e) {}

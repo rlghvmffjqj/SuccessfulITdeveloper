@@ -9,13 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.certificate.pass.emtity.UsersEntity;
 import com.certificate.pass.service.UsersService;
-import com.certificate.pass.vo.Users;
 
 @Controller
 public class KakaoController {
-	
-	@Autowired Users users;
 	@Autowired UsersService usersService;
 	
 	/**

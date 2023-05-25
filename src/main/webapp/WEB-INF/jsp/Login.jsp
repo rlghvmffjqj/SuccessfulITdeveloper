@@ -10,11 +10,11 @@
 		$(function() {
 			/* =========== 쿠키 값이 있을 경우 아이디 저장 CheckBox true ========= */
 			if($.cookie('usersId') != null) {
-				$('#checkbox').prop('checked',true);
+				$('#check_btn').prop('checked',true);
 			}
 			
 			/* =========== CheckBox true 일경우 ID Input 값 넣기 ========= */
-			if($('#checkbox').is(':checked') == true) {
+			if($('#check_btn').is(':checked') == true) {
 				$('#usersId').val($.cookie('usersId'));
 			}
 		});
@@ -23,7 +23,7 @@
 <body style="background-image:url('images/background.png'); background-size: cover;">
 	<div style="text-align: -webkit-center;">
 		<div style="text-align: -webkit-center; margin-top: 11%;">
-			<form id="form" method="post">
+			<form id="form" method="post" action="/ITDeveloper/login">
 				<img style="width: 250px;" src="<c:url value='/images/logo.png' />" alt="logo.png">
 				<div style="margin-top: 10px;">
 					<input style="width:350px; padding-inline: 10px;" type="text" id="usersId" name="usersId" class="formControl" required="required" placeholder="ID" value="${usersId}">
@@ -97,12 +97,12 @@
 		    });
 			
 			/* =========== CheckBox true 일경우 쿠키 저장 (기간 1일) ========= */
-			if($('#checkbox').is(':checked') == true) {
-				$.cookie('usersId',$('#usersId').val(),{ expires: 1 });
+			if($('#check_btn').is(':checked') == true) {
+				$.cookie('usersId', $('#usersId').val(), { expires: 1 });
 			}
 			
 			/* =========== CheckBox false일 경우 쿠키 삭제 ========= */
-			if($('#checkbox').is(':checked') == false) {
+			if($('#check_btn').is(':checked') == false) {
 				$.removeCookie('usersId');
 			}
 		}

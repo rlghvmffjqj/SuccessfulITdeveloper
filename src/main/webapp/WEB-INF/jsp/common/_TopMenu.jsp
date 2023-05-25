@@ -122,7 +122,7 @@ $(function() {
     </sec:authorize>
     <sec:authorize access="isAnonymous()">
 	    <div id="noMember">
-	    	<a onClick="login()"><img style="width: 50px; float: right; margin-right: 20%; margin-top: 5px;" src="<c:url value='/images/login.png' />"></a>
+	    	<a onClick="login()"><img class="loginImg" src="<c:url value='/images/login.png' />"></a>
 	    </div>
     </sec:authorize>
 </div>

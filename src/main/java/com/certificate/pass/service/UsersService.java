@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,19 +26,20 @@ import org.springframework.stereotype.Service;
 import com.certificate.pass.core.KakaoOAuth2;
 import com.certificate.pass.core.Role;
 import com.certificate.pass.dao.EmployeeDao;
-import com.certificate.pass.dao.UsersJpaDao;
-import com.certificate.pass.vo.Employee;
+import com.certificate.pass.emtity.EmployeeEntity;
+import com.certificate.pass.emtity.UsersEntity;
+import com.certificate.pass.jpaDao.EmployeeJpaDao;
+import com.certificate.pass.jpaDao.UsersJpaDao;
 import com.certificate.pass.vo.Kakao;
 import com.certificate.pass.vo.LoginSession;
-import com.certificate.pass.vo.Users;
 
 @Service
 public class UsersService implements UserDetailsService{
 	@Autowired UsersJpaDao usersJpaDao;
 	@Autowired HttpSession session;
 	@Autowired EmployeeDao employeeDao;
+	@Autowired EmployeeJpaDao employeeJpaDao;
 	@Autowired HttpServletRequest request;
-	@Autowired Employee employee;
 	
 	private final PasswordEncoder passwordEncoder;
     private final KakaoOAuth2 kakaoOAuth2;
@@ -60,8 +60,8 @@ public class UsersService implements UserDetailsService{
     
 	@Override
 	public UserDetails loadUserByUsername(String usersId) throws UsernameNotFoundException {
-		Optional<Users> usersEntityWrapper = usersJpaDao.findByUsersId(usersId);
-		Users usersEntity = usersEntityWrapper.orElse(null);
+		UsersEntity usersEntityWrapper = usersJpaDao.findByUsersId(usersId);
+		UsersEntity usersEntity = usersEntityWrapper;
 		
 		List<GrantedAuthority> authorities =new ArrayList<>();
 		
@@ -94,21 +94,24 @@ public class UsersService implements UserDetailsService{
 	
 	public String loginIdPwd(String usersId, String usersPw) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		String nowPwd = employeeDao.getUsersPw(usersId);
+		String nowPwd = usersJpaDao.findUsersPwByUsersId(usersId).getUsersPw();
 		Date now = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		if(passwordEncoder.matches(usersPw,nowPwd)) {
-			employeeDao.lastLogin(formatter.format(now), usersId);
+			EmployeeEntity employeeEntity = employeeJpaDao.findByEmployeeId(usersId);
+			employeeEntity.setLastLogin(formatter.format(now));
+			employeeEntity.setEmployeeId(usersId);
+			employeeJpaDao.save(employeeEntity);
 			return "OK";
 		}
 		return "FALSE";
 	}
 	
 	@Transactional
-	public String save(Users users) {
+	public String save(UsersEntity usersEntity) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-		users.setUsersPw(passwordEncoder.encode(users.getUsersPw()));
-		String result = usersJpaDao.save(users).getUsersId();
+		usersEntity.setUsersPw(passwordEncoder.encode(usersEntity.getUsersPw()));
+		String result = usersJpaDao.save(usersEntity).getUsersId();
 		if(result.isEmpty()) {
 			return "FALSE";
 		}
@@ -127,7 +130,7 @@ public class UsersService implements UserDetailsService{
         String password = usersId + ADMIN_TOKEN;
 
         // DB 에 중복된 Kakao Id 가 있는지 확인
-        Users kakaoUser = usersJpaDao.findByUsersId(usersId).orElse(null);
+        UsersEntity kakaoUser = usersJpaDao.findByUsersId(usersId);
 
         Date now = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -142,27 +145,34 @@ public class UsersService implements UserDetailsService{
             String usersRole = "MEMBER";
             String usersStatus = "KAKAO";
 
-            kakaoUser = new Users(usersId, usersPw, usersStatus, usersRole);
+            kakaoUser = new UsersEntity(usersId, usersPw, usersStatus, usersRole);
             usersJpaDao.save(kakaoUser);
             
+            EmployeeEntity employeeEntity = new EmployeeEntity();
+            
             // 사원 정보 넣어주기
-            employee.setEmployeeId(usersId);
-            employee.setEmployeeEmail(usersId);
-            employee.setEmployeeName(userInfo.getNickname());
-            employee.setEmployeeStatus("정상");
-            employee.setEmployeeRegistrant(usersId);
-            employee.setEmployeeRegistrationDate(formatter.format(now));
-            employeeDao.insertEmployee(employee);
+            employeeEntity.setEmployeeId(usersId);
+            employeeEntity.setEmployeeEmail(usersId);
+            employeeEntity.setEmployeeName(userInfo.getNickname());
+            employeeEntity.setEmployeeStatus("정상");
+            employeeEntity.setEmployeeRegistrant(usersId);
+            employeeEntity.setEmployeeRegistrationDate(formatter.format(now));
+   			employeeJpaDao.save(employeeEntity);
         }
 
         // 로그인 처리
         Authentication kakaoUsernamePassword = new UsernamePasswordAuthenticationToken(usersId, password);
         Authentication authentication = authenticationManager.authenticate(kakaoUsernamePassword);
-        employeeDao.lastLogin(formatter.format(now), usersId);
+        
+        EmployeeEntity employeeEntity = employeeJpaDao.findByEmployeeId(usersId);
+		employeeEntity.setLastLogin(formatter.format(now));
+		employeeEntity.setEmployeeId(usersId);
+		employeeJpaDao.save(employeeEntity);
+		
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 
 	public String getState(String usersId) {
-		return employeeDao.getState(usersId);
+		return usersJpaDao.findByUsersId(usersId).getUsersState();
 	}
 }

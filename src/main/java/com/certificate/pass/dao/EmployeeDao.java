@@ -14,46 +14,6 @@ import com.certificate.pass.vo.Employee;
 public class EmployeeDao {
 	@Autowired SqlSessionTemplate sqlSession;
 
-	public String getUsersPw(String usersId) {
-		return sqlSession.selectOne("employee.getUsersPw", usersId);
-	}
-
-	public void lastLogin(String lastLogin, String usersId) {
-		Map<String, String> parameters = new HashMap<String, String>();
-		parameters.put("lastLogin", lastLogin);
-		parameters.put("usersId", usersId);
-		sqlSession.update("employee.lastLogin", parameters);
-	}
-
-	public int insertEmployee(Employee employee) {
-		return sqlSession.insert("employee.insertEmployee", employee);
-	}
-
-	public Employee getEmployeeOne(String employeeId) {
-		return sqlSession.selectOne("employee.getEmployeeOne", employeeId);
-	}
-
-	public Employee getEmployeeEmailOne(String employeeEmail) {
-		return sqlSession.selectOne("employee.getEmployeeEmailOne", employeeEmail);
-	}
-
-	public Employee getEmployeeMatch(String employeeId, String employeeEmail) {
-		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("employeeId", employeeId);
-		parameters.put("employeeEmail", employeeEmail);
-		return sqlSession.selectOne("employee.getEmployeeMatch", parameters);
-	}
-
-	public int setChangePwd(String employeeId, String usersPw) {
-		Map<String, Object> parameters = new HashMap<String, Object>();
-		parameters.put("usersId", employeeId);
-		parameters.put("usersPw", usersPw);
-		return sqlSession.update("employee.updateUsersPw", parameters);
-	}
-
-	public String getState(String usersId) {
-		return sqlSession.selectOne("employee.getState", usersId);
-	}
 
 	public int getEmployeeListCount(Employee search) {
 		return sqlSession.selectOne("employee.getEmployeeCount", search);
@@ -90,5 +50,5 @@ public class EmployeeDao {
 	public int deleteUsers(String usersId) {
 		return sqlSession.delete("employee.deleteUsers", usersId);
 	}
-
+	
 }

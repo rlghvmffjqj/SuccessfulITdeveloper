@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.certificate.pass.emtity.EmployeeEntity;
 import com.certificate.pass.service.EmailService;
 import com.certificate.pass.service.EmployeeService;
 import com.certificate.pass.vo.Employee;
@@ -27,14 +28,14 @@ public class EmployeeController {
 	
 	@ResponseBody
 	@PostMapping(value = "/signUp")
-	public Map<String,String> signUp(Employee employee, Principal principal) {
+	public Map<String,String> signUp(EmployeeEntity employeeEntity, Principal principal) {
 		// Date formatter 현재 시간
 		Date now = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		employee.setEmployeeRegistrationDate(formatter.format(now));
+		employeeEntity.setEmployeeRegistrationDate(formatter.format(now));
 
 		Map<String,String> map = new HashMap<String,String>();
-		String result = employeeService.signUp(employee);
+		String result = employeeService.signUp(employeeEntity);
 		map.put("result", result);
 		return map;
 	}
@@ -77,10 +78,10 @@ public class EmployeeController {
 	
 	@ResponseBody
 	@PostMapping(value = "/employee")
-	public Map<String, Object> Employee(@ModelAttribute("search") Employee search) {
+	public Map<String, Object> Employee(@ModelAttribute("search") EmployeeEntity search) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		ArrayList<Employee> list = new ArrayList<>(employeeService.getEmployeeList(search));
-		int totalCount = employeeService.getEmployeeListCount(search);
+		ArrayList<EmployeeEntity> list = new ArrayList<>(employeeService.getEmployeeList(search));
+		Long totalCount = employeeService.getEmployeeListCount(search);
 		map.put("page", search.getPage());
 		map.put("total", Math.ceil((float)totalCount/search.getRows()));
 		map.put("records", totalCount);
@@ -99,9 +100,9 @@ public class EmployeeController {
 	
 	@PostMapping("/employeeView")
 	public String employeeView(Model model, String employeeId) {
-		Employee employee = employeeService.getEmployeeOne(employeeId);
+		EmployeeEntity employeeEntity = employeeService.getEmployeeOne(employeeId);
 		String role = employeeService.getUsersRole(employeeId);
-		model.addAttribute("employee", employee);
+		model.addAttribute("employee", employeeEntity);
 		model.addAttribute("role", role);
 		return "/employee/EmployeeView";
 	}

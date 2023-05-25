@@ -2,46 +2,61 @@ package com.certificate.pass.service;
 
 import java.security.Principal;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.certificate.pass.dao.EmployeeDao;
+import com.certificate.pass.emtity.EmployeeEntity;
+import com.certificate.pass.emtity.UsersEntity;
+import com.certificate.pass.jpaDao.EmployeeJpaDao;
+import com.certificate.pass.jpaDao.UsersJpaDao;
+import com.certificate.pass.jpqlDao.EmployeeJPQL;
 import com.certificate.pass.vo.Employee;
-import com.certificate.pass.vo.Users;
 
 @Service
 public class EmployeeService {
 	@Autowired EmployeeDao employeeDao;
+	@Autowired EmployeeJpaDao employeeJpaDao;
+	@Autowired UsersJpaDao usersJpaDao;
 	@Autowired UsersService usersService;
-	@Autowired Users users;
+	@Autowired UsersEntity usersEntity;
+	@Autowired EmployeeJPQL employeeJPQL;
+	
+	@PersistenceContext
+	private EntityManager entityManager;
 
-	public String signUp(Employee employee) {
-		if(employeeDao.getEmployeeOne(employee.getEmployeeId()) != null) {	// 아이디 중복 확인
+	public String signUp(EmployeeEntity employeeEntity) {
+		if(employeeJpaDao.findByEmployeeId(employeeEntity.getEmployeeId()) != null) {	// 아이디 중복 확인
 			return "idDuplicateCheck";
 		}
-		if(employeeDao.getEmployeeEmailOne(employee.getEmployeeEmail()) != null) {	// 아이디 중복 확인
+		if(employeeJpaDao.findByEmployeeEmail(employeeEntity.getEmployeeEmail()) != null) {	// 아이디 중복 확인
 			return "emailDuplicateCheck";
 		}
-		employee.setEmployeeRegistrant(employee.getEmployeeId());
-		employee.setEmployeeStatus("정상");
-		int sucess = employeeDao.insertEmployee(employee);
-		users.setUsersId(employee.getEmployeeId());
-		users.setUsersPw(employee.getUsersPw());
-		users.setUsersState("WEB");
-		users.setUsersRole("MEMBER");
-		
-		if(sucess <= 0) 
+		employeeEntity.setEmployeeRegistrant(employeeEntity.getEmployeeId());
+		employeeEntity.setEmployeeStatus("정상");
+		try {
+			EmployeeEntity sucess = employeeJpaDao.save(employeeEntity);
+			if(sucess == null) return "FALSE";
+		} catch (Exception e) {
 			return "FALSE";
-		return usersService.save(users);
+		}
+		usersEntity.setUsersId(employeeEntity.getEmployeeId());
+		usersEntity.setUsersPw(employeeEntity.getUsersPw());
+		usersEntity.setUsersState("WEB");
+		usersEntity.setUsersRole("MEMBER");
+			
+		return usersService.save(usersEntity);
 	}
 
 	public String getFindId(String employeeEmail) {
-		String employeeId = employeeDao.getEmployeeEmailOne(employeeEmail).getEmployeeId();
+		String employeeId = employeeJpaDao.findByEmployeeEmail(employeeEmail).getEmployeeId();
 		if(employeeId == "") {
 			return "noId";
 		}
@@ -49,46 +64,74 @@ public class EmployeeService {
 	}
 
 	public String getFindPwd(String employeeId, String employeeEmail) {
-		Employee employee = employeeDao.getEmployeeMatch(employeeId, employeeEmail);
-		if(employee == null) {
+		EmployeeEntity employeeEntity = employeeJpaDao.findByEmployeeIdAndEmployeeEmail(employeeId, employeeEmail);
+		if(employeeEntity == null) {
 			return "noMatch";
 		}
 		return "OK";
 	}
 
 	public String setChangePwd(String usersPw, String employeeId, String employeeEmail) {
-		Employee employee = employeeDao.getEmployeeMatch(employeeId, employeeEmail);
-		if(employee == null) {
+		EmployeeEntity employeeEntity = employeeJpaDao.findByEmployeeIdAndEmployeeEmail(employeeId, employeeEmail);
+		if(employeeEntity == null) {
 			return "FALSE";
 		}
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		usersPw = passwordEncoder.encode(usersPw);
-		int sucess = employeeDao.setChangePwd(employeeId, usersPw);
-		if(sucess > 0) {
-			return "OK"; 
+		UsersEntity userEntity = usersJpaDao.findByUsersId(employeeId);
+		userEntity.setUsersPw(usersPw);
+		try {
+			userEntity = usersJpaDao.save(userEntity);
+			if(userEntity == null) return "False";
+		} catch (Exception e) {
+			return "FALSE";
 		}
-		return "FALSE";
+		return "OK"; 
+		
 	}
 
-	public int getEmployeeListCount(Employee search) {
-		return employeeDao.getEmployeeListCount(search);
+	public Long getEmployeeListCount(EmployeeEntity search) {
+		return employeeJPQL.fideEmployeeCount(search);
 	}
 	
-	public List<Employee> getEmployeeList(Employee search) {
-		List<Employee> list = new ArrayList<Employee>();
-		list = employeeDao.getEmployeeList(search);
-		for (Employee employee : list) {
-			if(employee.getUsersRole().equals("ADMIN")) {
+	public List<EmployeeEntity> getEmployeeList(EmployeeEntity search) {
+		List<EmployeeEntity> list = employeeJPQL.findEmployeeList(search);
+		
+		for (EmployeeEntity employee : list) {
+			UsersEntity usersEntity = usersJpaDao.findUsersRoleByUsersId(employee.getEmployeeId());
+			if(usersEntity.getUsersRole().equals("ADMIN")) {
 				employee.setUsersRole("관리자");
-			} else if(employee.getUsersRole().equals("ENGINEER")) {
+			} else if(usersEntity.getUsersRole().equals("ENGINEER")) {
 				employee.setUsersRole("엔지니어");
-			} else if(employee.getUsersRole().equals("QA")) {
+			} else if(usersEntity.getUsersRole().equals("QA")) {
 				employee.setUsersRole("QA");
 			} else {
 				employee.setUsersRole("일반 사용자");
 			}
 		}
 		return list;
+	}
+	
+	public String sqlEmployee(EmployeeEntity search) {
+		String jpql = "";
+		jpql += "<trim prefix=\"WHERE\" suffixOverrides=\"AND\">";
+		if(search.getEmployeeId() != null && search.getEmployeeId() != "") {
+			jpql += " AND e.employeeId LIKE CONCAT('%', :employeeId,'%')";
+		}
+		if(search.getEmployeeName() != null && search.getEmployeeName() != "") {
+			jpql += " AND e.employeeName LIKE CONCAT('%', :employeeName,'%')";
+		}
+		if(search.getEmployeeEmail() != null && search.getEmployeeEmail() != "") {
+			jpql += " AND e.employeeEmail LIKE CONCAT('%', :employeeEmail,'%')";
+		}
+		if(search.getEmployeeStatus() != null && search.getEmployeeStatus() != "") {
+			jpql += " AND e.employeeStatus LIKE CONCAT('%', :employeeStatus,'%')";
+		}
+		if(search.getEmployeePhone() != null && search.getEmployeePhone() != "") {
+			jpql += " AND e.employeePhone LIKE CONCAT('%', :employeePhone,'%')";
+		}
+		jpql += "</trim>";
+		return jpql;
 	}
 
 	public String loginLimit(String[] chkList, Principal principal) {
@@ -111,8 +154,8 @@ public class EmployeeService {
 		return employeeDao.getUsersRole(usersId);
 	}
 
-	public Employee getEmployeeOne(String employeeId) {
-		return employeeDao.getEmployeeOne(employeeId);
+	public EmployeeEntity getEmployeeOne(String employeeId) {
+		return employeeJpaDao.findByEmployeeId(employeeId);
 	}
 
 	public String updateEmployee(Employee employee, Principal principal) {
@@ -135,3 +178,4 @@ public class EmployeeService {
 	}
 	
 }
+

@@ -17,7 +17,9 @@
 	<%@ include file="/WEB-INF/jsp/common/_LeftMenu.jsp"%>
 	<%@ include file="/WEB-INF/jsp/common/_RightMenu.jsp"%>
 	<div>
-		
+		<div>
+			<img src="<c:url value='/images/Main.png' />" class="mainLogo">
+		</div>
 	</div>
 	<%@ include file="/WEB-INF/jsp/common/_FooterMenu.jsp"%>
 </body>
