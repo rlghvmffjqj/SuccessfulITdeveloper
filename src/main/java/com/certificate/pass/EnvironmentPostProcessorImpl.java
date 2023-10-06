@@ -17,11 +17,17 @@ public class EnvironmentPostProcessorImpl implements EnvironmentPostProcessor {
 	@Override
 	public void postProcessEnvironment(ConfigurableEnvironment environment,
 			SpringApplication application) {
-		// 패키지 파일 내 파일 읽어오기
+		// �뙣�궎吏� �뙆�씪 �궡 �뙆�씪 �씫�뼱�삤湲�
 		//Resource path = new ClassPathResource("com/secuve/agentInfo/config.yml");
 		
-		// 외부 파일 읽어오기
-		Resource path = new FileSystemResource("C://ITDeveloper/config.yml");
+		// �쇅遺� �뙆�씪 �씫�뼱�삤湲�
+		String osName = System.getProperty("os.name");
+		Resource path = null;
+		if (osName.toLowerCase().contains("windows")) {
+			path = new FileSystemResource("C://ITDeveloper/config.yml");
+        } else if (osName.toLowerCase().contains("linux")) {
+        	path = new FileSystemResource("/sw/config.yml");
+        } 
 		
 		PropertySource<?> propertySource = loadYaml(path);
 		environment.getPropertySources().addLast(propertySource);
