@@ -47,14 +47,14 @@ span {
 }
 
 .btnDarkgreen {
-	background-color: #42855B;
+	background-color: #555555;
     color: #fff;
-    border: 1px solid #42855B !important;
+    border: 1px solid black !important;
     cursor: pointer;
 }
 
 .btnDarkgreen:hover {
-	background-color: #84bf9a;
+	background-color: gray;
 }
 
 .btnRed {
@@ -107,7 +107,7 @@ input#check_btn + label > span{
 	padding-left: 5px;
 }
 
-/* label:before에 체크하기 전 상태 CSS */
+/* label:before�뿉 泥댄겕�븯湲� �쟾 �긽�깭 CSS */
 input#check_btn + label:before{
 	content:"";
 	display:inline-block;
@@ -118,7 +118,7 @@ input#check_btn + label:before{
 	vertical-align:middle;
 }
   
-/* label:before에 체크 된 상태 CSS */  
+/* label:before�뿉 泥댄겕 �맂 �긽�깭 CSS */  
 input#check_btn:checked + label:before{
 	content:"";
 	background-color:#93AAFF;
@@ -186,7 +186,7 @@ input#check_btn:checked + label:before{
 
 .activeSub {
 	font-weight: bold;
-    color: #42855B;
+    color: #327a68;
 }
 
 .activeSubMobile {
@@ -270,6 +270,8 @@ a.button {
     display: inline-block;
     width: 96%;
     padding: 2%;
+    border-right: 0;
+    border-left: 0;
 }
 
 .colorRed {

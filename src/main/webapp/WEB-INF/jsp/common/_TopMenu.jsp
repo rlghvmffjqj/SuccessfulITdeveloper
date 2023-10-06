@@ -78,7 +78,7 @@ $(function() {
 });
 </script>
 
-<div style="width: 100%; height: 60px; background-color: #42855B; padding: 0px; overflow: hidden;">
+<div style="width: 100%; height: 60px; background-color: #92c5b8; padding: 0px; overflow: hidden;">
 	<a href="<c:url value='/index'/>">
         <img src="<c:url value='/images/logo.png' />" class="mainLogo">
     </a>

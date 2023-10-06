@@ -17,8 +17,16 @@
 	<%@ include file="/WEB-INF/jsp/common/_LeftMenu.jsp"%>
 	<%@ include file="/WEB-INF/jsp/common/_RightMenu.jsp"%>
 	<div>
-		<div>
-			<img src="<c:url value='/images/Main.png' />" class="mainLogo">
+		<div style="height: 160px; width: 100%; border-bottom: 3px solid #76AA9D; background: #f2ffee;">
+			<div style="padding-top: 15px; padding-left: 25%; font-family: math;">
+				<h3>공부하지 않으면 걱정만 많아지고,</h3>
+			</div>
+			<div style="padding-top: 5px; padding-left: 40%; font-family: math;">
+				<h3>실천하지 않으면 변하는게 없다.</h3>
+			</div>
+		</div>
+		<div style="height: 500px; width: 100%;">
+			
 		</div>
 	</div>
 	<%@ include file="/WEB-INF/jsp/common/_FooterMenu.jsp"%>
