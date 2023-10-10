@@ -50,5 +50,17 @@ public class EmployeeDao {
 	public int deleteUsers(String usersId) {
 		return sqlSession.delete("employee.deleteUsers", usersId);
 	}
+
+	public Employee getEmployeeOne(String employeeId) {
+		return sqlSession.selectOne("employee.getEmployeeOne", employeeId);
+	}
+
+	public int loginUnLimit(String employeeId, String employeeModifier, String employeeModifiedDate) {
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("employeeId", employeeId);
+		parameters.put("employeeModifier", employeeModifier);
+		parameters.put("employeeModifiedDate", employeeModifiedDate);
+		return sqlSession.update("employee.loginUnLimit", parameters);
+	}
 	
 }

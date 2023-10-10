@@ -69,7 +69,7 @@ public class RequestsController {
 		requests.setRequestsRegistrant(principal.getName());
 		requests.setRequestsDate(requestsService.nowDate());
 		requests.setRequestsRegistrationDate(requestsService.nowDate());
-		requests.setRequestsState("답변대기");
+		requests.setRequestsState("�亯 ��û");
 		return requestsService.insertRequests(requests);
 	}
 	

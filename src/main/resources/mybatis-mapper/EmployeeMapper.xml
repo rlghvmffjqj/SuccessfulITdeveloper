@@ -29,6 +29,11 @@
 		WHERE employeeId = #{employeeId}
 	</update>
 	
+	<update id="loginUnLimit">
+		UPDATE employee SET employeeStatus='정상', employeeModifier=#{employeeModifier}, employeeModifiedDate=#{employeeModifiedDate} 
+		WHERE employeeId = #{employeeId}
+	</update>
+	
 	<select id="getUsersRole" parameterType="string" resultType="string">
 		SELECT usersRole FROM users WHERE usersId = #{usersId};
 	</select> 
@@ -43,12 +48,16 @@
 	</update>
 	
 	<delete id="deleteEmployee" parameterType="string">
-		DELETE FROM employee WHERE employeeId=#{employeeId};
+		DELETE FROM employee WHERE employeeId = #{employeeId};
 	</delete>
 	
 	<delete id="deleteUsers" parameterType="string">
 		DELETE FROM users WHERE usersId=#{usersId};
 	</delete>
+	
+	<select id="getEmployeeOne" parameterType="string" resultMap="employee">
+		SELECT * FROM employee WHERE employeeId = #{employeeId};
+	</select>
 	
 	<!-- ==================================================================================== -->
 	

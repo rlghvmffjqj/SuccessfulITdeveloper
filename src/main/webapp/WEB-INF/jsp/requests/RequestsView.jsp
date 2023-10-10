@@ -74,7 +74,7 @@
 					Swal.fire({
 						icon: 'success',
 						title: '성공!',
-						text: '관리자에게 요청 사항이 정상적으로 전달 되었습니다.',
+						text: '답변 완료 되었습니다.',
 					}).then((result) => {
 						location.reload();
 					});

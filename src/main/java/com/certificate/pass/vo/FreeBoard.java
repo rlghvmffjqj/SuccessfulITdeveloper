@@ -11,7 +11,7 @@ import lombok.ToString;
 @ToString
 @Component
 public class FreeBoard {
-	private int freeBoardKeyNum;
+	private Integer freeBoardKeyNum;
 	private String freeBoardTitle;
 	private String freeBoardDetail;
 	private Integer freeBoardCount;
@@ -22,8 +22,8 @@ public class FreeBoard {
 	private String freeBoardModifier;
 	private String freeBoardModifiedDate;
 	
-	private int page=1;							// 기본 페이지 번호
-	private int rows=25;						// 데이터 보여줄 갯수
-	private String sidx="freeBoardKeyNum";			// 정렬할 기준 데이터
+	private int page=1;							
+	private int rows=25;						
+	private String sidx="freeBoardKeyNum";			
 	private String sord;
 }

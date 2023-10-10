@@ -20,4 +20,12 @@ public class IntegratedDao {
 		return sqlSession.selectOne("integrated.getIntegratedListCount",search);
 	}
 
+	public List<MainContents> getIndexList() {
+		return sqlSession.selectList("integrated.getIndexList");
+	}
+
+	public int getIndexCount() {
+		return sqlSession.selectOne("integrated.getIndexCount");
+	}
+
 }

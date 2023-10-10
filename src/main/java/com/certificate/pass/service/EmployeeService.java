@@ -33,14 +33,14 @@ public class EmployeeService {
 	private EntityManager entityManager;
 
 	public String signUp(EmployeeEntity employeeEntity) {
-		if(employeeJpaDao.findByEmployeeId(employeeEntity.getEmployeeId()) != null) {	// 아이디 중복 확인
+		if(employeeJpaDao.findByEmployeeId(employeeEntity.getEmployeeId()) != null) {	// �븘�씠�뵒 以묐났 �솗�씤
 			return "idDuplicateCheck";
 		}
-		if(employeeJpaDao.findByEmployeeEmail(employeeEntity.getEmployeeEmail()) != null) {	// 아이디 중복 확인
+		if(employeeJpaDao.findByEmployeeEmail(employeeEntity.getEmployeeEmail()) != null) {	// �븘�씠�뵒 以묐났 �솗�씤
 			return "emailDuplicateCheck";
 		}
 		employeeEntity.setEmployeeRegistrant(employeeEntity.getEmployeeId());
-		employeeEntity.setEmployeeStatus("정상");
+		employeeEntity.setEmployeeStatus("�젙�긽");
 		try {
 			EmployeeEntity sucess = employeeJpaDao.save(employeeEntity);
 			if(sucess == null) return "FALSE";
@@ -106,7 +106,7 @@ public class EmployeeService {
 			} else if(usersEntity.getUsersRole().equals("QA")) {
 				employee.setUsersRole("QA");
 			} else {
-				employee.setUsersRole("일반 사용자");
+				employee.setUsersRole("일반사용자");
 			}
 		}
 		return list;
@@ -135,8 +135,15 @@ public class EmployeeService {
 	}
 
 	public String loginLimit(String[] chkList, Principal principal) {
+		int sucess = 0;
 		for (String employeeId : chkList) {
-			int sucess = employeeDao.loginLimit(employeeId, principal.getName(), nowDate());
+			Employee employee = employeeDao.getEmployeeOne(employeeId);
+			if(employee.getEmployeeStatus().equals("제한")) {
+				sucess = employeeDao.loginUnLimit(employeeId, principal.getName(), nowDate());
+			} else {
+				sucess = employeeDao.loginLimit(employeeId, principal.getName(), nowDate());
+			}
+			
 			if (sucess <= 0) {
 				return "FALSE";
 			}

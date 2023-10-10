@@ -48,9 +48,9 @@ public class RequestsService {
 		int sucess = requestsDao.insertRequestsComment(requestsComment);
 		if (sucess <= 0)
 			return "FALSE";
-		String requestsState = "ë‹µë³€ì™„ë£Œ";
+		String requestsState = "´äº¯ ¿Ï·á";
 		if(!requestsComment.getRequestsCommentRegistrant().equals("admin")) {
-			requestsState = "ìž¬ë‹µë³€";
+			requestsState = "Àç ´äº¯ ¿äÃ»";
 		}
 		requestsDao.updateRequestsComment(requestsState, requestsComment.getRequestsKeyNum());
 		return "OK";

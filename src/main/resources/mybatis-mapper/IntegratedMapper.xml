@@ -23,6 +23,14 @@
 			<include refid="sqlIntegrated" />
 	</select>
 	
+	<select id="getIndexList" resultMap="mainContents">
+		SELECT * FROM mainContents LIMIT 5;
+	</select>
+	
+	<select id="getIndexCount" resultType="_int">
+		SELECT COUNT(*) FROM mainContents;
+	</select>
+	
 	<!-- ==================================================================================== -->
 	
 	<sql id="sqlIntegrated">

@@ -20,11 +20,6 @@ public class UsersController {
 		return "/Index";
 	}
 	
-	@GetMapping("/index")
-	public String indexView() {
-		return "/Index";
-	}
-	
 	@GetMapping("/login")
 	public String loginView(HttpServletRequest request, Model model) {
 		String uri = request.getHeader("Referer");
@@ -57,7 +52,7 @@ public class UsersController {
 	@GetMapping("/loginFail")
 	public String loginFail(Model model) {
 		String loc = "/login";
-		String msg = "아이디 및 패스워드가 일치하지 않습니다.";
+		String msg = "�븘�씠�뵒 諛� �뙣�뒪�썙�뱶媛� �씪移섑븯吏� �븡�뒿�땲�떎.";
 
 		model.addAttribute("loc", loc).addAttribute("msg", msg);
 		return "/common/msg";
