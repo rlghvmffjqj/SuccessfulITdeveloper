@@ -19,20 +19,20 @@
 	<div>
 		<div id="index_main_title" style="height: 160px; width: 100%; border-bottom: 3px solid #76AA9D; background: #f2ffee;">
 			<div style="padding-top: 15px; padding-left: 25%; font-family: math;">
-				<h3>공부하지 않으면 걱정만 불어나고,</h3>
+				<span class="index_lesson">공부하지 않으면 걱정만 불어나고,</span>
 			</div>
 			<div style="padding-top: 5px; padding-left: 40%; font-family: math;">
-				<h3>실천하지 않으면 발전하지 않는다.</h3>
+				<span class="index_lesson">실천하지 않으면 발전하지 않는다.</span>
 			</div>
 		</div>
 		<div id="index_list" style="height: auto; width: 100%; text-align: center; margin-top: 1%;">
-			<div>
+			<div style="margin: 20px;">
 				<a class="index_list">전체 글 (${mainContentsCount})</a>
 			</div>
 
 			<c:forEach var='mainContents' items='${mainContentsList}'>
 				<div class="index_div">
-					<a class="index_link" href="<c:url value='/category/${mainContents.topItemsName}/${mainContents.middleItemsName}'/>">
+					<a class="index_link" href="<c:url value='/category/mainContentsView?contentNumber=${mainContents.mainContentsKeyNum}'/>">
 						<strong class="index_title">${mainContents.mainContentsTitle}</strong>
 						<p class="index_txt">${mainContents.mainContentsDetail}</p>
 					</a>
@@ -40,6 +40,27 @@
 					<span class="index_bar">${mainContents.mainContentsDate}</span>
 				</div>
 			</c:forEach>
+			<div>
+				<c:choose>
+					<c:when test="${page > 1}">
+						<a href="/ITDeveloper/index?page=${page - 1}&size=${size}">Previous</a>
+					</c:when>
+					<c:otherwise>
+						<span>Previous</span>
+					</c:otherwise>
+				</c:choose>
+				
+				<span>|</span>
+				
+				<c:choose>
+					<c:when test="${not empty mainContentsList && mainContentsList.size() == size}">
+						<a href="/ITDeveloper/index?page=${page + 1}&size=${size}">Next</a>
+					</c:when>
+					<c:otherwise>
+						<span>Next</span>
+					</c:otherwise>
+				</c:choose>
+			</div>
 		</div>
 	</div>
 	<%@ include file="/WEB-INF/jsp/common/_FooterMenu.jsp"%>
@@ -50,50 +71,9 @@
 </script>
 
 <style>
-	.index_div{
-		margin-top: 1%;
-    	text-align: left;
-    	margin-left: 25%;
-    	margin-right: 25%;
-		border-bottom: 1px solid #ebebeb;
-    	padding-bottom: 2%;
-	}
-
-	.index_list {
-		font-size: 20px;
-    	font-weight: bold;
-    	color: #3db39e;
-	}
-
-	.index_title {
-		display: block;
-    	font-weight: normal;
-    	font-size: 28px;
-    	text-overflow: ellipsis;
-    	overflow: hidden;
-    	white-space: nowrap;
-		color: black;
-	}
-
 	.index_link:hover .index_title {
 		text-decoration: underline;
     	color: #3db39e;
-	}
-
-	.index_txt {
-		display: -webkit-box;
-    	display: -ms-flexbox;
-    	display: box;
-    	overflow: hidden;
-    	max-height: 80px;
-    	margin-top: 1px;
-    	font-size: 16px;
-    	line-height: 28px;
-    	color: #666;
-    	vertical-align: top;
-    	word-break: break-all;
-    	-webkit-box-orient: vertical;
-    	-webkit-line-clamp: 3;
 	}
 
 	.index_link {

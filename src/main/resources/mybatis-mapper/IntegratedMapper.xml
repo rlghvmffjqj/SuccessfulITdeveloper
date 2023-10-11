@@ -23,8 +23,9 @@
 			<include refid="sqlIntegrated" />
 	</select>
 	
-	<select id="getIndexList" resultMap="mainContents">
-		SELECT * FROM mainContents LIMIT 5;
+	<select id="getIndexList" parameterType="_int" resultMap="mainContents">
+		SELECT * FROM mainContents 
+		LIMIT #{offset}, #{limit};
 	</select>
 	
 	<select id="getIndexCount" resultType="_int">

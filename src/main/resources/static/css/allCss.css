@@ -181,7 +181,7 @@ input#check_btn:checked + label:before{
 .activeMobile {
 	font-weight: bold;
     color: white;
-    background: #95cb95;
+    background: #a1d7a1;
 }
 
 .activeSub {
@@ -192,7 +192,7 @@ input#check_btn:checked + label:before{
 .activeSubMobile {
 	font-weight: bold;
     color: white !important;
-    background: #8bb18b;
+    background: #adcdad;
 }
 
 a.button {
@@ -451,15 +451,6 @@ table {
 	color: #ff9494;
 }
 
-.right_area {
-	margin-left: auto;
-    margin-right: auto;
-    margin-top: 3%;
-    margin-bottom: 3%;
-    text-align: center;
-    width: 60px;
-}
-
 @media (min-width: 1024px) and (max-width: 2000px) {
 	.mainTitle{
 		font-size: 25px;
@@ -701,6 +692,78 @@ table {
 		float: right; 
 		margin-right: 20%; 
 		margin-top: 5px;
+	}
+	
+	.index_lesson {
+		display: block;
+	    font-size: 1.17em;
+	    margin-block-start: 1em;
+	    margin-block-end: 1em;
+	    font-weight: bold;
+	}
+	
+	.index_div{
+		margin-top: 1%;
+    	text-align: left;
+    	margin-left: 25%;
+    	margin-right: 25%;
+		border-bottom: 1px solid #ebebeb;
+    	padding-bottom: 2%;
+	}
+	
+	.index_title {
+		display: block;
+    	font-weight: normal;
+    	font-size: 28px;
+    	text-overflow: ellipsis;
+    	overflow: hidden;
+    	white-space: nowrap;
+		color: black;
+	}
+	
+	.index_txt {
+		display: -webkit-box;
+    	display: -ms-flexbox;
+    	display: box;
+    	overflow: hidden;
+    	max-height: 80px;
+    	margin-top: 1px;
+    	font-size: 16px;
+    	line-height: 28px;
+    	color: #666;
+    	vertical-align: top;
+    	word-break: break-all;
+    	-webkit-box-orient: vertical;
+    	-webkit-line-clamp: 3;
+	}
+	
+	.index_list {
+		font-size: 20px;
+    	font-weight: bold;
+    	color: #3db39e;
+	}
+	
+	.right_area {
+	    margin-top: 2%;
+	    margin-bottom: 2%;
+	    text-align: center;
+	    width: 60px;
+	    padding: 7px;
+	    border: 1px solid #d7d7d7;
+	    border-radius: 50px;
+	}
+	
+	.favoritesCount {
+		float: initial; 
+		margin-left: 20%;
+		font-size: 15px;
+	}
+	
+	.favorites {
+		width: 15px; 
+		height: 15px; 
+		margin: 5px; 
+		padding-left: 10px;
 	}
 }
 
@@ -951,6 +1014,88 @@ table {
     	float: right;
     	margin-right: 5%;
     	margin-top: 10px;
+	}
+	
+	.index_lesson {
+		display: block;
+	    font-size: 0.9em;
+	    margin-block-start: 1em;
+	    margin-block-end: 1em;
+	    font-weight: bold;
+	    margin-left: -12%;
+	}
+	
+	.index_div{
+		margin-top: 1%;
+    	text-align: left;
+    	margin-left: 10%;
+    	margin-right: 10%;
+		border-bottom: 1px solid #ebebeb;
+    	padding-bottom: 2%;
+	}
+	
+	.index_title {
+		display: block;
+    	font-weight: normal;
+    	font-size: 15px;
+    	text-overflow: ellipsis;
+    	overflow: hidden;
+    	white-space: nowrap;
+		color: black;
+	}
+	
+	.index_txt {
+		display: -webkit-box;
+    	display: -ms-flexbox;
+    	display: box;
+    	overflow: hidden;
+    	max-height: 80px;
+    	margin-top: 1px;
+    	font-size: 12px;
+    	line-height: 28px;
+    	color: #666;
+    	vertical-align: top;
+    	word-break: break-all;
+    	-webkit-box-orient: vertical;
+    	-webkit-line-clamp: 3;
+	}
+	
+	.index_list {
+		font-size: 15px;
+    	font-weight: bold;
+    	color: #3db39e;
+	}
+	
+	.right_area {
+	    margin-top: 2%;
+	    margin-bottom: 2%;
+	    text-align: center;
+	    width: 50px;
+	    padding: 2px;
+	    border: 1px solid #d7d7d7;
+	    border-radius: 50px;
+	}
+	
+	.favoritesCount {
+		float: initial; 
+		margin-left: 50%;
+		font-size: 11px !important;
+		display: block;
+	}
+	
+	.favorites {
+		width: 10px !important;
+	    height: 10px !important;
+	    margin: 4px;
+	    padding-left: 10px;
+	}
+	
+	table > tbody > tr > td > div {
+		font-size: 10px;
+	}
+	
+	table > tbody > tr > td {
+		font-size: 10px;
 	}
 }
 

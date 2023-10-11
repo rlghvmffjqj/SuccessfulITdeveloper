@@ -22,8 +22,9 @@ public class IntegratedService {
 		return integratedDao.getIntegratedListCount(search);
 	}
 
-	public List<MainContents> getIndexList() {
-		List<MainContents> mainContentsList = integratedDao.getIndexList();
+	public List<MainContents> getIndexList(int page, int size) {
+		int offset = (page - 1) * size;
+		List<MainContents> mainContentsList = integratedDao.getIndexList(offset,size);
 		for(MainContents mainContents : mainContentsList) {
 			mainContents.setMainContentsDetail(removeHtmlTags(mainContents.getMainContentsDetail()));
 			String longBlobData = mainContents.getMainContentsDetail();

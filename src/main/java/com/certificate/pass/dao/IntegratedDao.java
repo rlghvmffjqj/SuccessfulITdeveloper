@@ -1,6 +1,8 @@
 package com.certificate.pass.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +22,11 @@ public class IntegratedDao {
 		return sqlSession.selectOne("integrated.getIntegratedListCount",search);
 	}
 
-	public List<MainContents> getIndexList() {
-		return sqlSession.selectList("integrated.getIndexList");
+	public List<MainContents> getIndexList(int offset, int limit) {
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("offset", offset);
+		parameters.put("limit", limit);
+		return sqlSession.selectList("integrated.getIndexList", parameters);
 	}
 
 	public int getIndexCount() {

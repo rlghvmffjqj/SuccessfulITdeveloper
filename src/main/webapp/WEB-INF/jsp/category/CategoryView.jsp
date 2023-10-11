@@ -96,9 +96,9 @@
 			</div>
 			<div class="right_area">
 				<a href="javascript:;" class="icon heart" id="heart" style="text-decoration:none; color:inherit; cursor: pointer; float: left;">
-					<img src="<c:url value='/images/hartOff.png' />" id="favorites" style="width: 20px; height: 20px;">
+					<img src="<c:url value='/images/hartOff.png' />" class="favorites" id="favorites">
 				</a>
-				<span id="favoritesCount" style="float: initial; margin-left: 20%;">${favoritesCount}</span>
+				<span class="favoritesCount" id="favoritesCount">${favoritesCount}</span>
 			</div>
 		</form>
 		<div class="jqGrid_wrapper">
