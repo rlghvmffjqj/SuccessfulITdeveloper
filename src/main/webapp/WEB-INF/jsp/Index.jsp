@@ -41,25 +41,36 @@
 				</div>
 			</c:forEach>
 			<div>
-				<c:choose>
-					<c:when test="${page > 1}">
-						<a href="/ITDeveloper/index?page=${page - 1}&size=${size}">Previous</a>
-					</c:when>
-					<c:otherwise>
-						<span>Previous</span>
-					</c:otherwise>
-				</c:choose>
-				
-				<span>|</span>
-				
-				<c:choose>
-					<c:when test="${not empty mainContentsList && mainContentsList.size() == size}">
-						<a href="/ITDeveloper/index?page=${page + 1}&size=${size}">Next</a>
-					</c:when>
-					<c:otherwise>
-						<span>Next</span>
-					</c:otherwise>
-				</c:choose>
+				<div class="area_paging area_paging_list">
+					<span class="inner_paging">
+						<c:choose>
+							<c:when test="${page > 1}">
+								<a class="ico_skin link_prev link_a" href="/ITDeveloper/index?page=${page - 1}&size=${size}" style="color: black;">이전</a>
+							</c:when>
+							<c:otherwise>
+								<span class="ico_skin link_prev" style="color: gray;">이전</span>
+							</c:otherwise>
+						</c:choose>
+
+						<c:forEach begin="0" end="${total}" varStatus="i">
+							<c:if test="${i.index + 1 == page}">
+								<a class="link_page" href="/ITDeveloper/index?page=${i.index + 1}&size=${size}"><span class="selected">${i.index + 1}</span></a>
+							</c:if>
+        				    <c:if test="${i.index + 1 != page}">
+								<a class="link_page" href="/ITDeveloper/index?page=${i.index + 1}&size=${size}"><span class="">${i.index + 1}</span></a>
+							</c:if>
+        				</c:forEach>
+
+						<c:choose>
+							<c:when test="${not empty mainContentsList && mainContentsList.size() == size}">
+								<a class="ico_skin link_next link_a" href="/ITDeveloper/index?page=${page + 1}&size=${size}" style="color: black;">다음</a>
+							</c:when>
+							<c:otherwise>
+								<span class="ico_skin link_next" style="color: gray;">다음</span>
+							</c:otherwise>
+						</c:choose>
+					</span>
+				</div>				
 			</div>
 		</div>
 	</div>
@@ -71,6 +82,14 @@
 </script>
 
 <style>
+	.link_page:hover {
+    	text-decoration: underline;
+	}
+
+	.link_a:hover {
+    	text-decoration: underline;
+	}
+
 	.index_link:hover .index_title {
 		text-decoration: underline;
     	color: #3db39e;
@@ -88,5 +107,57 @@
     	font-size: 12px;
     	margin: 0 5px;
 	}
+
+	.area_paging {
+	    margin: 30px 0 93px;
+	    text-align: center;
+	}
+
+	.area_paging .inner_paging {
+	    display: inline-block;
+	    overflow: hidden;
+	}
+	.area_paging {
+	    margin: 30px 0 93px;
+	    text-align: center;
+	}
+
+	.area_paging .no-more-prev {
+	    background-position: 0 -75px;
+	}
+	.area_paging .link_prev {
+	    margin-right: 20px;
+	    background-position: 0 -100px;
+	}
+	.area_paging .ico_skin {
+	    float: left;
+	    width: 40px;
+	    height: 24px;
+	    margin-top: 10px;
+	}
+	
+
+	.area_paging .link_page {
+	    float: left;
+	}
+
+	.area_paging .link_next {
+	    margin-left: 20px;
+	    background-position: 0 -150px;
+	}
+
+	.area_paging .link_page span.selected {
+	    border-radius: 3px;
+	    background-color: #3db39e;
+	    color: #fff;
+	    font-weight: bold;
+	    padding: 8px 14px 6px;
+	}
+	.area_paging .link_page span {
+	    display: block;
+	    padding: 9px 14px 5px;
+	    color: #666;
+	}
+
 </style>
 </html>

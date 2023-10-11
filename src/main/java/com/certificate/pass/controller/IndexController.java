@@ -19,10 +19,12 @@ public class IndexController {
 	@GetMapping("/index")
 	public String indexView(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int size, Model model) {
 		List<MainContents> list = new ArrayList<>(integratedService.getIndexList(page, size));
+		int totalCount = integratedService.getIndexCount();
 		model.addAttribute("mainContentsList", list);
-		model.addAttribute("mainContentsCount", integratedService.getIndexCount());
+		model.addAttribute("mainContentsCount", totalCount);
 		model.addAttribute("page",page);
 		model.addAttribute("size",size);
+		model.addAttribute("total", totalCount/size);
 		return "/Index";
 	}
 }
