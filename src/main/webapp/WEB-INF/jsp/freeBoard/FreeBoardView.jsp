@@ -73,10 +73,12 @@
 			<form id="commentform" name="commentform" method ="post">
 				<input type="hidden" id="freeBoardKeyNum" name="freeBoardKeyNum" value="${freeBoardKeyNum}">
 				<div class="comment-form">
-					<div class="field">
-							<input class="commentHead" type="text" name="freeBoardCommentsName" placeholder="이름" value="">
-							<input class="commentHead" type="password" name="freeBoardCommentsPassword" maxlength="8" placeholder="비밀번호" value="">
-					</div>
+					<sec:authorize access="isAnonymous()">
+						<div class="field">
+								<input class="commentHead" type="text" name="freeBoardCommentsName" placeholder="이름" value="">
+								<input class="commentHead" type="password" name="freeBoardCommentsPassword" maxlength="8" placeholder="비밀번호" value="">
+						</div>
+					</sec:authorize>
 			
 					<textarea class="commentBody" name="freeBoardCommentsContents" cols="" rows="4" placeholder="여러분의 소중한 댓글을 입력바랍니다."></textarea>
 					<div class="submit">
@@ -95,8 +97,10 @@
 	
 	<div id="dialog-reply" title="답글달기" style='display:none'>
 		<form id="commentReplyform" name="commentReplyform" method ="post" onsubmit="return false">
-	  		<input class="commentHeadDialog" type="text" name="freeBoardCommentsNameDialog" placeholder="이름" value="">
-			<input class="commentHeadDialog" type="password" name="freeBoardCommentsPasswordDialog" maxlength="8" placeholder="비밀번호" value="">
+			<sec:authorize access="isAnonymous()">
+	  			<input class="commentHeadDialog" type="text" name="freeBoardCommentsNameDialog" placeholder="이름" value="">
+				<input class="commentHeadDialog" type="password" name="freeBoardCommentsPasswordDialog" maxlength="8" placeholder="비밀번호" value="">
+			</sec:authorize>
 	  		<textarea class="commentBodyDialog" name="freeBoardCommentsContentsDialog" cols="" rows="4" placeholder="여러분의 소중한 댓글을 입력바랍니다."></textarea>
 	  		<input type="checkbox" name="freeBoardCommentsSecretDialog" id="secret">
 	  		<label class="commentSecretDialog">비밀글</label>
