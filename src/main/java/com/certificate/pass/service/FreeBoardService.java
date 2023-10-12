@@ -9,12 +9,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.certificate.pass.dao.FreeBoardDao;
+import com.certificate.pass.emtity.EmployeeEntity;
+import com.certificate.pass.emtity.UsersEntity;
+import com.certificate.pass.jpaDao.EmployeeJpaDao;
+import com.certificate.pass.jpaDao.UsersJpaDao;
 import com.certificate.pass.vo.FreeBoard;
 import com.certificate.pass.vo.FreeBoardComments;
 
 @Service
 public class FreeBoardService {
 	@Autowired FreeBoardDao freeBoardDao;
+	@Autowired UsersJpaDao usersJpaDao;
+	@Autowired EmployeeJpaDao employeeJpaDao;
 
 	public List<FreeBoard> getFreeBoardList(FreeBoard search) {
 		return freeBoardDao.getFreeBoardList(search);
@@ -67,8 +73,8 @@ public class FreeBoardService {
 				if(freeBoardComment.isFreeBoardCommentsSecret()) {
 					if(!userId.equals(freeBoardComment.getFreeBoardCommentsRegistrant())) {
 						if(freeBoardComment.getFreeBoardCommentsParentKeyNum() != temp) {
-							freeBoardComment.setFreeBoardCommentsName("익명");
-							freeBoardComment.setFreeBoardCommentsContents("비밀 댓글 입니다.");
+							freeBoardComment.setFreeBoardCommentsName("�씡紐�");
+							freeBoardComment.setFreeBoardCommentsContents("鍮꾨� �뙎湲� �엯�땲�떎.");
 						}
 					}
 				}
@@ -82,6 +88,19 @@ public class FreeBoardService {
 	}
 
 	public String insertFreeBoardComments(FreeBoardComments freeBoardComments) {
+		if(freeBoardComments.getFreeBoardCommentsRegistrant() == "" || freeBoardComments.getFreeBoardCommentsRegistrant() == null) {
+			if(freeBoardComments.getFreeBoardCommentsName() == "" || freeBoardComments.getFreeBoardCommentsName() == null) {
+				return "NotName";
+			}
+			if(freeBoardComments.getFreeBoardCommentsPassword() == "" || freeBoardComments.getFreeBoardCommentsPassword() == null) {
+				return "NotPwd";
+			}
+		} else {
+			UsersEntity users = usersJpaDao.findByUsersId(freeBoardComments.getFreeBoardCommentsRegistrant());
+			EmployeeEntity employeeEntity = employeeJpaDao.findByEmployeeId(freeBoardComments.getFreeBoardCommentsRegistrant());
+			freeBoardComments.setFreeBoardCommentsName(employeeEntity.getEmployeeName());
+			freeBoardComments.setFreeBoardCommentsPassword(users.getUsersPw());
+		}
 		int sucess = freeBoardDao.insertFreeBoardComments(freeBoardComments);
 		if (sucess <= 0)
 			return "FALSE";
@@ -93,6 +112,22 @@ public class FreeBoardService {
 	}
 
 	public String insertFreeBoardCommentsReply(FreeBoardComments freeBoardComments) {
+		if(freeBoardComments.getFreeBoardCommentsRegistrant() == "" || freeBoardComments.getFreeBoardCommentsRegistrant() == null) {
+			if(freeBoardComments.getFreeBoardCommentsNameDialog() == "" || freeBoardComments.getFreeBoardCommentsNameDialog() == null) {
+				return "NotName";
+			}
+			if(freeBoardComments.getFreeBoardCommentsPasswordDialog() == "" || freeBoardComments.getFreeBoardCommentsPasswordDialog() == null) {
+				return "NotPwd";
+			}
+		} else {
+			UsersEntity users = usersJpaDao.findByUsersId(freeBoardComments.getFreeBoardCommentsRegistrant());
+			EmployeeEntity employeeEntity = employeeJpaDao.findByEmployeeId(freeBoardComments.getFreeBoardCommentsRegistrant());
+			freeBoardComments.setFreeBoardCommentsNameDialog(employeeEntity.getEmployeeName());
+			freeBoardComments.setFreeBoardCommentsPasswordDialog(users.getUsersPw());
+		}
+		if(freeBoardComments.getFreeBoardCommentsContentsDialog() == "") {
+			return "NotContents";
+		}
 		int sucess = freeBoardDao.insertFreeBoardCommentsReply(freeBoardComments);
 		if (sucess <= 0)
 			return "FALSE";

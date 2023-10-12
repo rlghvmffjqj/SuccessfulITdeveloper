@@ -8,14 +8,15 @@
 		SELECT *
     	FROM
     	(
-    		SELECT ROW_NUMBER() OVER(ORDER BY ${sidx} ${sord}) RowNo, a.*
+    		SELECT @row := @row + 1 AS RowNo, a.*
     		FROM (
 				SELECT mainContentsKeyNum, topItemsName, middleItemsName, mainContentsTitle, mainContentsCount, mainContentsDate, mainContentsRegistrant, mainContentsRegistrationDate 
 				FROM mainContents
 				<include refid="sqlIntegrated" />
 			) a
+			JOIN (SELECT @row := 0) r
 		) b
-    	WHERE b.RowNo between (1+(${page} - 1 ) * ${rows}) and (${page} * ${rows});
+    	WHERE b.RowNo BETWEEN (1 + (${page} - 1) * ${rows}) AND (${page} * ${rows});
 	</select>
 	
 	<select id="getIntegratedListCount" parameterType="string" resultType="_int">
@@ -24,7 +25,7 @@
 	</select>
 	
 	<select id="getIndexList" parameterType="_int" resultMap="mainContents">
-		SELECT mainContentsKeyNum, topItemsName, middleItemsName, mainContentsTitle, SUBSTRING(mainContentsDetail,1,50000) AS mainContentsDetail, mainContentsDate FROM maincontents
+		SELECT mainContentsKeyNum, topItemsName, middleItemsName, mainContentsTitle, SUBSTRING(mainContentsDetail,1,50000) AS mainContentsDetail, mainContentsDate FROM mainContents
 		LIMIT #{offset}, #{limit};
 	</select>
 	

@@ -140,6 +140,8 @@
 	.menuBtn {
 		width: 35px;
     	height: 35px;
+		background: aliceblue;
+    	border: 1px solid #8d8d8d;
 	}
 	
 	.menuInput {

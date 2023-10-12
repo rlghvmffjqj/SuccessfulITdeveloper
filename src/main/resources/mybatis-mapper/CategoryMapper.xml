@@ -18,15 +18,15 @@
 		SELECT *
     	FROM
     	(
-    		SELECT ROW_NUMBER() OVER(ORDER BY ${sidx} ${sord}) RowNo, a.*
+    		SELECT @row := @row + 1 AS RowNo, a.*
     		FROM (
 				SELECT mainContentsKeyNum, topItemsName, middleItemsName, mainContentsTitle, mainContentsCount, mainContentsDate, mainContentsRegistrant, mainContentsRegistrationDate
 				FROM mainContents WHERE topItemsName = #{topItemsName} AND middleItemsName = #{middleItemsName}
 					<include refid="sqlCategory" />
 			) a
+			JOIN (SELECT @row := 0) r
 		) b
-    	WHERE b.RowNo between (1+(${page} - 1 ) * ${rows}) and (${page} * ${rows});
-			
+    	WHERE b.RowNo BETWEEN (1 + (${page} - 1) * ${rows}) AND (${page} * ${rows});
 	</select>
 	
 	<select id="getCategoryListCount" parameterType="string" resultType="_int">

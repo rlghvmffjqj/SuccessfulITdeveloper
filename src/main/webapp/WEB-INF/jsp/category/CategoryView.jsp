@@ -173,6 +173,7 @@
 			<a class="pageMove" href="<c:url value='/category/nextPageMove'/>?contentNumber=${mainContentsKeyNum}" style="float: right">다음글 ＞</a>
 		</div>
 	</div>
+	<button class="scrollToTop" onclick="scrollToTop();">맨 위로</button>
 
 	<%@ include file="/WEB-INF/jsp/common/_FooterMenu.jsp"%>
 
@@ -212,6 +213,10 @@
 	</div>
 </body>
 <script>
+	function scrollToTop() {
+        window.scrollTo(0, 0);
+    }
+
 	$(function() {
 		var $likeBtn =$('.icon.heart');
 		if(${favoritesUsers}) {
@@ -663,5 +668,7 @@
 	#favoritesCount {
 		font-size: 16px;
 	}
+
+	
 </style>
 </html>

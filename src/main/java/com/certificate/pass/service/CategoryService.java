@@ -23,7 +23,6 @@ import com.certificate.pass.jpaDao.EmployeeJpaDao;
 import com.certificate.pass.jpaDao.UsersJpaDao;
 import com.certificate.pass.vo.Category;
 import com.certificate.pass.vo.ConnectUser;
-import com.certificate.pass.vo.Employee;
 import com.certificate.pass.vo.Favorites;
 import com.certificate.pass.vo.MainComments;
 import com.certificate.pass.vo.MainContents;
@@ -194,8 +193,8 @@ public class CategoryService {
 				if(mainComments.isMainCommentsSecret()) {
 					if(!userId.equals(mainComments.getMainCommentsRegistrant())) {
 						if(mainComments.getMainCommentsParentKeyNum() != temp) {
-							mainComments.setMainCommentsName("익명");
-							mainComments.setMainCommentsContents("비밀 댓글 입니다.");
+							mainComments.setMainCommentsName("�씡紐�");
+							mainComments.setMainCommentsContents("鍮꾨� �뙎湲� �엯�땲�떎.");
 						}
 					}
 				}

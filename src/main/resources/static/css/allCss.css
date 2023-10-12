@@ -762,9 +762,20 @@ table {
 	.favorites {
 		width: 15px; 
 		height: 15px; 
-		margin: 5px; 
+		margin: 2px; 
 		padding-left: 10px;
 	}
+	
+	.scrollToTop {
+        position: fixed;
+        bottom: 1%;
+        right: 16%;
+        padding: 10px;
+        background-color: #83c597;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
 }
 
 @media (min-width: 0px) and (max-width: 1024px) {
@@ -1097,6 +1108,18 @@ table {
 	table > tbody > tr > td {
 		font-size: 10px;
 	}
+	
+	.scrollToTop {
+        position: fixed;
+	    bottom: 1%;
+	    right: 1%;
+	    padding: 5px;
+	    background-color: #83c597;
+	    color: #fff;
+	    border: none;
+	    cursor: pointer;
+	    font-size: 10px;
+    }
 }
 
 .mediumMenuMobile {
