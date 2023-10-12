@@ -41,7 +41,7 @@
 				</div>
 			</c:forEach>
 			<div>
-				<div class="area_paging area_paging_list">
+				<div class="index_paging index_paging_list">
 					<span class="inner_paging">
 						<c:choose>
 							<c:when test="${page > 1}">
@@ -82,14 +82,6 @@
 </script>
 
 <style>
-	.link_page:hover {
-    	text-decoration: underline;
-	}
-
-	.link_a:hover {
-    	text-decoration: underline;
-	}
-
 	.index_link:hover .index_title {
 		text-decoration: underline;
     	color: #3db39e;
@@ -108,28 +100,28 @@
     	margin: 0 5px;
 	}
 
-	.area_paging {
+	.index_paging {
 	    margin: 30px 0 93px;
 	    text-align: center;
 	}
 
-	.area_paging .inner_paging {
+	.index_paging .inner_paging {
 	    display: inline-block;
 	    overflow: hidden;
 	}
-	.area_paging {
+	.index_paging {
 	    margin: 30px 0 93px;
 	    text-align: center;
 	}
 
-	.area_paging .no-more-prev {
+	.index_paging .no-more-prev {
 	    background-position: 0 -75px;
 	}
-	.area_paging .link_prev {
+	.index_paging .link_prev {
 	    margin-right: 20px;
 	    background-position: 0 -100px;
 	}
-	.area_paging .ico_skin {
+	.index_paging .ico_skin {
 	    float: left;
 	    width: 40px;
 	    height: 24px;
@@ -137,26 +129,34 @@
 	}
 	
 
-	.area_paging .link_page {
+	.index_paging .link_page {
 	    float: left;
 	}
 
-	.area_paging .link_next {
+	.index_paging .link_next {
 	    margin-left: 20px;
 	    background-position: 0 -150px;
 	}
 
-	.area_paging .link_page span.selected {
+	.index_paging .link_page span.selected {
 	    border-radius: 3px;
 	    background-color: #3db39e;
 	    color: #fff;
 	    font-weight: bold;
 	    padding: 8px 14px 6px;
 	}
-	.area_paging .link_page span {
+	.index_paging .link_page span {
 	    display: block;
 	    padding: 9px 14px 5px;
 	    color: #666;
+	}
+
+	.link_page:hover {
+    	text-decoration: underline;
+	}
+
+	.link_a:hover {
+    	text-decoration: underline;
 	}
 
 </style>

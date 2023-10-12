@@ -24,7 +24,7 @@
 	</select>
 	
 	<select id="getIndexList" parameterType="_int" resultMap="mainContents">
-		SELECT * FROM mainContents 
+		SELECT mainContentsKeyNum, topItemsName, middleItemsName, mainContentsTitle, SUBSTRING(mainContentsDetail,1,50000) AS mainContentsDetail, mainContentsDate FROM maincontents
 		LIMIT #{offset}, #{limit};
 	</select>
 	

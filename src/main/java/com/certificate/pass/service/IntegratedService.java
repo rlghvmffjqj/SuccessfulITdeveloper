@@ -26,8 +26,12 @@ public class IntegratedService {
 		int offset = (page - 1) * size;
 		List<MainContents> mainContentsList = integratedDao.getIndexList(offset,size);
 		for(MainContents mainContents : mainContentsList) {
-			mainContents.setMainContentsDetail(removeHtmlTags(mainContents.getMainContentsDetail()));
 			String longBlobData = mainContents.getMainContentsDetail();
+			System.out.println(longBlobData.substring(longBlobData.length() - 1));
+			if(!longBlobData.substring(longBlobData.length() - 1).equals(">")) {
+				longBlobData += ">";
+			}
+			longBlobData = removeHtmlTags(longBlobData);
 			String first30Characters = longBlobData.substring(0, Math.min(200, longBlobData.length()));
 			mainContents.setMainContentsDetail(first30Characters);
 		}
