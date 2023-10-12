@@ -776,6 +776,27 @@ table {
         border: none;
         cursor: pointer;
     }
+    
+    .login_idpw {
+		width:350px; 
+		padding-inline: 10px;	
+	}
+	
+	.login_btn {
+		border: none; 
+		width: 375px; 
+		height: 50px;
+	}
+	
+	.login_kakao {
+		width: 375px;
+	}
+	
+	.login_save {
+		margin-top: 10px; 
+		width: 375px; 
+		text-align: left;
+	}
 }
 
 @media (min-width: 0px) and (max-width: 1024px) {
@@ -1120,6 +1141,27 @@ table {
 	    cursor: pointer;
 	    font-size: 10px;
     }
+    
+    .login_idpw {
+		width:280px; 
+		padding-inline: 10px;	
+	}
+	
+	.login_btn {
+		border: none; 
+		width: 305px; 
+		height: 50px;
+	}
+	
+	.login_kakao {
+		width: 305px;
+	}
+	
+	.login_save {
+		margin-top: 10px; 
+		width: 305px; 
+		text-align: left;
+	}
 }
 
 .mediumMenuMobile {

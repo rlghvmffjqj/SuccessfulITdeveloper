@@ -85,6 +85,7 @@ $(function() {
     <a onClick="mobileSubMenuBtn()">
     	<img class="mobileMenu" src="<c:url value='/images/menu.png' />">
     </a>
+	
 	<div class="mainMenuDiv">
 	    <a href="<c:url value='/index'/>" class="mainMenu index" id="index">HOME</a>
 	    <a href="<c:url value='/integrated/integratedList'/>" class="mainMenu integrated" id="integrated">통합검색</a>
@@ -97,6 +98,7 @@ $(function() {
 	    	<a href="<c:url value='/employeeList'/>" class="mainMenu adminSetting" id="adminSetting">관리자설정</a>
 	    </sec:authorize>
     </div>
+	
     
     <sec:authorize access="isAuthenticated()">
 	    <div id="member">
@@ -147,7 +149,7 @@ $(function() {
 	</sec:authorize>
 </div>
 
-<div class="mobileSubMenu" id="mobileSubMenu" style="display:none">
+<div class="mobileSubMenu banner-slide" id="mobileSubMenu" style="left: -100%;">
 	<div style="width:100%; height:60px; float:left; background: #ddd;">
 		<div style="float: left; margin-top: 17px; margin-left: 2%;"><span style="font-size: 20px; font-weight: 600;">전체메뉴</span></div>
 		<a onClick="mobileSubMenuBtn()"><img style="width:20px; float: right; margin-top: 20px; margin-right: 2%;" src="<c:url value='/images/close.png' />"></a>
@@ -294,14 +296,25 @@ $(function() {
 		location.href="<c:url value='/login'/>";
 	}
 	
-	function mobileSubMenuBtn() {
-		var check = document.getElementById("mobileSubMenu");
-		console.log(check.style.display);
-		if(check.style.display=='none') {
-			check.style.display = 'block';
-		} else {
-			check.style.display = 'none';
-		}
+	function mobileSubMenuBtn() {		
+		var $slideMe = $(".banner-slide");
+        if ($slideMe.css("left") === "0px") {
+            $slideMe.css("left", "-100%"); // 왼쪽으로 슬라이딩
+        } else {
+            $slideMe.css("left", "0px"); // 원래 위치로 복귀
+        }
+		
+		
 	}
+
+	
+
+
 		
 </script>
+
+<style>
+	.banner-slide {
+    	transition: left 0.5s; /* 슬라이딩 애니메이션 지속 시간 설정 */
+	}
+</style>

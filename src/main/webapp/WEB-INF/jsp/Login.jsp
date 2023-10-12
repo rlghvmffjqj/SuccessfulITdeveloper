@@ -26,20 +26,20 @@
 			<form id="form" method="post" action="/ITDeveloper/login">
 				<img style="width: 250px;" src="<c:url value='/images/logo.png' />" alt="logo.png">
 				<div style="margin-top: 10px;">
-					<input style="width:350px; padding-inline: 10px;" type="text" id="usersId" name="usersId" class="formControl" required="required" placeholder="ID" value="${usersId}">
+					<input type="text" id="usersId" name="usersId" class="formControl login_idpw" required="required" placeholder="ID" value="${usersId}">
 				</div>
 				<div style="margin-top: 10px;">
-					<input type="password" style="width:350px; padding-inline: 10px;"  id="usersPw" name="usersPw" class="formControl" required="required" placeholder="Password">
+					<input type="password" id="usersPw" name="usersPw" class="formControl login_idpw" required="required" placeholder="Password">
 				</div>
 				<div style="margin-top: 10px; text-align: -webkit-center;">
-				 <button style=" border: none; width: 375px; height: 50px;" type="button" id="btn" class="btn btnPrimary btnBlock" onClick="pwdCheck();">Login</button>
+				 <button type="button" id="btn" class="btn btnPrimary btnBlock login_btn" onClick="pwdCheck();">Login</button>
 				</div>
-				<div class="check_wrap" style="margin-top: 10px; width: 375px; text-align: left;">
+				<div class="check_wrap login_save">
 					<input type="checkbox" id="check_btn"/>
 					<label for="check_btn"><span>아이디 저장</span></label>
 				</div>
 				<div style="margin-top: 20px;">
-					<button type="button" onClick="kakaoLogin();" style="border: 0; background: none;"><img style="width: 375px;" src="<c:url value='/images/kakao.png' />" alt="logo.png"></button>
+					<button type="button" onClick="kakaoLogin();" style="border: 0; background: none;"><img class="login_kakao" src="<c:url value='/images/kakao.png' />" alt="logo.png"></button>
 				</div>
 				<br>
 				<a href="<c:url value='/signUp'/>" style="margin: 10px; color: black;">회원가입</a>|<a href="<c:url value='/findId'/>" style="margin: 10px; color: black;">아이디</a>|<a href="<c:url value='/findPwd'/>" style="margin: 10px; color: black;">패스워드</a>
@@ -50,6 +50,10 @@
 	</div>
 </body>
 	<script>
+		$(function() {
+			$("#usersId").focus();
+		})
+
 		/* =========== 로그인(ID, PWD 일치 여부 확인 후) ========= */
 		function pwdCheck() {
 			var usersId = $('#usersId').val();

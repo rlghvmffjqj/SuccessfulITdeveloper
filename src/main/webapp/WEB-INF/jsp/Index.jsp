@@ -32,6 +32,16 @@
 
 			<c:forEach var='mainContents' items='${mainContentsList}'>
 				<div class="index_div">
+					<c:if test="${mainContents.mainContentsImg != ''}">
+						<a class="thumbnail_post" href="<c:url value='/category/mainContentsView?contentNumber=${mainContents.mainContentsKeyNum}'/>">
+							${mainContents.mainContentsImg}
+						</a>	
+					</c:if>
+					<c:if test="${mainContents.mainContentsImg == ''}">
+						<a class="thumbnail_post" href="<c:url value='/category/mainContentsView?contentNumber=${mainContents.mainContentsKeyNum}'/>">
+							<img src="//i1.daumcdn.net/thumb/C148x148/?fname=https://blog.kakaocdn.net/dn/clPKsX/btrvnWAGE1p/KXYsjcAigjQGbHrZV1jYZ0/img.png">
+						</a>	
+					</c:if>
 					<a class="index_link" href="<c:url value='/category/mainContentsView?contentNumber=${mainContents.mainContentsKeyNum}'/>">
 						<strong class="index_title">${mainContents.mainContentsTitle}</strong>
 						<p class="index_txt">${mainContents.mainContentsDetail}</p>
@@ -157,6 +167,13 @@
 
 	.link_a:hover {
     	text-decoration: underline;
+	}
+
+	.index_div .thumbnail_post {
+	    float: right;
+	    height: 148px;
+	    width: 148px;
+	    margin: 4px 0 4px 30px;
 	}
 
 </style>

@@ -23,6 +23,8 @@ public class MainContents {
 	private String mainContentsModifier;
 	private String mainContentsModifiedDate;
 	
+	private String mainContentsImg;
+	
 	private int page=1;							
 	private int rows=25;						
 	private String sidx="mainContentsKeyNum";			

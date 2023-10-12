@@ -27,11 +27,12 @@ public class IntegratedService {
 		List<MainContents> mainContentsList = integratedDao.getIndexList(offset,size);
 		for(MainContents mainContents : mainContentsList) {
 			String longBlobData = mainContents.getMainContentsDetail();
-			System.out.println(longBlobData.substring(longBlobData.length() - 1));
 			if(!longBlobData.substring(longBlobData.length() - 1).equals(">")) {
 				longBlobData += ">";
 			}
+			mainContents.setMainContentsImg(imgHTmlTage(longBlobData));
 			longBlobData = removeHtmlTags(longBlobData);
+			
 			String first30Characters = longBlobData.substring(0, Math.min(200, longBlobData.length()));
 			mainContents.setMainContentsDetail(first30Characters);
 		}
@@ -43,6 +44,18 @@ public class IntegratedService {
         Pattern pattern = Pattern.compile("<[^>]*>");
         Matcher matcher = pattern.matcher(input);
         return matcher.replaceAll(""); // HTML 태그 제거
+    }
+    
+    private static String imgHTmlTage(String input) {
+        Pattern pattern = Pattern.compile("<img[^>]+>");
+        Matcher matcher = pattern.matcher(input);
+        
+        if (matcher.find()) {
+            String firstImgTag = matcher.group();
+            System.out.println("First img tag: " + firstImgTag);
+            return firstImgTag;
+        }
+        return "";
     }
 
 	public int getIndexCount() {
