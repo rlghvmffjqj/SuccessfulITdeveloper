@@ -39,7 +39,7 @@
 					</c:if>
 					<c:if test="${mainContents.mainContentsImg == ''}">
 						<a class="thumbnail_post" href="<c:url value='/category/mainContentsView?contentNumber=${mainContents.mainContentsKeyNum}'/>">
-							<img src="//i1.daumcdn.net/thumb/C148x148/?fname=https://blog.kakaocdn.net/dn/clPKsX/btrvnWAGE1p/KXYsjcAigjQGbHrZV1jYZ0/img.png">
+							<img src="<c:url value='/images/developer.png' />">
 						</a>	
 					</c:if>
 					<a class="index_link" href="<c:url value='/category/mainContentsView?contentNumber=${mainContents.mainContentsKeyNum}'/>">
@@ -88,7 +88,10 @@
 </body>
 
 <script>
-	
+	$(function() {
+		$(".thumbnail_post > img").css("cssText", "");
+		$(".thumbnail_post > img").addClass("index_contentImg");
+	})
 </script>
 
 <style>
@@ -169,12 +172,7 @@
     	text-decoration: underline;
 	}
 
-	.index_div .thumbnail_post {
-	    float: right;
-	    height: 148px;
-	    width: 148px;
-	    margin: 4px 0 4px 30px;
-	}
+	
 
 </style>
 </html>

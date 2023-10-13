@@ -797,6 +797,19 @@ table {
 		width: 375px; 
 		text-align: left;
 	}
+	
+	.index_div .thumbnail_post {
+	    float: right;
+	    height: 148px;
+	    width: 148px;
+	    margin: 4px 0 4px 30px;
+	}
+	
+	.index_contentImg {
+		height: 110px;
+    	width: 110px;
+    	margin-left: 10%;
+	}
 }
 
 @media (min-width: 0px) and (max-width: 1024px) {
@@ -1081,7 +1094,7 @@ table {
     	display: -ms-flexbox;
     	display: box;
     	overflow: hidden;
-    	max-height: 80px;
+    	max-height: 50px;
     	margin-top: 1px;
     	font-size: 12px;
     	line-height: 28px;
@@ -1161,6 +1174,18 @@ table {
 		margin-top: 10px; 
 		width: 305px; 
 		text-align: left;
+	}
+	
+	.index_div .thumbnail_post {
+	    float: right;
+	    height: 60px;
+	    width: 60px;
+	    margin: 8px 0 8px 20px;
+	}
+	
+	.index_contentImg {
+		height: 60px;
+	    width: 60px;
 	}
 }
 

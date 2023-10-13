@@ -26,7 +26,6 @@ public class Securityconfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		// 접속 권한
 		http.authorizeRequests()
 			.antMatchers("/employeeList").hasRole("ADMIN")
 			.antMatchers("/employee/**").hasRole("ADMIN")
@@ -35,7 +34,6 @@ public class Securityconfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/category/categorySettingSave").hasRole("ADMIN")
 			.antMatchers("/").permitAll();
 		
-		// 로그인 설정
 		http.formLogin()
 			.loginPage("/login")
 			.usernameParameter("usersId")
@@ -46,7 +44,6 @@ public class Securityconfig extends WebSecurityConfigurerAdapter{
 			.permitAll();
 			
 		
-		// 로그아웃 설정
 		http.logout()
 			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 			.logoutSuccessUrl("/login")
@@ -54,7 +51,6 @@ public class Securityconfig extends WebSecurityConfigurerAdapter{
 			.deleteCookies("JSESSIONID")
 			.permitAll();
 		
-		// 권한이 없는 사용자가 접속한 경우
 		http.exceptionHandling()
 			.accessDeniedPage("/denied");
 		
@@ -63,9 +59,9 @@ public class Securityconfig extends WebSecurityConfigurerAdapter{
 		http.csrf().disable();
 		
 		http.sessionManagement()
-	     .maximumSessions(1)	// 동시 접속 가능 세션수
-	     .expiredUrl("/duplicateLogin")	// 세션 만료 시 이동 URL
-	     .maxSessionsPreventsLogin(false);	// false 일경우 기존 로그인 로그 아웃 후 새로그인
+	     .maximumSessions(1)	
+	     .expiredUrl("/duplicateLogin")	
+	     .maxSessionsPreventsLogin(false);	
 	}
 	
 	@Bean 
@@ -79,7 +75,6 @@ public class Securityconfig extends WebSecurityConfigurerAdapter{
 	  return sessionRegistry;
 	}
 	
-	// KAKAO 추가시 등록 빈생성
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
