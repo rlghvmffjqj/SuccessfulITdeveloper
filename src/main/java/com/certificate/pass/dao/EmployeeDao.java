@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.certificate.pass.vo.Employee;
+import com.certificate.pass.vo.Visitor;
 
 @Repository
 public class EmployeeDao {
@@ -61,6 +62,14 @@ public class EmployeeDao {
 		parameters.put("employeeModifier", employeeModifier);
 		parameters.put("employeeModifiedDate", employeeModifiedDate);
 		return sqlSession.update("employee.loginUnLimit", parameters);
+	}
+
+	public Visitor getVisitor(Visitor visitor) {
+		return sqlSession.selectOne("employee.getVisitor", visitor);
+	}
+
+	public void insertVisitor(Visitor visitor) {
+		sqlSession.insert("employee.insertVisitor", visitor);
 	}
 	
 }

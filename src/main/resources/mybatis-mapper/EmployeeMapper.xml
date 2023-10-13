@@ -3,6 +3,7 @@
         
 <mapper namespace="employee">
 	<resultMap type="com.certificate.pass.vo.Employee" id="employee"></resultMap>
+	<resultMap type="com.certificate.pass.vo.Visitor" id="visitor"></resultMap>
 	
 	<select id="getEmployeeCount" resultType="_int">
 		SELECT COUNT(*) FROM employee e INNER JOIN users u
@@ -58,6 +59,14 @@
 	<select id="getEmployeeOne" parameterType="string" resultMap="employee">
 		SELECT * FROM employee WHERE employeeId = #{employeeId};
 	</select>
+	
+	<select id="getVisitor" parameterType="string" resultMap="visitor">
+		SELECT * FROM visitor WHERE visitorIp = #{visitorIp} AND visitorDate = #{visitorDate};
+	</select>
+	
+	<insert id="insertVisitor" parameterType="string">
+		INSERT INTO visitor(visitorIp,visitorDate) VALUES(#{visitorIp},#{visitorDate});
+	</insert>
 	
 	<!-- ==================================================================================== -->
 	

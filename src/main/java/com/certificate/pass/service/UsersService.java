@@ -30,8 +30,10 @@ import com.certificate.pass.emtity.EmployeeEntity;
 import com.certificate.pass.emtity.UsersEntity;
 import com.certificate.pass.jpaDao.EmployeeJpaDao;
 import com.certificate.pass.jpaDao.UsersJpaDao;
+import com.certificate.pass.vo.ConnectUser;
 import com.certificate.pass.vo.Kakao;
 import com.certificate.pass.vo.LoginSession;
+import com.certificate.pass.vo.Visitor;
 
 @Service
 public class UsersService implements UserDetailsService{
@@ -65,7 +67,6 @@ public class UsersService implements UserDetailsService{
 		
 		List<GrantedAuthority> authorities =new ArrayList<>();
 		
-		// 권한 세션 저장
 		if (usersEntity.getUsersRole().equals("ADMIN")) {
 			authorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
 			session.setAttribute("usersId", "admin");
@@ -79,17 +80,15 @@ public class UsersService implements UserDetailsService{
 		String loginIp = request.getRemoteAddr();
 		String loginTime = df.format(new Date());
 		
-		// 접속 세션 목록 저장을 위해 추가
 		LoginSession loingSession = new LoginSession(
 				usersEntity.getUsersId(),
 				usersEntity.getUsersPw(), enabled, accountNonExpired, credentialsNonExpired, accountNonLocked,
 				authorities, loginId, loginIp, loginTime
 		);
-		// 로그인시 사용자 접속 로그 추가
 		//employeeUidLogService.insertEmployeeUidLog(usersEntity.getUsersId());
 		
 		return loingSession;
-		// return new User(usersEntity.getUsersId(), usersEntity.getUsersPw(), authorities);  // 기존 코드
+		// return new User(usersEntity.getUsersId(), usersEntity.getUsersPw(), authorities);  
 	}
 	
 	public String loginIdPwd(String usersId, String usersPw) {
@@ -119,29 +118,18 @@ public class UsersService implements UserDetailsService{
 	}
 	
 	public void kakaoLogin(String authorizedCode) {
-        // 카카오 OAuth2 를 통해 카카오 사용자 정보 조회
         Kakao userInfo = kakaoOAuth2.getUserInfo(authorizedCode);
-        // 카카오톡 이메일을 아이디로 사용
         String usersId = userInfo.getEmail();
 
-        // 우리 DB 에서 회원 Id 와 패스워드
-        // 회원 Id = 카카오 nickname
-        // 패스워드 = 카카오 Id + ADMIN TOKEN
         String password = usersId + ADMIN_TOKEN;
 
-        // DB 에 중복된 Kakao Id 가 있는지 확인
         UsersEntity kakaoUser = usersJpaDao.findByUsersId(usersId);
 
         Date now = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         
-		// 카카오 정보로 회원가입
         if (kakaoUser == null) {
-        	
-    		
-            // 패스워드 인코딩
             String usersPw = passwordEncoder.encode(password);
-            // ROLE = 사용자
             String usersRole = "MEMBER";
             String usersStatus = "KAKAO";
 
@@ -150,7 +138,6 @@ public class UsersService implements UserDetailsService{
             
             EmployeeEntity employeeEntity = new EmployeeEntity();
             
-            // 사원 정보 넣어주기
             employeeEntity.setEmployeeId(usersId);
             employeeEntity.setEmployeeEmail(usersId);
             employeeEntity.setEmployeeName(userInfo.getNickname());
@@ -160,7 +147,6 @@ public class UsersService implements UserDetailsService{
    			employeeJpaDao.save(employeeEntity);
         }
 
-        // 로그인 처리
         Authentication kakaoUsernamePassword = new UsernamePasswordAuthenticationToken(usersId, password);
         Authentication authentication = authenticationManager.authenticate(kakaoUsernamePassword);
         
@@ -175,4 +161,14 @@ public class UsersService implements UserDetailsService{
 	public String getState(String usersId) {
 		return usersJpaDao.findByUsersId(usersId).getUsersState();
 	}
+
+	public Visitor getVisitor(Visitor visitor) {
+		return employeeDao.getVisitor(visitor);
+		
+	}
+
+	public void insertVisitor(Visitor visitor) {
+		employeeDao.insertVisitor(visitor);
+	}
+
 }

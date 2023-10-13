@@ -39,7 +39,7 @@
 					</c:if>
 					<c:if test="${mainContents.mainContentsImg == ''}">
 						<a class="thumbnail_post" href="<c:url value='/category/mainContentsView?contentNumber=${mainContents.mainContentsKeyNum}'/>">
-							<img src="<c:url value='/images/developer.png' />">
+							<img class="index_contentImg" src="<c:url value='/images/developer.png' />">
 						</a>	
 					</c:if>
 					<a class="index_link" href="<c:url value='/category/mainContentsView?contentNumber=${mainContents.mainContentsKeyNum}'/>">

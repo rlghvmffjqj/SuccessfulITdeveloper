@@ -278,6 +278,18 @@ $(function() {
 		        console.log(e);
 		    }
 		});
+
+		$.ajax({
+		    type: 'post',
+		    url: "<c:url value='/users/visitor'/>",
+		    async: false,
+		    success: function () {
+		    	
+		    },
+		    error: function(e) {
+		        console.log(e);
+		    }
+		});
 	});
 	
 	$('#topMendAShow').click(function() {

@@ -1,5 +1,8 @@
 package com.certificate.pass.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.certificate.pass.service.UsersService;
+import com.certificate.pass.vo.Visitor;
 
 @Controller
 public class UsersController {
@@ -52,7 +56,7 @@ public class UsersController {
 	@GetMapping("/loginFail")
 	public String loginFail(Model model) {
 		String loc = "/login";
-		String msg = "�븘�씠�뵒 諛� �뙣�뒪�썙�뱶媛� �씪移섑븯吏� �븡�뒿�땲�떎.";
+		String msg = "접근할 수 없습니다.";
 
 		model.addAttribute("loc", loc).addAttribute("msg", msg);
 		return "/common/msg";
@@ -63,5 +67,21 @@ public class UsersController {
 	public String PwdCheck(String usersId, String usersPw) {
 		String result = usersService.loginIdPwd(usersId, usersPw); 
 		return result;
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "/users/visitor")
+	public void Visitor(HttpServletRequest req) {
+		Date now = new Date();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		
+		Visitor visitor = new Visitor();
+		visitor.setVisitorIp(req.getRemoteAddr());
+		visitor.setVisitorDate(formatter.format(now));
+		
+		Visitor visitorOne = usersService.getVisitor(visitor);
+		if(visitorOne == null) {
+			usersService.insertVisitor(visitor);
+		}
 	}
 }
