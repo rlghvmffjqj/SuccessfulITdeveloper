@@ -5,7 +5,6 @@
 <head>
 	<title>공지사항 목록</title>
 	<%@ include file="/WEB-INF/jsp/common/_Head.jsp"%>
-	<%@ include file="/WEB-INF/jsp/common/_Table.jsp"%>
 	<script>
 	    $(function() {
 	    	$.cookie('name','announcementList', { path: '/ITDeveloper'});

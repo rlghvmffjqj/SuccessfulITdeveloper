@@ -30,7 +30,7 @@ import com.certificate.pass.emtity.EmployeeEntity;
 import com.certificate.pass.emtity.UsersEntity;
 import com.certificate.pass.jpaDao.EmployeeJpaDao;
 import com.certificate.pass.jpaDao.UsersJpaDao;
-import com.certificate.pass.vo.ConnectUser;
+import com.certificate.pass.vo.Employee;
 import com.certificate.pass.vo.Kakao;
 import com.certificate.pass.vo.LoginSession;
 import com.certificate.pass.vo.Visitor;
@@ -169,6 +169,10 @@ public class UsersService implements UserDetailsService{
 
 	public void insertVisitor(Visitor visitor) {
 		employeeDao.insertVisitor(visitor);
+	}
+
+	public Employee getProfile(String employeeId) {
+		return employeeDao.getEmployeeOne(employeeId);
 	}
 
 }

@@ -5,7 +5,6 @@
 <head>
 	<title>회원 상세정보</title>
 	<%@ include file="/WEB-INF/jsp/common/_Head.jsp"%>
-	<%@ include file="/WEB-INF/jsp/common/_Table.jsp"%>
 </head>
 <body>
 	<%@ include file="/WEB-INF/jsp/common/_TopMenu.jsp"%>

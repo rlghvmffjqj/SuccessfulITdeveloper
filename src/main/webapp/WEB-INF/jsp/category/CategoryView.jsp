@@ -23,8 +23,7 @@
 
 <title>${mainContents.mainContentsTitle}</title>
 <%@ include file="/WEB-INF/jsp/common/_Head.jsp"%>
-<script type="text/javascript" src="<c:url value='/js/jquery/jquery-ui.js'/>"></script>
-<%@ include file="/WEB-INF/jsp/common/_Table.jsp"%>
+
 	<script>
 		$(function() {
 	    	$.cookie('name',"${mainContents.topItemsName}"+","+"${mainContents.middleItemsName}", { path: '/ITDeveloper'});
@@ -183,7 +182,7 @@
 				<input class="commentHeadDialog" type="text" name="mainCommentsNameDialog" placeholder="이름" value=""> 
 				<input class="commentHeadDialog" type="password" name="mainCommentsPasswordDialog" maxlength="8" placeholder="비밀번호" value="">
 			</sec:authorize>
-			<textarea class="commentBodyDialog" name="mainCommentsContentsDialog" cols="" rows="4" placeholder="여러분의 소중한 댓글을 입력바랍니다."></textarea>
+			<textarea class="commentBodyDialog" name="mainCommentsContentsDialog" cols="" rows="4" placeholder="여러분의 소중한 댓글을 입력바랍니다." style="width:300px"></textarea>
 			<input type="checkbox" name="mainCommentsSecretDialog" id="secret">
 			<label class="commentSecretDialog">비밀글</label>
 		</form>
@@ -224,7 +223,7 @@
 
 	        if($likeBtn.hasClass('active2')) {
 				$('#favorites').attr({
-	            	'src': '<c:url value='/images/hartOn.png' />', alt:'좋아요 완료'
+	            	'src': "<c:url value='/images/hartOn.png' />", alt:'좋아요 완료'
 				});
 	        }
 		}

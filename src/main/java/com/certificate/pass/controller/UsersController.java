@@ -1,5 +1,6 @@
 package com.certificate.pass.controller;
 
+import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.certificate.pass.service.UsersService;
+import com.certificate.pass.vo.Employee;
 import com.certificate.pass.vo.Visitor;
 
 @Controller
@@ -83,5 +85,11 @@ public class UsersController {
 		if(visitorOne == null) {
 			usersService.insertVisitor(visitor);
 		}
+	}
+	
+	@ResponseBody
+	@PostMapping(value = "/users/profile")
+	public Employee Profile(Principal principal) {
+		return usersService.getProfile(principal.getName());
 	}
 }

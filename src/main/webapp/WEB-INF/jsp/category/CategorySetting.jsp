@@ -6,7 +6,6 @@
 	<title>메뉴설정</title>
 	<%@ include file="/WEB-INF/jsp/common/_Head.jsp"%>
 	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-	<%@ include file="/WEB-INF/jsp/common/_Table.jsp"%>
 	<script>
 	    $(function() {
 	    	$.cookie('name','categorySetting', { path: '/ITDeveloper'});

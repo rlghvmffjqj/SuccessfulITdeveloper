@@ -251,7 +251,7 @@ public class CategoryController {
 			mainContentsKeyNum  = categoryService.beforePageMove(contentNumber);
 		} catch (Exception e) {
 			String loc = "/category/mainContentsView?contentNumber="+contentNumber;
-			String msg = "ì´ì „ í˜ì´ì§€ê°€ ì¡´ì¬ í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.";
+			String msg = "ÀÌÀü ±ÛÀÌ Á¸Àç ÇÏÁö ¾Ê½À´Ï´Ù.";
 
 			model.addAttribute("loc", loc).addAttribute("msg", msg);
 			return "common/msg";
@@ -266,7 +266,7 @@ public class CategoryController {
 			mainContentsKeyNum  = categoryService.nextPageMove(contentNumber);
 		} catch (Exception e) {
 			String loc = "/category/mainContentsView?contentNumber="+contentNumber;
-			String msg = "ë‹¤ìŒ í˜ì´ì§€ê°€ ì¡´ì¬ í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.";
+			String msg = "´ÙÀ½ ±ÛÀÌ Á¸Àç ÇÏÁö ¾Ê½À´Ï´Ù.";
 
 			model.addAttribute("loc", loc).addAttribute("msg", msg);
 			return "common/msg";

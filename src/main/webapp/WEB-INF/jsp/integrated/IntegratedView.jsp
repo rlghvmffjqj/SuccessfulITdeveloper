@@ -5,8 +5,6 @@
 <head>
 <title>${mainContents.mainContentsTitle}</title>
 <%@ include file="/WEB-INF/jsp/common/_Head.jsp"%>
-<script type="text/javascript" src="<c:url value='/js/jquery/jquery-ui.js'/>"></script>
-<%@ include file="/WEB-INF/jsp/common/_Table.jsp"%>
 <script>
 		$(function() {
 	    	$.cookie('name',"${mainContents.topItemsName}"+","+"${mainContents.middleItemsName}", { path: '/ITDeveloper'});

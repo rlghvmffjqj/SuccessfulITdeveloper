@@ -4,7 +4,6 @@
 <head>
 	<title>IT Developer</title>
 	<%@ include file="/WEB-INF/jsp/common/_Head.jsp"%>
-	<%@ include file="/WEB-INF/jsp/common/_Table.jsp"%>
 	<script>
 	    $(function() {
 	    	$.removeCookie('name', {path:'/ITDeveloper'});

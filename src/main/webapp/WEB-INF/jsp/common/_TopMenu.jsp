@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <script>
 $(function() {
 	var arr =  $.cookie('name').split(",");
@@ -56,6 +57,9 @@ $(function() {
 	} else if($.cookie('name') == 'integratedList') {
 		$('.integrated').addClass('active');
 		$('.integratedMobile').addClass('activeMobile');
+	} else if($.cookie('name') == 'myPage') {
+		$('.myPage').addClass('active');
+		$('.myPageMobile').addClass('activeMobile');
 	} else {
 		$('#categorySubMenuMobile').show();
 	}
@@ -77,6 +81,8 @@ $(function() {
 	
 });
 </script>
+<script type="text/javascript" src="<c:url value='/js/jquery/jquery-ui.js'/>"></script>
+<%@ include file="/WEB-INF/jsp/common/_Table.jsp"%>
 
 <div style="width: 100%; height: 60px; background-color: #92c5b8; padding: 0px; overflow: hidden;">
 	<a href="<c:url value='/index'/>">
@@ -90,13 +96,16 @@ $(function() {
 	    <a href="<c:url value='/index'/>" class="mainMenu index" id="index">HOME</a>
 	    <a href="<c:url value='/integrated/integratedList'/>" class="mainMenu integrated" id="integrated">통합검색</a>
 	    <a href="<c:url value='/freeBoard/freeBoardList'/>" class="mainMenu freeBoard" id="freeBoard">자유게시판</a>
-	    <sec:authorize access="hasAnyRole('ADMIN','MEMBER')">
+	    <sec:authorize access="isAuthenticated">
 	    	<a href="<c:url value='/requestsWrite'/>" class="mainMenu inquiry" id="inquiry">문의하기</a>
 	    </sec:authorize>
-	    
+		<sec:authorize access="isAuthenticated">
+	    	<a href="<c:url value='/myPageList'/>" class="mainMenu myPage" id="myPage">마이페이지</a>
+	    </sec:authorize>
 	    <sec:authorize access="hasRole('ADMIN')">
 	    	<a href="<c:url value='/employeeList'/>" class="mainMenu adminSetting" id="adminSetting">관리자설정</a>
 	    </sec:authorize>
+		
     </div>
 	
     
@@ -158,10 +167,12 @@ $(function() {
 		<a href="<c:url value='/index'/>" class="mainMenuMobile indexMobile" id="indexMobile">HOME</a>
 	    <a href="<c:url value='/integrated/integratedList'/>" class="mainMenuMobile integratedMobile" id="integratedMobile">통합검색</a>
 	    <a href="<c:url value='/freeBoard/freeBoardList'/>" class="mainMenuMobile freeBoardMobile" id="freeBoardMobile">자유게시판</a>
-	    <sec:authorize access="hasAnyRole('ADMIN','MEMBER')">
+	    <sec:authorize access="isAuthenticated">
 	    	<a href="#!" onClick="inquiry();" class="mainMenuMobile inquiryMobile" id="inquiryMobile">문의하기</a>
 	    </sec:authorize>
-	    
+		<sec:authorize access="isAuthenticated">
+	    	<a href="<c:url value='/myPageList'/>" class="mainMenuMobile myPageMobile" id="myPageMobile">마이페이지</a>
+	    </sec:authorize>
 	    <sec:authorize access="hasRole('ADMIN')">
 	    	<a href="#!" onClick="adminSetting();" class="mainMenuMobile adminSettingMobile" id="adminSettingMobile">관리자설정</a>
 	    </sec:authorize>
@@ -187,7 +198,53 @@ $(function() {
 	</div>
 </div>
 
+<div id="dialog-profile" title="Profile" style='display: none; margin-bottom: 5%;'>
+	<form id="profileform" name="profileform" method="post" onsubmit="return false">
+		<div class="profileDiv">
+			<p>아이디</p>
+			<input class="profileInput" type="text" id="employeeId" value="" disabled> 
+		</div>
+		<div class="profileDiv">
+			<p>이름</p>
+			<input class="profileInput" type="text" id="employeeName" value="" disabled> 
+		</div>
+		<div class="profileDiv">
+			<p>전화번호</p>
+			<input class="profileInput" type="text" id="employeePhone" value="" disabled> 
+		</div>
+		<div class="profileDiv">
+			<p>이메일</p>
+			<input class="profileInput" type="text" id="employeeEmail" value="" disabled> 
+		</div>
+	</form>
+</div>
+
 <script>
+	function profileView() {	
+		$.ajax({
+		    type: 'POST',
+		    url: "<c:url value='/users/profile'/>",
+		    async: false,
+		    success: function (data) {
+		    	console.log(data);
+				$('#employeeId').val(data.employeeId);
+				$('#employeeName').val(data.employeeName);
+				$('#employeePhone').val(data.employeePhone);
+				$('#employeeEmail').val(data.employeeEmail);
+		    },
+		    error: function(e) {
+		        // TODO 에러 화면
+		    }
+		});
+
+		$('#dialog-profile').dialog({
+			modal: true, 
+			buttons: {
+				"닫기": function() { $(this).dialog('close'); },
+			}
+		});
+ 	}
+
 	function adminSetting() {
 		$('.subMenuMobile').css('display','none');
 		$('#adminSettingSubMenuMobile').css('display','block');
@@ -315,13 +372,7 @@ $(function() {
         } else {
             $slideMe.css("left", "0px"); // 원래 위치로 복귀
         }
-		
-		
 	}
-
-	
-
-
 		
 </script>
 
@@ -329,4 +380,16 @@ $(function() {
 	.banner-slide {
     	transition: left 0.5s; /* 슬라이딩 애니메이션 지속 시간 설정 */
 	}
+
+	.profileDiv {
+		margin-bottom: -2%;
+	}
+
+	.profileInput {
+		width: 400px;
+	    font-size: 12px !important;
+    	padding: 10px;
+		font-family: math !important;
+	}
+
 </style>

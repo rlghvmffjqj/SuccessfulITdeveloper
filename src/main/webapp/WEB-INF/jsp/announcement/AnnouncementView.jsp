@@ -5,7 +5,6 @@
 <head>
 	<title>문의내역</title>
 	<%@ include file="/WEB-INF/jsp/common/_Head.jsp"%>
-	<%@ include file="/WEB-INF/jsp/common/_Table.jsp"%>
 </head>
 <body>
 	<%@ include file="/WEB-INF/jsp/common/_TopMenu.jsp"%>

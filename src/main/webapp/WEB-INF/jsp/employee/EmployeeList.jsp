@@ -5,7 +5,6 @@
 <head>
 	<title>회원 관리</title>
 	<%@ include file="/WEB-INF/jsp/common/_Head.jsp"%>
-	<%@ include file="/WEB-INF/jsp/common/_Table.jsp"%>
 	<script>
 	    $(function() {
 	    	$.cookie('name','employee', { path: '/ITDeveloper'});
