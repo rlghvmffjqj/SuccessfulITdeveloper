@@ -17,14 +17,25 @@ public class IndexController {
 	@Autowired IntegratedService integratedService;
 	
 	@GetMapping("/index")
-	public String indexView(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "5") int size, Model model) {
+	public String indexView(@RequestParam(defaultValue = "1") int page, Model model) {
+		int size = 5;
 		List<MainContents> list = new ArrayList<>(integratedService.getIndexList(page, size));
-		int totalCount = integratedService.getIndexCount();
+		int total = integratedService.getIndexCount();
+		int group = (page - 1) / size;
+		int startPage = group * size + 1;
+		int endPage = (startPage + size - 1 > total) ? total : startPage + size - 1;
+		if(endPage>total/size+1) {
+			endPage = endPage - (endPage-(total/size+1));
+		}
+		
 		model.addAttribute("mainContentsList", list);
-		model.addAttribute("mainContentsCount", totalCount);
+		model.addAttribute("mainContentsCount", total);
 		model.addAttribute("page",page);
 		model.addAttribute("size",size);
-		model.addAttribute("total", totalCount/size);
+		model.addAttribute("total", total/size);
+		
+		model.addAttribute("startPage",startPage);
+		model.addAttribute("endPage",endPage);
 		return "/Index";
 	}
 }

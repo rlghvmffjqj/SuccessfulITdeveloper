@@ -55,25 +55,25 @@
 					<span class="inner_paging">
 						<c:choose>
 							<c:when test="${page > 1}">
-								<a class="ico_skin link_prev link_a" href="/ITDeveloper/index?page=${page - 1}&size=${size}" style="color: black;">이전</a>
+								<a class="ico_skin link_prev link_a" href="/ITDeveloper/index?page=${page - 1}" style="color: black;">이전</a>
 							</c:when>
 							<c:otherwise>
 								<span class="ico_skin link_prev" style="color: gray;">이전</span>
 							</c:otherwise>
 						</c:choose>
 
-						<c:forEach begin="0" end="${total}" varStatus="i">
-							<c:if test="${i.index + 1 == page}">
-								<a class="link_page" href="/ITDeveloper/index?page=${i.index + 1}&size=${size}"><span class="selected">${i.index + 1}</span></a>
+						<c:forEach begin="${startPage}" end="${endPage}" varStatus="i">
+							<c:if test="${i.index == page}">
+								<a class="link_page" href="/ITDeveloper/index?page=${i.index}"><span class="selected">${i.index}</span></a>
 							</c:if>
-        				    <c:if test="${i.index + 1 != page}">
-								<a class="link_page" href="/ITDeveloper/index?page=${i.index + 1}&size=${size}"><span class="">${i.index + 1}</span></a>
+        				    <c:if test="${i.index != page}">
+								<a class="link_page" href="/ITDeveloper/index?page=${i.index}"><span class="">${i.index}</span></a>
 							</c:if>
         				</c:forEach>
 
 						<c:choose>
 							<c:when test="${not empty mainContentsList && mainContentsList.size() == size}">
-								<a class="ico_skin link_next link_a" href="/ITDeveloper/index?page=${page + 1}&size=${size}" style="color: black;">다음</a>
+								<a class="ico_skin link_next link_a" href="/ITDeveloper/index?page=${page + 1}" style="color: black;">다음</a>
 							</c:when>
 							<c:otherwise>
 								<span class="ico_skin link_next" style="color: gray;">다음</span>
