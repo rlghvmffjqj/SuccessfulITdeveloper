@@ -100,7 +100,7 @@ $(function() {
 	    	<a href="<c:url value='/requestsWrite'/>" class="mainMenu inquiry" id="inquiry">문의하기</a>
 	    </sec:authorize>
 		<sec:authorize access="isAuthenticated">
-	    	<a href="<c:url value='/myPageList'/>" class="mainMenu myPage" id="myPage">마이페이지</a>
+	    	<a href="<c:url value='/myPage'/>" class="mainMenu myPage" id="myPage">마이페이지</a>
 	    </sec:authorize>
 	    <sec:authorize access="hasRole('ADMIN')">
 	    	<a href="<c:url value='/employeeList'/>" class="mainMenu adminSetting" id="adminSetting">관리자설정</a>
@@ -171,7 +171,7 @@ $(function() {
 	    	<a href="#!" onClick="inquiry();" class="mainMenuMobile inquiryMobile" id="inquiryMobile">문의하기</a>
 	    </sec:authorize>
 		<sec:authorize access="isAuthenticated">
-	    	<a href="<c:url value='/myPageList'/>" class="mainMenuMobile myPageMobile" id="myPageMobile">마이페이지</a>
+	    	<a href="<c:url value='/myPage'/>" class="mainMenuMobile myPageMobile" id="myPageMobile">마이페이지</a>
 	    </sec:authorize>
 	    <sec:authorize access="hasRole('ADMIN')">
 	    	<a href="#!" onClick="adminSetting();" class="mainMenuMobile adminSettingMobile" id="adminSettingMobile">관리자설정</a>
@@ -385,11 +385,5 @@ $(function() {
 		margin-bottom: -2%;
 	}
 
-	.profileInput {
-		width: 400px;
-	    font-size: 12px !important;
-    	padding: 10px;
-		font-family: math !important;
-	}
 
 </style>

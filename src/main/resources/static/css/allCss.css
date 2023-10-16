@@ -16,6 +16,7 @@ span {
 
 .ui-widget.ui-widget-content {
 	width:auto !important;
+	top: 22% !important;
 }
 
 
@@ -814,6 +815,13 @@ table {
     	width: 110px;
     	margin-left: 10%;
 	}
+	
+	.profileInput {
+		width: 400px;
+	    font-size: 12px !important;
+    	padding: 10px;
+		font-family: math !important;
+	}
 }
 
 @media (min-width: 0px) and (max-width: 1024px) {
@@ -1190,6 +1198,13 @@ table {
 	.index_contentImg {
 		height: 60px;
 	    width: 60px;
+	}
+	
+	.profileInput {
+		width: 250px;
+	    font-size: 12px !important;
+    	padding: 10px;
+		font-family: math !important;
 	}
 }
 
