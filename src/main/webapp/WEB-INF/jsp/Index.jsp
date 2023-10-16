@@ -32,12 +32,12 @@
 
 			<c:forEach var='mainContents' items='${mainContentsList}'>
 				<div class="index_div">
-					<c:if test="${mainContents.mainContentsImg != ''}">
+					<c:if test="${mainContents.mainContentsImg != '' && mainContents.mainContentsImg != null}">
 						<a class="thumbnail_post" href="<c:url value='/category/mainContentsView?contentNumber=${mainContents.mainContentsKeyNum}'/>">
 							${mainContents.mainContentsImg}
 						</a>	
 					</c:if>
-					<c:if test="${mainContents.mainContentsImg == ''}">
+					<c:if test="${mainContents.mainContentsImg == '' || mainContents.mainContentsImg == null}">
 						<a class="thumbnail_post" href="<c:url value='/category/mainContentsView?contentNumber=${mainContents.mainContentsKeyNum}'/>">
 							<img class="index_contentImg" src="<c:url value='/images/developer.png' />">
 						</a>	

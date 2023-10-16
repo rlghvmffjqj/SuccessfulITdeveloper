@@ -30,11 +30,10 @@ public class IntegratedService {
 			if(!longBlobData.substring(longBlobData.length() - 1).equals(">")) {
 				longBlobData += ">";
 			}
-			mainContents.setMainContentsImg(imgHTmlTage(longBlobData));
+			mainContents.setMainContentsImg(mainContents.getMainContentsImg());
 			longBlobData = removeHtmlTags(longBlobData);
 			
-			String first30Characters = longBlobData.substring(0, Math.min(200, longBlobData.length()));
-			mainContents.setMainContentsDetail(first30Characters);
+			mainContents.setMainContentsDetail(longBlobData);
 		}
 		return mainContentsList;
 	}
@@ -52,7 +51,6 @@ public class IntegratedService {
         
         if (matcher.find()) {
             String firstImgTag = matcher.group();
-            System.out.println("First img tag: " + firstImgTag);
             return firstImgTag;
         }
         return "";

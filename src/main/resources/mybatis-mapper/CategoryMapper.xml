@@ -65,8 +65,8 @@
 	</delete>
 	
 	<insert id="insertMainContents" parameterType="mainContents" useGeneratedKeys="true" keyProperty="mainContentsKeyNum">
-		INSERT INTO maincontents(topItemsName,middleItemsName,mainContentsTitle,mainContentsDetail,mainContentsCount,mainContentsDate,mainContentsRegistrant,mainContentsRegistrationDate)
-		VALUES(#{topItemsName},#{middleItemsName},#{mainContentsTitle},#{mainContentsDetail},0,#{mainContentsDate},#{mainContentsRegistrant},#{mainContentsRegistrationDate});
+		INSERT INTO maincontents(topItemsName,middleItemsName,mainContentsTitle,mainContentsDetail,mainContentsImg,mainContentsCount,mainContentsDate,mainContentsRegistrant,mainContentsRegistrationDate)
+		VALUES(#{topItemsName},#{middleItemsName},#{mainContentsTitle},#{mainContentsDetail},#{mainContentsImg},0,#{mainContentsDate},#{mainContentsRegistrant},#{mainContentsRegistrationDate});
 	</insert>
 	
 	<select id="getMainContentsOne" parameterType="_int" resultMap="mainContents">
@@ -118,7 +118,7 @@
 	</update>
 	
 	<update id="updateMainContents">
-		UPDATE mainContents SET mainContentsTitle = #{mainContentsTitle}, mainContentsDetail = #{mainContentsDetail}
+		UPDATE mainContents SET mainContentsTitle = #{mainContentsTitle}, mainContentsDetail = #{mainContentsDetail}, mainContentsImg = #{mainContentsImg}
 		WHERE  mainContentsKeyNum = #{mainContentsKeyNum};
 	</update>
 	

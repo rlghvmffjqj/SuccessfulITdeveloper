@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -122,6 +124,7 @@ public class CategoryService {
 		Date now = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		mainContents.setMainContentsDate(formatter.format(now));
+		mainContents.setMainContentsImg(imgHTmlTage(mainContents.getMainContentsDetail()));
 		int sucess = categoryDao.insertMainContents(mainContents);
 		if (sucess <= 0)
 			return 0;
@@ -302,6 +305,7 @@ public class CategoryService {
 	}
 
 	public int updateMainContents(MainContents mainContents, Principal principal) {
+		mainContents.setMainContentsImg(imgHTmlTage(mainContents.getMainContentsDetail()));
 		int sucess = categoryDao.updateMainContents(mainContents);
 		if (sucess <= 0)
 			return 0;
@@ -354,5 +358,17 @@ public class CategoryService {
 			return "NotDatail";
 		return "OK";
 	}
+	
+	private static String imgHTmlTage(String input) {
+        Pattern pattern = Pattern.compile("<img[^>]+>");
+        Matcher matcher = pattern.matcher(input);
+        
+        if (matcher.find()) {
+            String firstImgTag = matcher.group();
+            System.out.println("First img tag: " + firstImgTag);
+            return firstImgTag;
+        }
+        return "";
+    }
 
 }
