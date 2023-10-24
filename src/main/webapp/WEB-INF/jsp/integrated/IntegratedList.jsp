@@ -66,14 +66,14 @@
 			    	<label class="labelFontSize">제목</label>
 					<input type="text" id="mainContentsTitle" name="mainContentsTitle" class="formControl seachInput">
 			    </div>
-			    <div class="col-lg-2">
+			    <!-- <div class="col-lg-2">
 			    	<label class="labelFontSize">대메뉴</label>
 					<input type="text" id="topItemsName" name="topItemsName" class="formControl seachInput">
 			    </div>
 			    <div class="col-lg-2">
 			    	<label class="labelFontSize">중메뉴</label>
 					<input type="text" id="middleItemsName" name="middleItemsName" class="formControl seachInput">
-			    </div>
+			    </div> -->
 			    <div class="col-lg-12">
 			    	<button class="btn btnDefault btnm" type="button" id="btnReset" style="float: right">
 						<span>초기화</span>

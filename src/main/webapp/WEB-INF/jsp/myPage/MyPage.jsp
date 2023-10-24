@@ -25,7 +25,7 @@
 					<span style="display: contents; color:gray;">문의하기 : 5</span>
 				</div>
 				<div style="width: 50%;">
-					<button class="btnBlue" style="float: right; margin-right: 10%; width: 20%;	height: 40px;">회원정보 수정</button>
+					<button class="btnBlue" style="float: right; margin-right: 10%; width: 20%;	height: 40px;" onclick="employeeUpdate()">회원정보 수정</button>
 				</div>
 			</div>
 			<div style="margin-top: 2%;">
@@ -55,7 +55,9 @@
 </body>
 
 <script>
-	
+	function employeeUpdate() {
+		location.href = "<c:url value='/myPage/employeeUpdateView'/>";
+	}
 </script>
 
 <style>
