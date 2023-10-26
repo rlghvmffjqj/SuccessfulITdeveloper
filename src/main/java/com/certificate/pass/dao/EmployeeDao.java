@@ -71,5 +71,9 @@ public class EmployeeDao {
 	public void insertVisitor(Visitor visitor) {
 		sqlSession.insert("employee.insertVisitor", visitor);
 	}
+
+	public int myPageEmployeeUpdate(Employee employee) {
+		return sqlSession.update("employee.myPageEmployeeUpdate", employee);
+	}
 	
 }

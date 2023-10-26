@@ -15,6 +15,7 @@ public class Employee {
 	private String employeeName;
 	private String employeePhone;
 	private String employeeEmail;
+	private String employeeImg;
 	private String employeeStatus;
 	private String lastLogin;
 	private String employeeRegistrant;
@@ -25,8 +26,8 @@ public class Employee {
 	private String usersRole;
 	private String usersPw;	
 	
-	private int page=1;							// 기본 페이지 번호
-	private int rows=25;						// 데이터 보여줄 갯수
-	private String sidx="employeeId";			// 정렬할 기준 데이터
+	private int page=1;							
+	private int rows=25;						
+	private String sidx="employeeId";			
 	private String sord;
 }

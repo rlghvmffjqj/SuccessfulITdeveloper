@@ -72,7 +72,7 @@
 			    </div>
 			    <div class="col-lg-2">
 			    	<label class="labelFontSize">상태</label>
-			    	<select class="formControl selectpicker seachInput" id="employeeStatus" name="employeeStatus" style="height: 34px; width: 98%;" data-live-search="true" data-size="5">
+			    	<select class="formControl selectpicker seachInput selectSearch" id="employeeStatus" name="employeeStatus" data-live-search="true" data-size="5">
 						<option value=""></option>
 						<option value="정상">정상</option>
 						<option value="제한">제한</option>

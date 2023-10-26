@@ -32,7 +32,7 @@ public class Securityconfig extends WebSecurityConfigurerAdapter{
 			.antMatchers("/announcementWrite").hasRole("ADMIN")
 			.antMatchers("/category/categorySetting").hasRole("ADMIN")
 			.antMatchers("/category/categorySettingSave").hasRole("ADMIN")
-			.antMatchers("/").permitAll();
+			.antMatchers("/**").permitAll();
 		
 		http.formLogin()
 			.loginPage("/login")

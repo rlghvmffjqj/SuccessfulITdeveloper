@@ -255,13 +255,6 @@ a.button {
     width: 30%; /* Could be more or less, depending on screen size */                          
 }
 
-.col-lg-2 {
-	float: left;
-    width: 25%;
-    height: 70px;
-    margin: 0px;
-}
-
 .col-lg-12 {
     float: left;
     width: 100%;
@@ -655,7 +648,7 @@ table {
 	}
 	
 	.seachInput {
-		width: 95%;
+		width: 85%;
 	    height: 30px;
 	    padding-inline: 5px;
 	    margin-right: 5%;
@@ -821,6 +814,32 @@ table {
 	    font-size: 12px !important;
     	padding: 10px;
 		font-family: math !important;
+	}
+	
+	.col-lg-2 {
+		float: left;
+	    width: 25%;
+    	height: 70px;
+    	margin: 0px;
+	}
+	
+	.selectSearch {
+		height: 34px; 
+		width: 98%;
+	}
+	
+	.mypageContainer {
+		margin: 2%; 
+		margin-left: 20%; 
+		margin-right: 20%; 
+		height: 700px;
+	}
+	
+	.employeeUpdateBtn {
+		float: right; 
+		margin-right: 10%; 
+		width: 20%;	
+		height: 40px;
 	}
 }
 
@@ -1206,6 +1225,31 @@ table {
     	padding: 10px;
 		font-family: math !important;
 	}
+	
+	.col-lg-2 {
+		float: left;
+	    width: 50%;
+	    height: 50px;
+	    margin: 0px;
+	}
+	
+	.selectSearch {
+		height: 26px; 
+		width: 87%;
+	}
+	
+	.mypageContainer {
+		margin: 2%; 
+		height: 700px;
+	}
+	
+	.employeeUpdateBtn {
+		float: right;
+	    margin-right: 10%;
+	    width: 45%;
+	    height: 30px;
+	    font-size: 10px;
+	}
 }
 
 .mediumMenuMobile {
@@ -1214,5 +1258,9 @@ table {
     cursor: pointer;
     display: block;
     border-bottom: 1px solid #ddd;
+}
+
+.inputDisable {
+	background-color: #dfdfdf;
 }
 

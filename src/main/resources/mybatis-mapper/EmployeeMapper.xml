@@ -68,6 +68,11 @@
 		INSERT INTO visitor(visitorIp,visitorDate) VALUES(#{visitorIp},#{visitorDate});
 	</insert>
 	
+	<update id="myPageEmployeeUpdate">
+		UPDATE employee SET employeeName = #{employeeName}, employeePhone = #{employeePhone}, employeeEmail = #{employeeEmail}, employeeImg = #{employeeImg}
+		WHERE employeeId = #{employeeId};
+	</update>
+	
 	<!-- ==================================================================================== -->
 	
 	<sql id="sqlEmployee">

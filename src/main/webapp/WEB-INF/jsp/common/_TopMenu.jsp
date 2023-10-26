@@ -112,7 +112,8 @@ $(function() {
     <sec:authorize access="isAuthenticated()">
 	    <div id="member">
 		    <a href="#!" style="float: right; margin-right: 2%;" id="topMendAShow">
-		        <img class="profile" style="border-radius: 50%; width: 35px; margin: 10px;" src="<c:url value='/images/profile.png' />">
+		        <!-- <img class="profile" style="border-radius: 50%; width: 35px; margin: 10px;" src="<c:url value='/images/profile.png' />"> -->
+				<img class="profile" style="border-radius: 50%; width: 35px; margin: 10px;" src="<c:url value='/images/profile' />" alt="images">
 		        <img class="logoutProfile" src="<c:url value='/images/down.png' />">
 		        <span id="topMenuSpan" class="loginId"><sec:authentication property="name"/></span>
 		    </a>
@@ -202,19 +203,19 @@ $(function() {
 	<form id="profileform" name="profileform" method="post" onsubmit="return false">
 		<div class="profileDiv">
 			<p>아이디</p>
-			<input class="profileInput" type="text" id="employeeId" value="" disabled> 
+			<input class="profileInput" type="text" id="employeeIdProfile" value="" disabled> 
 		</div>
 		<div class="profileDiv">
 			<p>이름</p>
-			<input class="profileInput" type="text" id="employeeName" value="" disabled> 
+			<input class="profileInput" type="text" id="employeeNameProfile" value="" disabled> 
 		</div>
 		<div class="profileDiv">
 			<p>전화번호</p>
-			<input class="profileInput" type="text" id="employeePhone" value="" disabled> 
+			<input class="profileInput" type="text" id="employeePhoneProfile" value="" disabled> 
 		</div>
 		<div class="profileDiv">
 			<p>이메일</p>
-			<input class="profileInput" type="text" id="employeeEmail" value="" disabled> 
+			<input class="profileInput" type="text" id="employeeEmailProfile" value="" disabled> 
 		</div>
 	</form>
 </div>
@@ -226,11 +227,10 @@ $(function() {
 		    url: "<c:url value='/users/profile'/>",
 		    async: false,
 		    success: function (data) {
-		    	console.log(data);
-				$('#employeeId').val(data.employeeId);
-				$('#employeeName').val(data.employeeName);
-				$('#employeePhone').val(data.employeePhone);
-				$('#employeeEmail').val(data.employeeEmail);
+				$('#employeeIdProfile').val(data.employeeId);
+				$('#employeeNameProfile').val(data.employeeName);
+				$('#employeePhoneProfile').val(data.employeePhone);
+				$('#employeeEmailProfile').val(data.employeeEmail);
 		    },
 		    error: function(e) {
 		        // TODO 에러 화면

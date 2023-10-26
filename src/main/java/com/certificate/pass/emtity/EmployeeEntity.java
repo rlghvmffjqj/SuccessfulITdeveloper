@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -39,6 +37,8 @@ public class EmployeeEntity implements Serializable {
 	private String employeePhone;
 	@Column(name = "employeeemail")
 	private String employeeEmail;
+	@Column(name = "employeeimg")
+	private String employeeImg;
 	@Column(name = "employeestatus")
 	private String employeeStatus;
 	@Column(name = "lastlogin")
@@ -58,11 +58,11 @@ public class EmployeeEntity implements Serializable {
 	private String usersPw;	
 	
 	@Transient
-	private int page=1;							// 기본 페이지 번호
+	private int page=1;							
 	@Transient
-	private int rows=25;						// 데이터 보여줄 갯수
+	private int rows=25;						
 	@Transient
-	private String sidx="employeeId";			// 정렬할 기준 데이터
+	private String sidx="employeeId";			
 	@Transient
 	private String sord;
 }
