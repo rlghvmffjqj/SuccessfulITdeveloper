@@ -60,25 +60,22 @@ public class IndexController {
 			String imagePath = "";
 			if(employee.getEmployeeImg() != null && employee.getEmployeeImg() != "") {
 				String imgName = principal.getName()+"_"+employee.getEmployeeImg();
-				// 이미지 파일의 경로를 설정
 				if (osName.toLowerCase().contains("windows")) {
-					imagePath = "C:\\ITDeveloper\\profile\\"+imgName; // 이미지 파일의 실제 경로
+					imagePath = "C:\\ITDeveloper\\profile\\"+imgName; 
 	            } else if (osName.toLowerCase().contains("linux")) {
-	            	imagePath = "/sw/profile/"+imgName; // 이미지 파일의 실제 경로
+	            	imagePath = "/sw/profile/"+imgName; 
 	            } 
 			} else {
-				// 이미지 파일의 경로를 설정
 				if (osName.toLowerCase().contains("windows")) {
-					imagePath = "C:\\ITDeveloper\\profile\\profile.png"; // 이미지 파일의 실제 경로
+					imagePath = "C:\\ITDeveloper\\profile\\profile.png"; 
 	            } else if (osName.toLowerCase().contains("linux")) {
-	            	imagePath = "/sw/profile/profile.png"; // 이미지 파일의 실제 경로
+	            	imagePath = "/sw/profile/profile.png"; 
 	            } 
 			}
 			File imageFile = new File(imagePath);
 			
-	        // 이미지 파일을 읽어서 응답에 출력
 	        byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
-	        response.setContentType("image/jpeg"); // 이미지 타입에 따라 변경
+	        response.setContentType("image/jpeg"); 
 	        response.setContentLength(imageBytes.length);
 	        response.getOutputStream().write(imageBytes);
 		} catch (Exception e) {

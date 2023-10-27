@@ -1,12 +1,17 @@
 package com.certificate.pass.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +23,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.certificate.pass.emtity.EmployeeEntity;
 import com.certificate.pass.service.CategoryService;
+import com.certificate.pass.service.EmployeeService;
 import com.certificate.pass.vo.Category;
 import com.certificate.pass.vo.ConnectUser;
 import com.certificate.pass.vo.Favorites;
@@ -28,6 +35,7 @@ import com.certificate.pass.vo.MainContents;
 @Controller
 public class CategoryController {
 	@Autowired CategoryService categoryService;
+	@Autowired EmployeeService employeeService;
 	
 	@ResponseBody
 	@PostMapping(value = "/category/topItems")
@@ -193,6 +201,7 @@ public class CategoryController {
 		try {
 			mainComments.setMainCommentsRegistrant(principal.getName());
 			mainComments.setMainCommentsRegistrationDate(categoryService.nowDate());
+			mainComments.setMainCommentsId(principal.getName());
 		} catch (Exception e) {}
 		mainComments.setMainCommentsDate(categoryService.nowDate());
 		return categoryService.insertMainComments(mainComments);
@@ -211,6 +220,7 @@ public class CategoryController {
 		try {
 			mainComments.setMainCommentsRegistrant(principal.getName());
 			mainComments.setMainCommentsRegistrationDate(categoryService.nowDate());
+			mainComments.setMainCommentsIdDialog(principal.getName());
 		} catch (Exception e) {}
 		return categoryService.insertMainCommentsReply(mainComments);
 	}
@@ -266,7 +276,7 @@ public class CategoryController {
 			mainContentsKeyNum  = categoryService.nextPageMove(contentNumber);
 		} catch (Exception e) {
 			String loc = "/category/mainContentsView?contentNumber="+contentNumber;
-			String msg = "���� ���� ���� ���� �ʽ��ϴ�.";
+			String msg = "다음 페이지가 존재 하지 않습니다.";
 
 			model.addAttribute("loc", loc).addAttribute("msg", msg);
 			return "common/msg";
@@ -303,6 +313,49 @@ public class CategoryController {
 			favorites.setUsersId("Guest");
 		}
 		categoryService.favoritesMinus(favorites);
+	}
+	
+	
+	@GetMapping("/category/mainComments/{mainCommentsId}/{mainCommentsKeyNum}")
+	public void  mainCommentsImg(HttpServletRequest request, HttpServletResponse response, Principal principal, @PathVariable String mainCommentsId, @PathVariable int mainCommentsKeyNum) throws ServletException, IOException {
+		try {
+			MainComments mainComments = categoryService.getMainCommentsOne(mainCommentsKeyNum);
+			mainCommentsId = mainCommentsId.substring(3);
+			EmployeeEntity employee = employeeService.getEmployeeOne(mainCommentsId);
+			String osName = System.getProperty("os.name");
+			String imagePath = "";
+			if(mainComments.isMainCommentsSecret() && !mainCommentsId.equals(principal.getName())) {
+				if (osName.toLowerCase().contains("windows")) {
+					imagePath = "C:\\ITDeveloper\\profile\\profile.png"; 
+	            } else if (osName.toLowerCase().contains("linux")) {
+	            	imagePath = "/sw/profile/profile.png"; 
+	            } 
+			} else {
+				if(employee != null) {
+					String imgName = employee.getEmployeeId()+"_"+employee.getEmployeeImg();
+					if (osName.toLowerCase().contains("windows")) {
+						imagePath = "C:\\ITDeveloper\\profile\\"+imgName; 
+		            } else if (osName.toLowerCase().contains("linux")) {
+		            	imagePath = "/sw/profile/"+imgName; 
+		            } 
+				} else {
+					if (osName.toLowerCase().contains("windows")) {
+						imagePath = "C:\\ITDeveloper\\profile\\profile.png"; 
+		            } else if (osName.toLowerCase().contains("linux")) {
+		            	imagePath = "/sw/profile/profile.png"; 
+		            } 
+				}
+			}
+			
+			File imageFile = new File(imagePath);
+			
+	        byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
+	        response.setContentType("image/jpeg"); 
+	        response.setContentLength(imageBytes.length);
+	        response.getOutputStream().write(imageBytes);
+		} catch (Exception e) {
+			
+		}
 	}
 	
 

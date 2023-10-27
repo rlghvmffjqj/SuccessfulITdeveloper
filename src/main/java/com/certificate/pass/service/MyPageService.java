@@ -52,6 +52,8 @@ public class MyPageService {
 		
 		employee.setEmployeeId(employeeId);
 		int sucess = employeeDao.myPageEmployeeUpdate(employee);
+		if(employee.getEmployeeImg() != null && employee.getEmployeeImg() != "") 
+			employeeDao.myPageEmployeeUpdateImg(employee);
 		if (sucess <= 0)
 			return "FALSE";
 		

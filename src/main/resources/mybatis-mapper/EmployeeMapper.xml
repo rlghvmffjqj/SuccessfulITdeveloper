@@ -69,7 +69,12 @@
 	</insert>
 	
 	<update id="myPageEmployeeUpdate">
-		UPDATE employee SET employeeName = #{employeeName}, employeeNickName = #{employeeNickName}, employeePhone = #{employeePhone}, employeeImg = #{employeeImg}
+		UPDATE employee SET employeeName = #{employeeName}, employeeNickName = #{employeeNickName}, employeePhone = #{employeePhone}
+		WHERE employeeId = #{employeeId};
+	</update>
+	
+	<update id="myPageEmployeeUpdateImg">
+		UPDATE employee SET employeeImg = #{employeeImg}
 		WHERE employeeId = #{employeeId};
 	</update>
 	

@@ -78,8 +78,8 @@
 	</delete>
 	
 	<insert id="insertMainComments" parameterType="mainComments" useGeneratedKeys="true" keyProperty="mainCommentsKeyNum">
-		INSERT INTO mainComments(mainCommentsParentKeyNum,mainContentsKeyNum,mainCommentsDepth,mainCommentsFullPath,mainCommentsContents,mainCommentsName,mainCommentsPassword,mainCommentsDate,mainCommentsSecret,mainCommentsRegistrant,mainCommentsRegistrationDate)
-		VALUES(0,#{mainContentsKeyNum},0,#{mainCommentsFullPath},#{mainCommentsContents},#{mainCommentsName},#{mainCommentsPassword},#{mainCommentsDate},#{mainCommentsSecret},#{mainCommentsRegistrant},#{mainCommentsRegistrationDate});
+		INSERT INTO mainComments(mainCommentsParentKeyNum,mainContentsKeyNum,mainCommentsDepth,mainCommentsFullPath,mainCommentsContents,mainCommentsId,mainCommentsName,mainCommentsPassword,mainCommentsDate,mainCommentsSecret,mainCommentsRegistrant,mainCommentsRegistrationDate)
+		VALUES(0,#{mainContentsKeyNum},0,#{mainCommentsFullPath},#{mainCommentsContents},#{mainCommentsId},#{mainCommentsName},#{mainCommentsPassword},#{mainCommentsDate},#{mainCommentsSecret},#{mainCommentsRegistrant},#{mainCommentsRegistrationDate});
 	</insert>
 	
 	<select id="getMainCommentsList" parameterType="_int" resultMap="mainComments">
@@ -91,8 +91,8 @@
 	</select>
 	
 	<insert id="insertMainCommentsReply" parameterType="mainComments" useGeneratedKeys="true" keyProperty="mainCommentsKeyNum">
-		INSERT INTO mainComments(mainCommentsParentKeyNum,mainContentsKeyNum,mainCommentsDepth,mainCommentsContents,mainCommentsName,mainCommentsPassword,mainCommentsDate,mainCommentsSecret,mainCommentsRegistrant,mainCommentsRegistrationDate)
-		VALUES(#{mainCommentsParentKeyNum},#{mainContentsKeyNum},#{mainCommentsDepth},#{mainCommentsContentsDialog},#{mainCommentsNameDialog},#{mainCommentsPasswordDialog},#{mainCommentsDate},#{mainCommentsSecretDialog},#{mainCommentsRegistrant},#{mainCommentsRegistrationDate});
+		INSERT INTO mainComments(mainCommentsParentKeyNum,mainContentsKeyNum,mainCommentsDepth,mainCommentsContents,mainCommentsId,mainCommentsName,mainCommentsPassword,mainCommentsDate,mainCommentsSecret,mainCommentsRegistrant,mainCommentsRegistrationDate)
+		VALUES(#{mainCommentsParentKeyNum},#{mainContentsKeyNum},#{mainCommentsDepth},#{mainCommentsContentsDialog},#{mainCommentsIdDialog},#{mainCommentsNameDialog},#{mainCommentsPasswordDialog},#{mainCommentsDate},#{mainCommentsSecretDialog},#{mainCommentsRegistrant},#{mainCommentsRegistrationDate});
 	</insert>
 	
 	<delete id="mainCommentsDelete" parameterType="string">

@@ -110,6 +110,7 @@
 				<c:if test="${mainComments.mainCommentsDepth == 0}">
 					<div class="commentView">
 						<span id="mainCommentsKeyNum" style="display: none">${mainComments.mainCommentsKeyNum}</span>
+						<img class="profile" style="border-radius: 50%; width: 35px; height: 35px; margin-bottom: -1%;" src="<c:url value='/category/mainComments/img${mainComments.mainCommentsId}/${mainComments.mainCommentsKeyNum}' />" alt="images">
 						<span class="commentsName" id="mainCommentsName">${mainComments.mainCommentsName}</span>
 						<span class="commentsDate" id="mainCommentsDate">${mainComments.mainCommentsDate}</span>
 						<a class="commentsReply" id="mainCommentsReply" href="#!" onClick="mainCommentsReply(this);">답글</a>
@@ -126,6 +127,7 @@
 				<c:if test="${mainComments.mainCommentsDepth > 0}">
 					<div class="commentAnswerView" style="margin-left: ${mainComments.mainCommentsDepth*5}%;">
 						<span id="mainCommentsKeyNum" style="display: none">${mainComments.mainCommentsKeyNum}</span>
+						<img class="profile" style="border-radius: 50%; width: 35px; height: 35px; margin-bottom: -1%;" src="<c:url value='/category/mainComments/img${mainComments.mainCommentsId}/${mainComments.mainCommentsKeyNum}' />" alt="images">
 						<span class="commentsName" id="mainCommentsName">${mainComments.mainCommentsName}</span>
 						<span class="commentsDate" id="mainCommentsDate">${mainComments.mainCommentsDate}</span>
 						<a class="commentsReply" id="mainCommentsReply" href="#!"
@@ -176,12 +178,12 @@
 	<%@ include file="/WEB-INF/jsp/common/_FooterMenu.jsp"%>
 
 	<div id="dialog-reply" title="답글달기" style='display: none'>
-		<form id="commentReplyform" name="commentReplyform" method="post" onsubmit="return false">
+		<form id="commentReplyform" name="commentReplyform" method="post" onsubmit="return false" style="width: 300px;">
 			<sec:authorize access="isAnonymous()">
 				<input class="commentHeadDialog" type="text" name="mainCommentsNameDialog" placeholder="이름" value=""> 
 				<input class="commentHeadDialog" type="password" name="mainCommentsPasswordDialog" maxlength="8" placeholder="비밀번호" value="">
 			</sec:authorize>
-			<textarea class="commentBodyDialog" name="mainCommentsContentsDialog" cols="" rows="4" placeholder="여러분의 소중한 댓글을 입력바랍니다." style="width:300px"></textarea>
+			<textarea class="commentBodyDialog" name="mainCommentsContentsDialog" cols="" rows="4" placeholder="여러분의 소중한 댓글을 입력바랍니다." style="width:100%"></textarea>
 			<input type="checkbox" name="mainCommentsSecretDialog" id="secret">
 			<label class="commentSecretDialog">비밀글</label>
 		</form>
@@ -195,16 +197,16 @@
 
 	<div id="dialog-updateCheck" title="댓글 수정" style='display: none'>
 		<form id="commentUpdateCheckform" name="commentUpdateCheckform" method="post" onsubmit="return false">
-			<input class="commentUpdateDialog" type="password" id="mainCommentsPasswordUpdateDialog" name="mainCommentsPasswordDialog" placeholder="비밀번호" value="">
+			<input class="commentUpdateDialog" type="password" id="mainCommentsPasswordUpdateDialog" name="mainCommentsPasswordDialog" placeholder="비밀번호" value="" style="width:100%">
 		</form>
 	</div>
 
 	<div id="dialog-update" title="답글 수정" style='display: none'>
-		<form id="commentUpdateform" name="commentUpdateform" method="post" onsubmit="return false">
+		<form id="commentUpdateform" name="commentUpdateform" method="post" onsubmit="return false" style="width: 300px;">
 			<sec:authorize access="isAnonymous()">
 				<input class="commentHeadDialog" type="text" id="mainCommentsNameDialog" name="mainCommentsNameDialog" placeholder="이름" value="">
 			</sec:authorize>
-			<textarea class="commentBodyDialog" name="mainCommentsContentsDialog" cols="" rows="4" placeholder="여러분의 소중한 댓글을 입력바랍니다."></textarea>
+			<textarea class="commentBodyDialog" name="mainCommentsContentsDialog" cols="" rows="4" placeholder="여러분의 소중한 댓글을 입력바랍니다." style="width:100%"></textarea>
 			<input type="checkbox" name="mainCommentsSecretDialog" id="mainCommentsSecretDialog"> 
 			<label class="commentSecretDialog">비밀글</label>
 		</form>
@@ -229,7 +231,7 @@
 	});
 
 	function mainCommentsReply(reply) {
-		var mainCommentsKeyNum = reply.previousElementSibling.previousElementSibling.previousElementSibling.innerText;
+		var mainCommentsKeyNum = reply.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText;
 		$('#dialog-reply').dialog({
 			modal: true, 
 			buttons: {
@@ -329,8 +331,8 @@
 	}
 	
 	function updateComment(update) {
-		var mainCommentsKeyNum = update.parentElement.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText;
-		var mainCommentsName = update.parentElement.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.innerText;
+		var mainCommentsKeyNum = update.parentElement.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText;
+		var mainCommentsName = update.parentElement.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText;
 		
 		var postData = $('#commentUpdateCheckform').serializeArray();
 		postData.push({name : "mainCommentsKeyNum", value : mainCommentsKeyNum});
@@ -440,7 +442,7 @@
 	}
 	
 	function deleteComment(del) {
-		var mainCommentsKeyNum = del.parentElement.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText;
+		var mainCommentsKeyNum = del.parentElement.parentElement.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.previousElementSibling.innerText;
 		
 		var postData = $('#commentDeleteform').serializeArray();
 		postData.push({name : "mainCommentsKeyNum", value : mainCommentsKeyNum});

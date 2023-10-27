@@ -75,5 +75,9 @@ public class EmployeeDao {
 	public int myPageEmployeeUpdate(Employee employee) {
 		return sqlSession.update("employee.myPageEmployeeUpdate", employee);
 	}
+
+	public void myPageEmployeeUpdateImg(Employee employee) {
+		sqlSession.update("employee.myPageEmployeeUpdateImg", employee);
+	}
 	
 }

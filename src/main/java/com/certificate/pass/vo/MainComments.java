@@ -17,6 +17,7 @@ public class MainComments {
 	private Integer mainCommentsDepth;
 	private String mainCommentsFullPath;
 	private String mainCommentsContents;
+	private String mainCommentsId;
 	private String mainCommentsName;
 	private String mainCommentsPassword;
 	private String mainCommentsDate;
@@ -30,5 +31,6 @@ public class MainComments {
 	private String mainCommentsPasswordDialog;
 	private String mainCommentsContentsDialog;
 	private boolean mainCommentsSecretDialog;
+	private String mainCommentsIdDialog;
 }
 

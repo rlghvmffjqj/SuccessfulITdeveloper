@@ -113,7 +113,7 @@ $(function() {
 	    <div id="member">
 		    <a href="#!" style="float: right; margin-right: 2%;" id="topMendAShow">
 		        <!-- <img class="profile" style="border-radius: 50%; width: 35px; margin: 10px;" src="<c:url value='/images/profile.png' />"> -->
-				<img class="profile" style="border-radius: 50%; width: 35px; margin: 10px;" src="<c:url value='/images/profile' />" alt="images">
+				<img class="profile" style="border-radius: 50%; width: 35px; height: 35px; margin: 10px;" src="<c:url value='/images/profile' />" alt="images">
 		        <img class="logoutProfile" src="<c:url value='/images/down.png' />">
 		        <span id="topMenuSpan" class="loginId"><sec:authentication property="name"/></span>
 		    </a>
