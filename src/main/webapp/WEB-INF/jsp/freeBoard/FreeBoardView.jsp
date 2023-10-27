@@ -67,7 +67,7 @@
 			</c:forEach>
 		</div>
 		
-		<div style="width: 300px;">
+		<div>
 			<form id="commentform" name="commentform" method ="post">
 				<input type="hidden" id="freeBoardKeyNum" name="freeBoardKeyNum" value="${freeBoardKeyNum}">
 				<div class="comment-form">
@@ -94,12 +94,12 @@
 	<%@ include file="/WEB-INF/jsp/common/_FooterMenu.jsp"%>
 	
 	<div id="dialog-reply" title="답글달기" style='display:none'>
-		<form id="commentReplyform" name="commentReplyform" method ="post" onsubmit="return false">
+		<form id="commentReplyform" name="commentReplyform" method ="post" onsubmit="return false" style="width: 300px;">
 			<sec:authorize access="isAnonymous()">
 	  			<input class="commentHeadDialog" type="text" name="freeBoardCommentsNameDialog" placeholder="이름" value="">
 				<input class="commentHeadDialog" type="password" name="freeBoardCommentsPasswordDialog" maxlength="8" placeholder="비밀번호" value="">
 			</sec:authorize>
-	  		<textarea class="commentBodyDialog" name="freeBoardCommentsContentsDialog" cols="" rows="4" placeholder="여러분의 소중한 댓글을 입력바랍니다."></textarea>
+	  		<textarea class="commentBodyDialog" name="freeBoardCommentsContentsDialog" cols="" rows="4" placeholder="여러분의 소중한 댓글을 입력바랍니다." style="width:100%"></textarea>
 	  		<input type="checkbox" name="freeBoardCommentsSecretDialog" id="secret">
 	  		<label class="commentSecretDialog">비밀글</label>
 		</form>
@@ -113,14 +113,14 @@
 	
 	<div id="dialog-updateCheck" title="댓글 수정" style='display:none'>
 		<form id="commentUpdateCheckform" name="commentUpdateCheckform" method ="post" onsubmit="return false">
-	  		<input class="commentUpdateDialog" type="password" id="freeBoardCommentsPasswordUpdateDialog" name="freeBoardCommentsPasswordDialog" placeholder="비밀번호" value="">
+	  		<input class="commentUpdateDialog" type="password" id="freeBoardCommentsPasswordUpdateDialog" name="freeBoardCommentsPasswordDialog" placeholder="비밀번호" value="" style="width:100%">
 		</form>
 	</div>
 	
 	<div id="dialog-update" title="답글 수정" style='display:none'>
-		<form id="commentUpdateform" name="commentUpdateform" method ="post" onsubmit="return false">
+		<form id="commentUpdateform" name="commentUpdateform" method ="post" onsubmit="return false" style="width: 300px;">
 	  		<input class="commentHeadDialog" type="text" id="freeBoardCommentsNameDialog" name="freeBoardCommentsNameDialog" placeholder="이름" value="">
-	  		<textarea class="commentBodyDialog" name="freeBoardCommentsContentsDialog" cols="" rows="4" placeholder="여러분의 소중한 댓글을 입력바랍니다."></textarea>
+	  		<textarea class="commentBodyDialog" name="freeBoardCommentsContentsDialog" cols="" rows="4" placeholder="여러분의 소중한 댓글을 입력바랍니다." style="width:100%"></textarea>
 	  		<input type="checkbox" name="freeBoardCommentsSecretDialog" id="freeBoardCommentsSecretDialog">
 	  		<label class="commentSecretDialog">비밀글</label>
 		</form>
