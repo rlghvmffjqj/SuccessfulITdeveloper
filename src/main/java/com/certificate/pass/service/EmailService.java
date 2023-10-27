@@ -21,25 +21,25 @@ public class EmailService {
 	    ePw = createKey();
 	    MimeMessage  message = emailSender.createMimeMessage();
 	
-	    message.addRecipients(RecipientType.TO, to);//보내는 대상
-	    message.setSubject("이메일 인증");//제목
+	    message.addRecipients(RecipientType.TO, to);
+	    message.setSubject("Successful IT Developer 이메일 인증");
 	
 	    String msgg="";
 	    msgg+= "<div style='margin:20px;'>";
-	    msgg+= "<h1> 안녕하세요 Successful IT Developer입니다. </h1>";
+	    msgg+= "<h1>Successful IT Developer 회원가입 인증 메일</h1>";
 	    msgg+= "<br>";
-	    msgg+= "<p>아래 코드를 복사해 입력해주세요<p>";
+	    msgg+= "<p>회원 가입해 주셔서 감사합니다. 개발자님께 도움이 되기위해 더욱 노력 하겟습니다.<p>";
 	    msgg+= "<br>";
 	    msgg+= "<p>감사합니다.<p>";
 	    msgg+= "<br>";
 	    msgg+= "<div align='center' style='border:1px solid black; font-family:verdana';>";
-	    msgg+= "<h3 style='color:blue;'>인증 코드입니다.</h3>";
+	    msgg+= "<h3 style='color:blue;'>아래 코드 입력 바랍니다.</h3>";
 	    msgg+= "<div style='font-size:130%'>";
 	    msgg+= "CODE : <strong>";
 	    msgg+= ePw+"</strong><div><br/> ";
 	    msgg+= "</div>";
-	    message.setText(msgg, "utf-8", "html");//내용
-	    message.setFrom(new InternetAddress("rlghvmffjqj@gmail.com","Successful IT Developer"));//보내는 사람
+	    message.setText(msgg, "utf-8", "html");//�궡�슜
+	    message.setFrom(new InternetAddress("rlghvmffjqj@gmail.com","Successful IT Developer"));
 	
 	    return message;
 	}
@@ -48,8 +48,8 @@ public class EmailService {
 	    StringBuffer key = new StringBuffer();
 	    Random rnd = new Random();
 	
-	    for (int i = 0; i < 8; i++) { // 인증코드 8자리
-	        int index = rnd.nextInt(3); // 0~2 까지 랜덤
+	    for (int i = 0; i < 8; i++) { 
+	        int index = rnd.nextInt(3); 
 	
 	        switch (index) {
 	            case 0:
@@ -72,7 +72,7 @@ public class EmailService {
 	public String sendSimpleMessage(String to)throws Exception {
 	    // TODO Auto-generated method stub
 	    MimeMessage message = createMessage(to);
-	    try{//예외처리
+	    try{
 	        emailSender.send(message);
 	    }catch(MailException es){
 	        es.printStackTrace();

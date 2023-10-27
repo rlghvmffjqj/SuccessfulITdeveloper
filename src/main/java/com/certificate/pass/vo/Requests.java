@@ -25,8 +25,8 @@ public class Requests {
 	private String employeeName = "";
 	private String usersId;
 	
-	private int page=1;							// 기본 페이지 번호
-	private int rows=25;						// 데이터 보여줄 갯수
-	private String sidx="requestsKeyNum";			// 정렬할 기준 데이터
+	private int page=1;							
+	private int rows=25;						
+	private String sidx="requestsKeyNum";			
 	private String sord;
 }

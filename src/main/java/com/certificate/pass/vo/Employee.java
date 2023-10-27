@@ -13,6 +13,7 @@ import lombok.ToString;
 public class Employee {
 	private String employeeId;
 	private String employeeName;
+	private String employeeNickName;
 	private String employeePhone;
 	private String employeeEmail;
 	private String employeeImg;

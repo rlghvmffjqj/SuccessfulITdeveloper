@@ -157,7 +157,7 @@ public class CategoryService {
 		} else {
 			UsersEntity users = usersJpaDao.findByUsersId(mainComments.getMainCommentsRegistrant());
 			EmployeeEntity employeeEntity = employeeJpaDao.findByEmployeeId(mainComments.getMainCommentsRegistrant());
-			mainComments.setMainCommentsName(employeeEntity.getEmployeeName());
+			mainComments.setMainCommentsName(employeeEntity.getEmployeeNickName());
 			mainComments.setMainCommentsPassword(users.getUsersPw());
 		}
 		if(mainComments.getMainCommentsContents() == "") {
@@ -196,8 +196,8 @@ public class CategoryService {
 				if(mainComments.isMainCommentsSecret()) {
 					if(!userId.equals(mainComments.getMainCommentsRegistrant())) {
 						if(mainComments.getMainCommentsParentKeyNum() != temp) {
-							mainComments.setMainCommentsName("�씡紐�");
-							mainComments.setMainCommentsContents("鍮꾨� �뙎湲� �엯�땲�떎.");
+							mainComments.setMainCommentsName("익명");
+							mainComments.setMainCommentsContents("비밀 댓글 입니다.");
 						}
 					}
 				}
@@ -225,7 +225,7 @@ public class CategoryService {
 		} else {
 			UsersEntity users = usersJpaDao.findByUsersId(mainComments.getMainCommentsRegistrant());
 			EmployeeEntity employeeEntity = employeeJpaDao.findByEmployeeId(mainComments.getMainCommentsRegistrant());
-			mainComments.setMainCommentsNameDialog(employeeEntity.getEmployeeName());
+			mainComments.setMainCommentsNameDialog(employeeEntity.getEmployeeNickName());
 			mainComments.setMainCommentsPasswordDialog(users.getUsersPw());
 		}
 		if(mainComments.getMainCommentsContentsDialog() == "") {

@@ -210,6 +210,10 @@ $(function() {
 			<input class="profileInput" type="text" id="employeeNameProfile" value="" disabled> 
 		</div>
 		<div class="profileDiv">
+			<p>별칭</p>
+			<input class="profileInput" type="text" id="employeeNickNameProfile" value="" disabled> 
+		</div>
+		<div class="profileDiv">
 			<p>전화번호</p>
 			<input class="profileInput" type="text" id="employeePhoneProfile" value="" disabled> 
 		</div>
@@ -229,6 +233,7 @@ $(function() {
 		    success: function (data) {
 				$('#employeeIdProfile').val(data.employeeId);
 				$('#employeeNameProfile').val(data.employeeName);
+				$('#employeeNickNameProfile').val(data.employeeNickName);
 				$('#employeePhoneProfile').val(data.employeePhone);
 				$('#employeeEmailProfile').val(data.employeeEmail);
 		    },

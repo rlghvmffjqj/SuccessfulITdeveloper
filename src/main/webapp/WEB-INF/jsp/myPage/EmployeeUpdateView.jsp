@@ -35,6 +35,14 @@
 			</div>
 			<div class="myPageUpdateDiv">
 				<div class="myPageUpdateLeft">
+					<span class="myPageUpdateLeftSpan">별칭</span>
+				</div>
+				<div class="myPageUpdateRight">
+					<input class="formControl seachInput" type="text" id="employeeNickName" name="employeeNickName" value="${employee.employeeNickName}">
+				</div>
+			</div>
+			<div class="myPageUpdateDiv">
+				<div class="myPageUpdateLeft">
 					<span class="myPageUpdateLeftSpan">전화번호</span>
 				</div>
 				<div class="myPageUpdateRight">
@@ -46,7 +54,7 @@
 					<span class="myPageUpdateLeftSpan">이메일</span>
 				</div>
 				<div class="myPageUpdateRight">
-					<input class="formControl seachInput" type="text" id="employeeEmail" name="employeeEmail" value="${employee.employeeEmail}">
+					<input class="formControl seachInput inputDisable" type="text" value="${employee.employeeEmail}" disabled>
 				</div>
 			</div>
 			<div class="myPageUpdateDiv">
@@ -77,8 +85,8 @@
 		const postData = new FormData();
 		postData.append('employeeImgFile',$('#employeeImgFile')[0].files[0]);
 		postData.append('employeeName',$('#employeeName').val());
+		postData.append('employeeNickName',$('#employeeNickName').val());
 		postData.append('employeePhone',$('#employeePhone').val());
-		postData.append('employeeEmail',$('#employeeEmail').val());
 		
 		$.ajax({
 			url: "<c:url value='/myPage/employeeUpdate'/>",

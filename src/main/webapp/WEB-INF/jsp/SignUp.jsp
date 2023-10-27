@@ -9,7 +9,7 @@
 </head>
 <body style="background-image:url('images/background.png'); background-size: cover;">
 	<div style="text-align: -webkit-center;">
-		<div style="text-align: -webkit-center; margin-top: 11%;">
+		<div style="text-align: -webkit-center; margin-top: 9%;">
 			<form id="form" method="post">
 				<img style="width: 250px;" src="<c:url value='/images/logo.png' />" alt="logo.png">
 				<div style="margin-top: 10px;">
@@ -37,6 +37,12 @@
 				</div>
 				<div class="check_wrap" style="width: 375px; text-align: left;">
 					<span id="nameEssential" style="color: red; font-size: 13px; display: none;">※ 필수 정보입니다.</span>
+				</div>
+				<div style="margin-top: 10px;">
+					<input type="text" style="width:350px; padding-inline: 10px;"  id="employeeNickName" name="employeeNickName" class="formControl" required="required" placeholder="별칭">
+				</div>
+				<div class="check_wrap" style="width: 375px; text-align: left;">
+					<span id="nickNameEssential" style="color: red; font-size: 13px; display: none;">※ 필수 정보입니다(댓글 및 기타 작업시 별칭으로 표시합니다)</span>
 				</div>
 				<div style="margin-top: 10px;">
 					<input type="email" pattern=".+@" style="width:350px; padding-inline: 10px;"  id="employeeEmail" name="employeeEmail" class="formControl" required="required" placeholder="이메일">
@@ -96,6 +102,12 @@
 				check = false;
 			} else {
 				$('#nameEssential').hide();
+			}
+			if($('#employeeNickName').val() == "") {
+				$('#nickNameEssential').show();
+				check = false;
+			} else {
+				$('#nickNameEssential').hide();
 			}
 			if($('#employeeEmail').val() == "") {
 				$('#emailEssential').show();

@@ -20,8 +20,8 @@ public class Announcement {
 	private String announcementModifier;
 	private String announcementModifiedDate;
 	
-	private int page=1;							// 기본 페이지 번호
-	private int rows=25;						// 데이터 보여줄 갯수
-	private String sidx="announcementKeyNum";			// 정렬할 기준 데이터
+	private int page=1;							
+	private int rows=25;						
+	private String sidx="announcementKeyNum";			
 	private String sord;
 }

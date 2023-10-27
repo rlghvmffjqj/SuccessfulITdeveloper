@@ -24,7 +24,6 @@ public class LoginSession extends User{
 		this.loginTime = loginTime;
 	}
 	
-	// 현재 로그인한 세션의 사용자정보 가져오기
 	public static LoginSession getLoginUser() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth != null) {

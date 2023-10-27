@@ -67,7 +67,7 @@
 			</c:forEach>
 		</div>
 		
-		<div>
+		<div style="width: 300px;">
 			<form id="commentform" name="commentform" method ="post">
 				<input type="hidden" id="freeBoardKeyNum" name="freeBoardKeyNum" value="${freeBoardKeyNum}">
 				<div class="comment-form">

@@ -28,11 +28,12 @@ import lombok.ToString;
 @Table(name="employee")
 public class EmployeeEntity implements Serializable {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "employeeid")
 	private String employeeId;
 	@Column(name = "employeename")
 	private String employeeName;
+	@Column(name = "employeenickname")
+	private String employeeNickName;
 	@Column(name = "employeephone")
 	private String employeePhone;
 	@Column(name = "employeeemail")

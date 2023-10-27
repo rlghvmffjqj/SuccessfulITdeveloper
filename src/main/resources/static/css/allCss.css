@@ -401,7 +401,7 @@ table {
 
 .commentBodyDialog {
 	display: block;
-    width: 100%;
+    width: 270px;
     padding: 16px 16px 16px 16px;
     border: 1px solid #ddd;
     font-size: 0.75em !important;

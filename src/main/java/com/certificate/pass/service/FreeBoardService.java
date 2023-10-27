@@ -73,8 +73,8 @@ public class FreeBoardService {
 				if(freeBoardComment.isFreeBoardCommentsSecret()) {
 					if(!userId.equals(freeBoardComment.getFreeBoardCommentsRegistrant())) {
 						if(freeBoardComment.getFreeBoardCommentsParentKeyNum() != temp) {
-							freeBoardComment.setFreeBoardCommentsName("�씡紐�");
-							freeBoardComment.setFreeBoardCommentsContents("鍮꾨� �뙎湲� �엯�땲�떎.");
+							freeBoardComment.setFreeBoardCommentsName("익명");
+							freeBoardComment.setFreeBoardCommentsContents("비밀 댓글 입니다.");
 						}
 					}
 				}
@@ -98,7 +98,7 @@ public class FreeBoardService {
 		} else {
 			UsersEntity users = usersJpaDao.findByUsersId(freeBoardComments.getFreeBoardCommentsRegistrant());
 			EmployeeEntity employeeEntity = employeeJpaDao.findByEmployeeId(freeBoardComments.getFreeBoardCommentsRegistrant());
-			freeBoardComments.setFreeBoardCommentsName(employeeEntity.getEmployeeName());
+			freeBoardComments.setFreeBoardCommentsName(employeeEntity.getEmployeeNickName());
 			freeBoardComments.setFreeBoardCommentsPassword(users.getUsersPw());
 		}
 		int sucess = freeBoardDao.insertFreeBoardComments(freeBoardComments);
@@ -122,7 +122,7 @@ public class FreeBoardService {
 		} else {
 			UsersEntity users = usersJpaDao.findByUsersId(freeBoardComments.getFreeBoardCommentsRegistrant());
 			EmployeeEntity employeeEntity = employeeJpaDao.findByEmployeeId(freeBoardComments.getFreeBoardCommentsRegistrant());
-			freeBoardComments.setFreeBoardCommentsNameDialog(employeeEntity.getEmployeeName());
+			freeBoardComments.setFreeBoardCommentsNameDialog(employeeEntity.getEmployeeNickName());
 			freeBoardComments.setFreeBoardCommentsPasswordDialog(users.getUsersPw());
 		}
 		if(freeBoardComments.getFreeBoardCommentsContentsDialog() == "") {

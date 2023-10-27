@@ -124,8 +124,7 @@
 					</div>
 				</c:if>
 				<c:if test="${mainComments.mainCommentsDepth > 0}">
-					<div class="commentAnswerView"
-						style="margin-left: ${mainComments.mainCommentsDepth*5}%;">
+					<div class="commentAnswerView" style="margin-left: ${mainComments.mainCommentsDepth*5}%;">
 						<span id="mainCommentsKeyNum" style="display: none">${mainComments.mainCommentsKeyNum}</span>
 						<span class="commentsName" id="mainCommentsName">${mainComments.mainCommentsName}</span>
 						<span class="commentsDate" id="mainCommentsDate">${mainComments.mainCommentsDate}</span>

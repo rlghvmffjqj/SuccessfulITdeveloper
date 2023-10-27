@@ -29,7 +29,7 @@ public class EmployeeController {
 	@ResponseBody
 	@PostMapping(value = "/signUp")
 	public Map<String,String> signUp(EmployeeEntity employeeEntity, Principal principal) {
-		// Date formatter 현재 시간
+
 		Date now = new Date();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		employeeEntity.setEmployeeRegistrationDate(formatter.format(now));

@@ -17,10 +17,8 @@ public class EnvironmentPostProcessorImpl implements EnvironmentPostProcessor {
 	@Override
 	public void postProcessEnvironment(ConfigurableEnvironment environment,
 			SpringApplication application) {
-		// �뙣�궎吏� �뙆�씪 �궡 �뙆�씪 �씫�뼱�삤湲�
 		//Resource path = new ClassPathResource("com/secuve/agentInfo/config.yml");
 		
-		// �쇅遺� �뙆�씪 �씫�뼱�삤湲�
 		String osName = System.getProperty("os.name");
 		Resource path = null;
 		if (osName.toLowerCase().contains("windows")) {

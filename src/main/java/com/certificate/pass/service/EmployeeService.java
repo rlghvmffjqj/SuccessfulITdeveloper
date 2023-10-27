@@ -33,14 +33,14 @@ public class EmployeeService {
 	private EntityManager entityManager;
 
 	public String signUp(EmployeeEntity employeeEntity) {
-		if(employeeJpaDao.findByEmployeeId(employeeEntity.getEmployeeId()) != null) {	// �븘�씠�뵒 以묐났 �솗�씤
+		if(employeeJpaDao.findByEmployeeId(employeeEntity.getEmployeeId()) != null) {	
 			return "idDuplicateCheck";
 		}
-		if(employeeJpaDao.findByEmployeeEmail(employeeEntity.getEmployeeEmail()) != null) {	// �븘�씠�뵒 以묐났 �솗�씤
+		if(employeeJpaDao.findByEmployeeEmail(employeeEntity.getEmployeeEmail()) != null) {	
 			return "emailDuplicateCheck";
 		}
 		employeeEntity.setEmployeeRegistrant(employeeEntity.getEmployeeId());
-		employeeEntity.setEmployeeStatus("�젙�긽");
+		employeeEntity.setEmployeeStatus("정상");
 		try {
 			EmployeeEntity sucess = employeeJpaDao.save(employeeEntity);
 			if(sucess == null) return "FALSE";

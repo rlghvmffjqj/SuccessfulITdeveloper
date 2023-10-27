@@ -28,14 +28,13 @@ import lombok.ToString;
 @Table(name="users")
 public class UsersEntity implements Serializable{
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "usersid")
-	private String usersId;					// 사용자 아이디
+	private String usersId;					
 	@Column(name = "userspw")
-	private String usersPw;					// 사용자 패스워드
+	private String usersPw;					
 	@Column(name = "usersstate")
-	private String usersState;				// 사용자 상태 ex) 사용, 잠김
+	private String usersState;				
 	@Column(name = "usersrole")
-	private String usersRole;				// 역할 ex) 일반사용자, 관리자, 사용자
+	private String usersRole;				
 	
 }
