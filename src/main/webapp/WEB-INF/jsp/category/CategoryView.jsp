@@ -669,6 +669,27 @@
 		font-size: 16px;
 	}
 
+
+	@media (min-width: 1024px) and (max-width: 2000px) {
+		.mainCommentsProfile {
+			border-radius: 50%; 
+			width: 35px;
+			height:	35px;
+			margin-bottom: -1%;
+		}
+	}
+
+	@media (min-width: 0px) and (max-width: 1024px) {
+		.mainCommentsProfile {
+			border-radius: 50%;
+			width: 25px;
+			height:	25px;
+			margin-bottom: -2.4%;
+		}
+	}
+
+	
+
 	
 </style>
 </html>
