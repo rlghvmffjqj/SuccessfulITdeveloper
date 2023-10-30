@@ -110,7 +110,7 @@
 				<c:if test="${mainComments.mainCommentsDepth == 0}">
 					<div class="commentView">
 						<span id="mainCommentsKeyNum" style="display: none">${mainComments.mainCommentsKeyNum}</span>
-						<img class="profile" style="border-radius: 50%; width: 35px; height: 35px; margin-bottom: -1%;" src="<c:url value='/category/mainComments/img${mainComments.mainCommentsId}/${mainComments.mainCommentsKeyNum}' />" alt="images">
+						<img class="mainCommentsProfile" src="<c:url value='/category/mainComments/img${mainComments.mainCommentsId}/${mainComments.mainCommentsKeyNum}' />" alt="images">
 						<span class="commentsName" id="mainCommentsName">${mainComments.mainCommentsName}</span>
 						<span class="commentsDate" id="mainCommentsDate">${mainComments.mainCommentsDate}</span>
 						<a class="commentsReply" id="mainCommentsReply" href="#!" onClick="mainCommentsReply(this);">답글</a>
@@ -127,7 +127,7 @@
 				<c:if test="${mainComments.mainCommentsDepth > 0}">
 					<div class="commentAnswerView" style="margin-left: ${mainComments.mainCommentsDepth*5}%;">
 						<span id="mainCommentsKeyNum" style="display: none">${mainComments.mainCommentsKeyNum}</span>
-						<img class="profile" style="border-radius: 50%; width: 35px; height: 35px; margin-bottom: -1%;" src="<c:url value='/category/mainComments/img${mainComments.mainCommentsId}/${mainComments.mainCommentsKeyNum}' />" alt="images">
+						<img class="mainCommentsProfile" src="<c:url value='/category/mainComments/img${mainComments.mainCommentsId}/${mainComments.mainCommentsKeyNum}' />" alt="images">
 						<span class="commentsName" id="mainCommentsName">${mainComments.mainCommentsName}</span>
 						<span class="commentsDate" id="mainCommentsDate">${mainComments.mainCommentsDate}</span>
 						<a class="commentsReply" id="mainCommentsReply" href="#!"
@@ -575,7 +575,7 @@
 	        if($likeBtn.hasClass('active2')) {
 	        	$('#favoritesCount').text(Number(favoritesCount)+1);
 				$(this).find('img').attr({
-	            	'src': '<c:url value='/images/hartOn.png' />', alt:'좋아요 완료'
+	            	'src': "<c:url value='/images/hartOn.png' />", alt:'좋아요 완료'
 				});
 				$.ajax({
 				    type: 'post',
@@ -592,7 +592,7 @@
 				$('#favoritesCount').text(Number(favoritesCount)-1); 
 				$(this).find('i').removeClass('fas').addClass('far')
 				$(this).find('img').attr({
-					'src': '<c:url value='/images/hartOff.png' />',	alt:"좋아요"
+					'src': "<c:url value='/images/hartOff.png' />",	alt:"좋아요"
 	           })
 	           $.ajax({
 				    type: 'post',

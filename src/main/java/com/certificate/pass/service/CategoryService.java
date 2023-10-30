@@ -370,5 +370,26 @@ public class CategoryService {
         }
         return "";
     }
+	
+	public String basicImg() {
+		String osName = System.getProperty("os.name");
+		if (osName.toLowerCase().contains("windows")) {
+			return "C:\\ITDeveloper\\profile\\profile.png"; 
+        } else if (osName.toLowerCase().contains("linux")) {
+        	return "/sw/profile/profile.png"; 
+        } 
+		return null;
+	}
+	
+	public String customImg(String employeeId, String employeeImg) {
+		String imgName = employeeId+"_"+employeeImg;
+		String osName = System.getProperty("os.name");
+		if (osName.toLowerCase().contains("windows")) {
+			return "C:\\ITDeveloper\\profile\\"+imgName; 
+        } else if (osName.toLowerCase().contains("linux")) {
+        	return "/sw/profile/"+imgName; 
+        } 
+		return null;
+	}
 
 }

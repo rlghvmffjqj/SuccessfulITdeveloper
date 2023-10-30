@@ -841,6 +841,13 @@ table {
 		width: 20%;	
 		height: 40px;
 	}
+	
+	.mainCommentsProfile {
+		border-radius: 50%; 
+		width: 35px;
+		height:	35px;
+		margin-bottom: -1%;
+	}
 }
 
 @media (min-width: 0px) and (max-width: 1024px) {
@@ -1249,6 +1256,13 @@ table {
 	    width: 45%;
 	    height: 30px;
 	    font-size: 10px;
+	}
+	
+	.mainCommentsProfile {
+		border-radius: 50%;
+		width: 25px;
+		height:	25px;
+		margin-bottom: -2.4%;
 	}
 }
 

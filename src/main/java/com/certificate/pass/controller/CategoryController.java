@@ -318,45 +318,44 @@ public class CategoryController {
 	
 	@GetMapping("/category/mainComments/{mainCommentsId}/{mainCommentsKeyNum}")
 	public void  mainCommentsImg(HttpServletRequest request, HttpServletResponse response, Principal principal, @PathVariable String mainCommentsId, @PathVariable int mainCommentsKeyNum) throws ServletException, IOException {
+		String imagePath = "";
+		MainComments mainComments = categoryService.getMainCommentsOne(mainCommentsKeyNum);
+		mainCommentsId = mainCommentsId.substring(3);
+		EmployeeEntity employee = employeeService.getEmployeeOne(mainCommentsId);
 		try {
-			MainComments mainComments = categoryService.getMainCommentsOne(mainCommentsKeyNum);
-			mainCommentsId = mainCommentsId.substring(3);
-			EmployeeEntity employee = employeeService.getEmployeeOne(mainCommentsId);
-			String osName = System.getProperty("os.name");
-			String imagePath = "";
-			if(mainComments.isMainCommentsSecret() && !mainCommentsId.equals(principal.getName())) {
-				if (osName.toLowerCase().contains("windows")) {
-					imagePath = "C:\\ITDeveloper\\profile\\profile.png"; 
-	            } else if (osName.toLowerCase().contains("linux")) {
-	            	imagePath = "/sw/profile/profile.png"; 
-	            } 
+			if(principal.getName().equals("admin")) {
+				imagePath = categoryService.customImg(employee.getEmployeeId(), employee.getEmployeeImg());
 			} else {
-				if(employee != null) {
-					String imgName = employee.getEmployeeId()+"_"+employee.getEmployeeImg();
-					if (osName.toLowerCase().contains("windows")) {
-						imagePath = "C:\\ITDeveloper\\profile\\"+imgName; 
-		            } else if (osName.toLowerCase().contains("linux")) {
-		            	imagePath = "/sw/profile/"+imgName; 
-		            } 
+				if(mainComments.isMainCommentsSecret()) {
+					if(mainCommentsId.equals(principal.getName()) || categoryService.getMainCommentsOne(mainComments.getMainCommentsParentKeyNum()).getMainCommentsRegistrant().equals(principal.getName())) {
+						imagePath = categoryService.customImg(employee.getEmployeeId(), employee.getEmployeeImg());
+					} else {
+						imagePath = categoryService.basicImg();
+					}
 				} else {
-					if (osName.toLowerCase().contains("windows")) {
-						imagePath = "C:\\ITDeveloper\\profile\\profile.png"; 
-		            } else if (osName.toLowerCase().contains("linux")) {
-		            	imagePath = "/sw/profile/profile.png"; 
-		            } 
+					imagePath = categoryService.customImg(employee.getEmployeeId(), employee.getEmployeeImg());
+				}
+				if(employee.getEmployeeImg().isEmpty()) {
+					imagePath = categoryService.basicImg();
 				}
 			}
-			
-			File imageFile = new File(imagePath);
-			
-	        byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
-	        response.setContentType("image/jpeg"); 
-	        response.setContentLength(imageBytes.length);
-	        response.getOutputStream().write(imageBytes);
 		} catch (Exception e) {
-			
+			if(mainComments.isMainCommentsSecret() || employee == null) {
+				imagePath = categoryService.basicImg();
+			} else {
+				imagePath = categoryService.customImg(employee.getEmployeeId(), employee.getEmployeeImg());
+			}
 		}
+		File imageFile = new File(imagePath);
+		
+        byte[] imageBytes = Files.readAllBytes(imageFile.toPath());
+        response.setContentType("image/jpeg"); 
+        response.setContentLength(imageBytes.length);
+        response.getOutputStream().write(imageBytes);
 	}
+	
+	
+	
 	
 
 }
