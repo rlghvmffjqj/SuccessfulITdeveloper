@@ -90,7 +90,7 @@ public class CategoryService {
 		categoryDao.deleteMiddleItems();
 		
 		for(String topMenu : topMenuList) {
-			if(!topMenu.isBlank()) {
+			if(topMenu.length() > 0) {
 				if(!topMenu.equals("|")) {
 					category.setTopItemsName(topMenu);
 					count *= categoryDao.insertTopItems(category);
@@ -100,7 +100,7 @@ public class CategoryService {
 				
 				int middleMenuSize = middleMenuList.size();
 				for(int i=0; i<middleMenuSize; i++) {
-					if(!middleMenuList.get(0).isBlank()) {
+					if(middleMenuList.get(0).length() > 0) {
 						if(middleMenuList.get(0).equals("|")) {
 							break;
 						} else {
